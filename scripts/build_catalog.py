@@ -104,7 +104,8 @@ def main():
                 "name":"Anime-Sama TV · Catalogue", "description":"Anime uniquement, selection Anime-Sama, VF/VOSTFR via fournisseur Nuvio separe.",
                 "resources":["catalog"], "types":["series"],
                 "catalogs":[{"type":"series","id":ident,"name":label} for ident,label,_,_ in STEMS]}
-    (OUT / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2),encoding="utf-8")
+    # Keep the published manifest (including Les classiques and search catalog).
+    # scripts/build_classics.py owns the manifest and its version.
     for ident,(label, items) in data.items():
         metas = []
         used = set()
