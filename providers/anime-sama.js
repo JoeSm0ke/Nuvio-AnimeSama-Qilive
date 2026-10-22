@@ -1,6 +1,6 @@
 /**
  * anime-sama - Built from src/anime-sama/
- * Generated: 2026-10-22T13:45:52.874752842Z
+ * Generated: 2026-10-22T16:37:52.102072075Z
  */
 var __provider = (() => {
   var __create = Object.create;
@@ -1817,7 +1817,7 @@ var __provider = (() => {
       MAX_STREAMS_PER_PROVIDER = 80;
       MAX_SAFE_FETCH_BODY_BYTES = 1024 * 1024;
       RUNTIME_TRUNCATION_SUFFIX = "\n...[truncated]";
-      BUILD_HASH = true ? "d75a75f7" : "dev";
+      BUILD_HASH = true ? "72a8a1fc" : "dev";
       HAS_NATIVE_CRYPTO = typeof crypto !== "undefined" && typeof crypto.subtle !== "undefined" && typeof TextEncoder !== "undefined" && typeof TextDecoder !== "undefined";
       _nodeCrypto = null;
       try {
@@ -14551,6 +14551,7 @@ var __provider = (() => {
           const match = h.match(/\/catalogue\/([^/]+)\/?/);
           if (!match) return;
           const slug = match[1];
+          if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) return;
           if (results.some((r) => r.slug === slug)) return;
           const title = $(el).find(".asn-search-result-title").text().trim();
           const subtitle = $(el).find(".asn-search-result-subtitle").text().trim();
@@ -14819,8 +14820,10 @@ var __provider = (() => {
             8e3,
             `AnimeSama player ${getPlayerName(varName, playerUrl)}`
           );
-          if (stream) playable.push(stream);
+          console.log(`[Anime-Sama] Player ${getPlayerName(varName, playerUrl)} (${lang}) direct=${(stream == null ? void 0 : stream.isDirect) === true} changed=${Boolean((stream == null ? void 0 : stream.url) && stream.url !== playerUrl)}`);
+          if (stream && stream.isDirect === true) playable.push(stream);
         } catch (e) {
+          console.warn(`[Anime-Sama] Player ${getPlayerName(varName, playerUrl)} (${lang}) failed: ${(e == null ? void 0 : e.name) || "Error"}`);
         }
       }
       return playable;

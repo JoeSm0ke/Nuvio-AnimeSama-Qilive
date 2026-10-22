@@ -36,6 +36,9 @@ async function searchSlugsScored(query) {
             const match = h.match(/\/catalogue\/([^/]+)\/?/);
             if (!match) return;
             const slug = match[1];
+            // Ignore /catalogue/?search=... navigation links returned by the site's
+            // search fragment: those are not anime slugs and waste HTTP requests.
+            if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) return;
             if (results.some(r => r.slug === slug)) return;
             const title = $(el).find('.asn-search-result-title').text().trim();
             const subtitle = $(el).find('.asn-search-result-subtitle').text().trim();
@@ -373,8 +376,14 @@ async function buildStreams(parsed, lang, episode, idx) {
                 8000,
                 `AnimeSama player ${getPlayerName(varName, playerUrl)}`
             );
-            if (stream) playable.push(stream);
-        } catch (e) { /* skip failed player */ }
+            // Avoid logging signed media URLs; track the resolution stage only.
+            console.log(`[Anime-Sama] Player ${getPlayerName(varName, playerUrl)} (${lang}) direct=${stream?.isDirect === true} changed=${Boolean(stream?.url && stream.url !== playerUrl)}`);
+            // A hoster iframe is not a playable URL. Do not let failed embeds
+            // exhaust TARGET_DIRECT before trying the next video host.
+            if (stream && stream.isDirect === true) playable.push(stream);
+        } catch (e) {
+            console.warn(`[Anime-Sama] Player ${getPlayerName(varName, playerUrl)} (${lang}) failed: ${e?.name || 'Error'}`);
+        }
     }
     return playable;
 }
