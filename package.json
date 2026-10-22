@@ -8,7 +8,9 @@
     "build:minify": "node build.js --minify",
     "build:watch": "nodemon --watch src -e js,json --exec 'node build.js'",
     "build:provider": "node build.js",
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "audit:catalog": "node scripts/audit-static-catalog.cjs",
+    "smoke:anime-sama": "node scripts/smoke-anime-sama-tv.cjs"
   },
   "devDependencies": {
     "esbuild": "^0.27.3",
