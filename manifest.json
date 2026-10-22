@@ -1,0 +1,32 @@
+{
+    "name":  "Anime-Sama TV - Qilive",
+    "version":  "1.1.59",
+    "scrapers":  [
+                     {
+                         "id":  "anime-sama-qilive",
+                         "name":  "Anime-Sama (Qilive)",
+                         "description":  "Source Anime-Sama VF/VOSTFR avec correctif Referer.",
+                         "version":  "1.1.59",
+                         "author":  "Gowaru",
+                         "supportedTypes":  [
+                                                "movie",
+                                                "tv"
+                                            ],
+                         "filename":  "providers/anime-sama.js",
+                         "enabled":  true,
+                         "logo":  "https://raw.githubusercontent.com/Anime-Sama/IMG/img/autres/logo.png",
+                         "contentLanguage":  [
+                                                 "fr"
+                                             ],
+                         "formats":  [
+                                         "mp4",
+                                         "mkv"
+                                     ],
+                         "limited":  false,
+                         "disabledPlatforms":  [
+
+                                               ],
+                         "supportsExternalPlayer":  false
+                     }
+                 ]
+}

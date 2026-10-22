@@ -1,0 +1,3075 @@
+/**
+ * Video Link Resolvers for common hosts
+ * Optimized for QuickJS (Nuvio runtime)
+ */
+
+// ─── Shared Budget & Helpers ────────────────────────────────────────────────
+
+/**
+ * Budget standard pour tous les providers.
+ * NuvioTV a 30s OkHttp + 60s plugin total.
+ * On garde 45s pour laisser 15s de marge.
+ */
+export const PROVIDER_BUDGET_MS = 45000;
+
+/**
+ * Nombre maximum de streams à retourner par provider.
+ * Au-delà, on tronque pour éviter de surcharger l'UI et de gaspiller
+ * du budget sur des expandStreamQualities inutiles.
+ * NuvioTV a MAX_RESULT_ITEMS = 150 ; on garde une marge.
+ */
+export const MAX_STREAMS_PER_PROVIDER = 80;
+
+/**
+ * Limite de taille max pour le body d'une réponse HTTP (en octets).
+ * NuvioTV/NuvioMobile imposent 1 MB côté runtime. On enforce côté plugin
+ * pour éviter de parser des pages énormes (pubs, tracking) inutilement.
+ */
+const MAX_SAFE_FETCH_BODY_BYTES = 1024 * 1024; // 1 MB
+
+/**
+ * Suffixe que NuvioTV/NuvioMobile appendent au body quand il dépasse la
+ * limite runtime de 1 MB. Détectable côté plugin pour refuser un corps
+ * tronqué au lieu de le parser silencieusement (HTML partiel → matching
+ * faux). Les JSON tronqués restent livrés : garde-fous dédiés côté
+ * consommateur (json() throw → null, parseMaybeTruncatedJson).
+ */
+export const RUNTIME_TRUNCATION_SUFFIX = '\n...[truncated]';
+
+/**
+ * Vérifie si un corps de réponse a été tronqué par le runtime (suffixe
+ * "\n...[truncated]") — à appeler avant cheerio.load sur des pages HTML.
+ * @param {string} text
+ * @returns {boolean}
+ */
+export function isTruncatedBody(text) {
+    return typeof text === 'string' && text.endsWith(RUNTIME_TRUNCATION_SUFFIX);
+}
+
+/**
+ * Détermine si une réponse est du HTML (content-type, ou sniffing quand
+ * absent). Sert à décider si une troncature doit refuser le corps.
+ */
+function responseLooksHtml(response, bodyText) {
+    let ctype = '';
+    try {
+        ctype = (response && response.headers && typeof response.headers.get === 'function')
+            ? (response.headers.get('content-type') || '')
+            : '';
+    } catch (e) { ctype = ''; }
+    if (/html/i.test(ctype)) return true;
+    // Sniffing si pas de content-type, ou type vague pouvant cacher du HTML
+    // (text/plain — certains sites servent leurs pages ainsi).
+    const sniffable = !ctype || /text\/plain/i.test(ctype);
+    if (!sniffable) return false; // type explicite non-HTML (json, mpegurl, js…)
+    return /^\s*<(!doctype|html|\?xml|head|body)/i.test(bodyText || '');
+}
+
+/**
+ * Hash de build court, injecté par build.js au moment du bundling
+ * (define esbuild : __NUVIO_BUILD_HASH__ → "abc12345").
+ * Permet de vérifier en logs quelle version du bundle tourne réellement
+ * sur l'appareil (pattern NuvioTV : sha256 du code exécuté).
+ * En dev/test (hors build.js), vaut "dev".
+ */
+const BUILD_HASH = typeof __NUVIO_BUILD_HASH__ !== 'undefined' ? __NUVIO_BUILD_HASH__ : 'dev';
+
+/** Hash de build exposé aux providers pour leurs logs de diagnostic */
+export const BUILD_ID = BUILD_HASH;
+
+// ─── Native Crypto Detection ───────────────────────────────────────────────
+// NuvioMobile expose crypto.subtle (WebCrypto: AES-GCM/CBC/ECB, HMAC, SHA-1/256/384/512)
+// via le pont natif. NuvioTV ne l'a PAS. On détecte et on expose un wrapper
+// qui utilise le natif quand disponible, sinon fallback sur CryptoJS.
+
+/**
+ * Indique si crypto.subtle est disponible (NuvioMobile uniquement).
+ * @type {boolean}
+ */
+const HAS_NATIVE_CRYPTO = typeof crypto !== 'undefined' &&
+    typeof crypto.subtle !== 'undefined' &&
+    typeof TextEncoder !== 'undefined' && typeof TextDecoder !== 'undefined';
+
+// Node.js crypto module (available in test/dev, not in QuickJS)
+let _nodeCrypto = null;
+try { _nodeCrypto = require('crypto'); } catch (_) {}
+const HAS_NODE_CRYPTO = !!_nodeCrypto;
+
+/**
+ * Wrapper natif pour SHA-256 — 10-100x plus rapide que CryptoJS en QuickJS.
+ * @param {string|Uint8Array} data - Données à hasher
+ * @returns {Promise<string>} Hash hexadécimal
+ */
+export async function sha256Hex(data) {
+    if (HAS_NATIVE_CRYPTO) {
+        const bytes = typeof data === 'string' ? new TextEncoder().encode(data) : data;
+        const hashBuffer = await crypto.subtle.digest('SHA-256', bytes);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    if (HAS_NODE_CRYPTO) {
+        const input = typeof data === 'string' ? data : Buffer.from(data);
+        return _nodeCrypto.createHash('sha256').update(input).digest('hex');
+    }
+    // Fallback CryptoJS (QuickJS runtime)
+    return CryptoJS.SHA256(typeof data === 'string' ? data : CryptoJS.lib.WordArray.create(data)).toString();
+}
+
+/**
+ * Wrapper natif pour SHA-1.
+ */
+export async function sha1Hex(data) {
+    if (HAS_NATIVE_CRYPTO) {
+        const bytes = typeof data === 'string' ? new TextEncoder().encode(data) : data;
+        const hashBuffer = await crypto.subtle.digest('SHA-1', bytes);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    if (HAS_NODE_CRYPTO) {
+        const input = typeof data === 'string' ? data : Buffer.from(data);
+        return _nodeCrypto.createHash('sha1').update(input).digest('hex');
+    }
+    return CryptoJS.SHA1(typeof data === 'string' ? data : CryptoJS.lib.WordArray.create(data)).toString();
+}
+
+/**
+ * Wrapper natif pour MD5 (nécessite CryptoJS — pas de MD5 natif).
+ */
+export function md5Hex(data) {
+    if (HAS_NODE_CRYPTO) {
+        const input = typeof data === 'string' ? data : Buffer.from(data);
+        return _nodeCrypto.createHash('md5').update(input).digest('hex');
+    }
+    return CryptoJS.MD5(typeof data === 'string' ? data : CryptoJS.lib.WordArray.create(data)).toString();
+}
+
+/**
+ * Wrapper natif pour HMAC-SHA256.
+ * @param {string} message - Message à signer
+ * @param {string} secret - Clé secrète
+ * @returns {Promise<string>} HMAC hexadécimal
+ */
+export async function hmacSha256Hex(message, secret) {
+    if (HAS_NATIVE_CRYPTO) {
+        const keyData = typeof secret === 'string' ? new TextEncoder().encode(secret) : secret;
+        const msgData = typeof message === 'string' ? new TextEncoder().encode(message) : message;
+        const key = await crypto.subtle.importKey('raw', keyData, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+        const sig = await crypto.subtle.sign('HMAC', key, msgData);
+        return Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    if (HAS_NODE_CRYPTO) {
+        return _nodeCrypto.createHmac('sha256', secret).update(message).digest('hex');
+    }
+    return CryptoJS.HmacSHA256(message, secret).toString();
+}
+
+/**
+ * Wrapper natif pour AES-CBC (déchiffrement).
+ * @param {string|Uint8Array} ciphertext - Données chiffrées (raw bytes ou base64)
+ * @param {string|Uint8Array} key - Clé (16/24/32 bytes)
+ * @param {string|Uint8Array} iv - Vecteur d'initialisation (16 bytes)
+ * @param {object} [opts]
+ * @param {boolean} [opts.base64Input=false] - Si true, le ciphertext est en base64
+ * @returns {Promise<Uint8Array>} Données déchiffrées
+ */
+export async function aesCbcDecrypt(ciphertext, key, iv, opts = {}) {
+    opts = opts || {};
+    if (HAS_NATIVE_CRYPTO) {
+        let ctBytes;
+        if (opts.base64Input) {
+            const b64 = typeof ciphertext === 'string' ? ciphertext : new TextDecoder().decode(ciphertext);
+            ctBytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+        } else {
+            ctBytes = typeof ciphertext === 'string' ? new TextEncoder().encode(ciphertext) : ciphertext;
+        }
+        const keyBytes = typeof key === 'string' ? new TextEncoder().encode(key) : key;
+        const ivBytes = typeof iv === 'string' ? new TextEncoder().encode(iv) : iv;
+        const cryptoKey = await crypto.subtle.importKey('raw', keyBytes, 'AES-CBC', false, ['decrypt']);
+        const decrypted = await crypto.subtle.decrypt({ name: 'AES-CBC', iv: ivBytes }, cryptoKey, ctBytes);
+        return new Uint8Array(decrypted);
+    }
+    // Fallback CryptoJS
+    const k = CryptoJS.enc.Utf8.parse(typeof key === 'string' ? key : new TextDecoder().decode(key));
+    const ivParsed = CryptoJS.enc.Utf8.parse(typeof iv === 'string' ? iv : new TextDecoder().decode(iv));
+    let ct;
+    if (opts.base64Input) {
+        ct = CryptoJS.enc.Base64.parse(typeof ciphertext === 'string' ? ciphertext : new TextDecoder().decode(ciphertext));
+    } else {
+        ct = CryptoJS.enc.Utf8.parse(typeof ciphertext === 'string' ? ciphertext : new TextDecoder().decode(ciphertext));
+    }
+    const decrypted = CryptoJS.AES.decrypt({ ciphertext: ct }, k, { iv: ivParsed, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+    return Uint8Array.from(decrypted.toString(CryptoJS.enc.Latin1).split('').map(c => c.charCodeAt(0)));
+}
+
+/**
+ * Wrapper natif pour AES-ECB (déchiffrement).
+ */
+export async function aesEcbDecrypt(ciphertext, key, opts = {}) {
+    opts = opts || {};
+    // Node.js crypto module (AES-ECB not supported by WebCrypto in Node.js)
+    if (HAS_NODE_CRYPTO) {
+        try {
+            let ctBuf;
+            if (opts.base64Input) {
+                const b64 = typeof ciphertext === 'string' ? ciphertext : new TextDecoder().decode(ciphertext);
+                ctBuf = Buffer.from(b64, 'base64');
+            } else {
+                ctBuf = typeof ciphertext === 'string' ? Buffer.from(ciphertext) : Buffer.from(ciphertext);
+            }
+            const keyBuf = typeof key === 'string' ? Buffer.from(key) : Buffer.from(key);
+            const decipher = _nodeCrypto.createDecipheriv('aes-128-ecb', keyBuf, null);
+            const decrypted = Buffer.concat([decipher.update(ctBuf), decipher.final()]);
+            return new Uint8Array(decrypted);
+        } catch (_) {
+            // OpenSSL 3.x may block ECB — fall through to CryptoJS
+        }
+    }
+    // WebCrypto (NuvioMobile with crypto.subtle)
+    if (HAS_NATIVE_CRYPTO) {
+        try {
+            let ctBytes;
+            if (opts.base64Input) {
+                const b64 = typeof ciphertext === 'string' ? ciphertext : new TextDecoder().decode(ciphertext);
+                ctBytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+            } else {
+                ctBytes = typeof ciphertext === 'string' ? new TextEncoder().encode(ciphertext) : ciphertext;
+            }
+            const keyBytes = typeof key === 'string' ? new TextEncoder().encode(key) : key;
+            const cryptoKey = await crypto.subtle.importKey('raw', keyBytes, 'AES-ECB', false, ['decrypt']);
+            const decrypted = await crypto.subtle.decrypt({ name: 'AES-ECB' }, cryptoKey, ctBytes);
+            return new Uint8Array(decrypted);
+        } catch (_) {
+            // WebCrypto may not support ECB — fall through to CryptoJS
+        }
+    }
+    // Fallback CryptoJS (QuickJS runtime)
+    const k = CryptoJS.enc.Utf8.parse(typeof key === 'string' ? key : new TextDecoder().decode(key));
+    let ct;
+    if (opts.base64Input) {
+        ct = CryptoJS.enc.Base64.parse(typeof ciphertext === 'string' ? ciphertext : new TextDecoder().decode(ciphertext));
+    } else {
+        ct = CryptoJS.enc.Utf8.parse(typeof ciphertext === 'string' ? ciphertext : new TextDecoder().decode(ciphertext));
+    }
+    const decrypted = CryptoJS.AES.decrypt({ ciphertext: ct }, k, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
+    return Uint8Array.from(decrypted.toString(CryptoJS.enc.Latin1).split('').map(c => c.charCodeAt(0)));
+}
+
+/**
+ * Indique si crypto.subtle est disponible (pour les providers qui veulent
+ * utiliser des API WebCrypto avancées comme AES-GCM, PBKDF2, etc.).
+ * @type {boolean}
+ */
+export const nativeCryptoAvailable = HAS_NATIVE_CRYPTO;
+
+/**
+ * Delais de retry standards (ms)
+ */
+const RETRY_DELAYS = [1000, 3000, 5000];
+
+/**
+ * Vrai si le runtime expose des timers JS.
+ * - NuvioMobile : setTimeout/setInterval polyfillés (coroutine delay, plafond 60 s)
+ * - NuvioTV : AUCUN timer → false
+ * Sert aussi de signal « les requêtes réseau sont bornables » : sans timer,
+ * avecTimeout() ne peut pas courir en parallèle d'un fetch bloquant.
+ * @type {boolean}
+ */
+export const HAS_NATIVE_TIMERS = typeof setTimeout === 'function';
+
+/**
+ * Sleep portable.
+ * - Mobile (timers dispo) : rend la main au runtime (delay coroutine), zéro CPU.
+ * - NuvioTV (aucun timer) : busy-wait microtask — seule option, mais il consomme
+ *   du CPU pendant TOUTE la durée (un retry de 5 s = 5 s de spin) : à éviter.
+ * À utiliser dans tous les providers plutôt que de dupliquer.
+ */
+export function sleep(ms) {
+  const delay = Number(ms) > 0 ? Number(ms) : 0;
+  if (HAS_NATIVE_TIMERS) {
+    return new Promise(resolve => { setTimeout(resolve, delay); });
+  }
+  const target = Date.now() + delay;
+  return new Promise(resolve => {
+    const check = () => Date.now() >= target ? resolve() : Promise.resolve().then(check);
+    check();
+  });
+}
+
+/**
+ * Rate limiter configurable par domaine.
+ * Ajoute un délai minimum entre deux requêtes vers le même domaine,
+ * avec du jitter aléatoire pour éviter les patterns synchronisés.
+ *
+ * Usage:
+ *   const limitAnimoFlix = createRateLimiter();
+ *   await limitAnimoFlix('animoflix.to'); // Attend si nécessaire
+ *   const res = await safeFetch(url, opts);
+ *
+ * @param {number} [baseDelay=1000] - Délai de base en ms entre deux requêtes
+ * @param {number} [jitterPercent=0.3] - Jitter aléatoire (+/- % du delay)
+ * @returns {Function} rateLimit(domain) → Promise qui résout quand on peut envoyer
+ */
+export function createRateLimiter(baseDelay = 1000, jitterPercent = 0.3) {
+  const lastRequest = new Map();
+
+  return async function rateLimit(domain) {
+    const now = Date.now();
+    const last = lastRequest.get(domain) || 0;
+    const elapsed = now - last;
+    const jitter = baseDelay * jitterPercent * (Math.random() * 2 - 1); // +/- jitterPercent
+    const delay = Math.max(0, baseDelay + jitter - elapsed);
+
+    if (delay > 0) {
+      await sleep(delay);
+    }
+
+    lastRequest.set(domain, Date.now());
+  };
+}
+
+/**
+ * Convenience wrapper: crée un rate limiter avec les valeurs par défaut
+ * standard pour les providers HTTP (200ms base, 40% jitter).
+ * Remplace le pattern dupliqué `createRateLimiter(200, 0.4)` dans les http.js.
+ *
+ * Usage:
+ *   const rateLimit = createProviderRateLimiter();          // 200ms + 40%
+ *   const rateLimit = createProviderRateLimiter(400, 0.4);  // custom
+ *
+ * @param {number} [baseDelay=200] - Délai de base en ms
+ * @param {number} [jitterPercent=0.4] - Jitter aléatoire (+/- % du delay)
+ * @returns {Function} rateLimit(domain) → Promise
+ */
+export function createProviderRateLimiter(baseDelay = 200, jitterPercent = 0.4) {
+  return createRateLimiter(baseDelay, jitterPercent);
+}
+
+/**
+ * Fetch avec retry et backoff.
+ * @param {Function} fetchFn - Fonction de fetch à appeler (ex: () => fetchText(url))
+ * @param {object} [opts]
+ * @param {number} [opts.retries=2] - Nombre de tentatives
+ * @param {number[]} [opts.delays] - Délais entre tentatives
+ * @returns {Promise<string>} Résultat du fetch
+ */
+export async function fetchWithRetry(fetchFn, opts = {}) {
+  const retries = opts.retries ?? 2;
+  const delays = opts.delays ?? RETRY_DELAYS;
+  let lastError;
+  for (let i = 0; i <= retries; i++) {
+    try {
+      return await fetchFn();
+    } catch (err) {
+      lastError = err;
+      // Ne pas retry les 4xx sauf 429
+      if (err.message && /HTTP error 4(?:0[0-9]|1[0-79]|29)/.test(err.message)) throw err;
+      if (i === retries) throw err;
+      if (delays[i]) await sleep(delays[i]);
+    }
+  }
+  throw lastError;
+}
+
+/**
+ * Exécute un ensemble de tâches en parallèle avec une limite de concurrence.
+ * Évite de créer 50 requêtes simultanées qui dépassent les limites du runtime
+ * ou fatiguent les serveurs cible.
+ *
+ * @template T
+ * @param {Array<{url: string, opts?: object}>} requests - Liste de requêtes à effectuer
+ * @param {Function} fetchFn - Fonction de fetch (ex: (url, opts) => safeFetch(url, opts))
+ * @param {object} [opts]
+ * @param {number} [opts.concurrency=5] - Nombre max de requêtes simultanées
+ * @param {boolean} [opts.stopOnFirst=false] - Arrêter dès qu'une requête réussit
+ *   (les fetchs déjà en vol s'achèvent — QuickJS ne permet pas de les annuler)
+ * @param {number} [opts.staggerMs=0] - Espacement minimal entre les DÉBUTS de
+ *   requêtes (ms), tous workers confondus. Évite le "thundering herd" vers
+ *   des domaines protégés par Cloudflare (pattern NuvioTV : index * 60ms
+ *   entre chaque scraper). 0 = aucune espacement (burst autorisé).
+ * @returns {Promise<Array<{url: string, result: object|null, error: Error|null}>>}
+ */
+export async function fetchBatch(requests, fetchFn, opts = {}) {
+  const concurrency = opts.concurrency ?? 5;
+  const stopOnFirst = opts.stopOnFirst ?? false;
+  const staggerMs = opts.staggerMs ?? 0;
+  const results = new Array(requests.length).fill(null);
+  let completedCount = 0;
+  let firstSuccess = null;
+  let idx = 0;
+  let lastStart = 0; // Date de début de la dernière requête lancée
+
+  async function runNext() {
+    while (idx < requests.length) {
+      // stopOnFirst : arrêter de piocher de nouvelles requêtes dès qu'un
+      // succès est enregistré (les requêtes déjà en vol s'achèvent)
+      if (stopOnFirst && firstSuccess) break;
+
+      // Stagger : espacer les départs de requêtes (anti-burst Cloudflare).
+      // Boucle car lastStart peut être mis à jour par un autre worker
+      // pendant notre attente.
+      while (staggerMs > 0) {
+        const wait = lastStart + staggerMs - Date.now();
+        if (wait <= 0) break;
+        await sleep(wait);
+      }
+
+      const i = idx++;
+      lastStart = Date.now();
+      const { url, opts: reqOpts } = requests[i];
+      try {
+        const result = await fetchFn(url, reqOpts);
+        results[i] = { url, result, error: null };
+        completedCount++;
+        if (stopOnFirst && result && !firstSuccess) {
+          firstSuccess = result;
+        }
+      } catch (err) {
+        results[i] = { url, result: null, error: err };
+        completedCount++;
+      }
+    }
+  }
+
+  // Lancer les workers
+  const workers = [];
+  for (let w = 0; w < Math.min(concurrency, requests.length); w++) {
+    workers.push(runNext());
+  }
+  await Promise.allSettled(workers);
+
+  return results;
+}
+
+/**
+ * Trie les streams pour mettre VF en premier, puis VOSTFR.
+ * @param {Array} streams
+ * @returns {Array}
+ */
+export function sortStreamsByLanguage(streams) {
+  if (!Array.isArray(streams)) return [];
+  return [...streams].sort((a, b) => {
+    const getPref = (s) => {
+      const text = ((s.name || '') + ' ' + (s.title || '') + ' ' + (s.language || '')).toUpperCase();
+      if (text.includes('VF') || text.includes('FRENCH') || text.includes('VFF') || text.includes('VFQ')) return 0;
+      if (text.includes('VOSTFR') || text.includes('VOST') || text.includes('MULTI')) return 1;
+      if (text.includes('VO')) return 2;
+      return 3;
+    };
+    return getPref(a) - getPref(b);
+  });
+}
+
+/**
+ * Guard pour response.json() qui retourne null en QuickJS au lieu de throw.
+ * Voir DOCUMENTATION.md : "response.json() returns null (not rejected) on parse failure"
+ */
+export function safeJson(data) {
+  return data != null ? data : [];
+}
+
+/**
+ * Crée un provider standardisé avec timeout, error handling et expandStreamQualities.
+ * Élimine la duplication de boilerplate dans tous les index.js.
+ *
+ * @param {string} name - Nom du provider (ex: "VoirAnime")
+ * @param {Function} extractFn - Fonction d'extraction (extractStreams)
+ * @param {object} [opts]
+ * @param {number} [opts.timeout=45000] - Timeout en ms
+ * @param {object} [opts.quality] - Options pour expandStreamQualities
+ * @returns {Function} getStreams(tmdbId, mediaType, season, episode, options) → Promise<Array>
+ *   Le 5e paramètre `options` peut contenir `{ signal }` pour l'annulation externe.
+ */
+export function createProvider(name, extractFn, opts = {}) {
+  const PROVIDER_TIMEOUT = safeConfig(`NUVIO_TIMEOUT_${name.toUpperCase().replace(/[^a-z0-9]/g, '_')}`, opts.timeout || PROVIDER_BUDGET_MS);
+  const qualityOpts = opts.quality || { includeCodec: true, includeFps: false };
+  const maxStreams = opts.maxStreams || MAX_STREAMS_PER_PROVIDER;
+
+  return async function getStreams(tmdbId, mediaType, season, episode, options = {}) {
+    const se = mediaType === 'movie' ? '' : ` S${season}E${episode}`;
+    const label = `${name} ${mediaType} ${tmdbId}${se}`;
+    const externalSignal = options && options.signal ? options.signal : null;
+    const { signal } = setupAbortSignal(externalSignal);
+    if (isAborted(signal)) return [];
+
+    const startTime = Date.now();
+    console.log(`[${name}] Request: ${label} (build ${BUILD_HASH})`);
+
+    try {
+      const rawStreams = await withTimeout(
+        extractFn(tmdbId, mediaType, season, episode, { signal }),
+        PROVIDER_TIMEOUT,
+        label
+      );
+
+      // Dédup par URL+langue AVANT troncature : NuvioTV dédup aussi côté app
+      // (distinctBy url, MAX_RESULT_ITEMS=150 global) — chaque doublon émis
+      // gaspille un slot pour les autres providers. Clé identique à
+      // expandStreamQualities (URL + langue RAW) pour préserver VF/VOSTFR
+      // quand la même URL sert aux deux. Filtre aussi les url vides ou
+      // "[object ...]" (rejetées silencieusement côté app).
+      const rawList = Array.isArray(rawStreams) ? rawStreams : [];
+      // Échéance d'enrichissement : au-delà, expandStreamQualities ne fait
+      // plus AUCUNE requête optionnelle (manifests HLS, sondes de taille) —
+      // sur NuvioTV elles bloquent la pile JS et peuvent faire jeter le
+      // résultat complet par le 60 s de l'app.
+      const budgetDeadline = startTime + Math.max(5000, PROVIDER_TIMEOUT - 5000);
+      const seenUrls = new Set();
+      const dedupedRaw = [];
+      for (const s of rawList) {
+        if (!s) continue;
+        const u = s.url;
+        if (typeof u === 'string') {
+          if (!u || u.includes('[object')) continue;
+          const dedupKey = `${u}|${String(s.language || '').toUpperCase()}`;
+          if (seenUrls.has(dedupKey)) continue;
+          seenUrls.add(dedupKey);
+        }
+        dedupedRaw.push(s);
+      }
+
+      // Tronquer les résultats bruts avant expandStreamQualities
+      // pour éviter de parser des HLS manifests inutiles.
+      const truncated = dedupedRaw.slice(0, maxStreams * 2);
+      const expanded = await expandStreamQualities(truncated, { ...qualityOpts, budgetDeadline });
+
+      const elapsed = Date.now() - startTime;
+      console.log(`[${name}] Done: ${expanded.length} streams in ${elapsed}ms`);
+
+      // Tronquer les résultats finaux
+      return expanded.slice(0, maxStreams);
+    } catch (error) {
+      if (error && error.message && error.message.includes('[Timeout]')) {
+        console.warn(`[${name}] ${error.message}`);
+      } else if (error && error.name === 'AbortError') {
+        console.warn(`[${name}] Request aborted: ${label}`);
+      } else {
+        console.error(`[${name}] Error:`, error && error.message || error);
+      }
+      return [];
+    }
+  };
+}
+
+// ─── Plugin Settings (NuvioMobile / NuvioTV) ───────────────────────────────
+// Les deux apps injectent globalThis.SCRAPER_SETTINGS (paramètres sauvegardés
+// par l'utilisateur). NuvioMobile affiche en plus une UI de réglages en
+// appelant module.exports.onSettings() (layout: header/info/text/select/toggle).
+// NuvioTV n'a pas d'UI mais injecte aussi les réglages. Tout est optionnel :
+// sans onSettings exporté, aucun impact sur l'app.
+
+/**
+ * Retourne les réglages du scraper injectés par l'app ({} par défaut).
+ * @returns {object}
+ */
+export function getScraperSettings() {
+  try {
+    if (typeof globalThis !== 'undefined' && globalThis.SCRAPER_SETTINGS &&
+        typeof globalThis.SCRAPER_SETTINGS === 'object') {
+      return globalThis.SCRAPER_SETTINGS;
+    }
+  } catch (e) {}
+  return {};
+}
+
+/**
+ * Helper standard pour déclarer un layout de réglages (hook onSettings).
+ * Usage dans index.js :
+ *   module.exports = {
+ *     getStreams: createProvider('X', extractStreams),
+ *     onSettings: createSettingsLayout([...]),
+ *   };
+ *
+ * Types supportés par l'UI NuvioMobile : header, info, text (isPassword,
+ * placeholder), select (options[{label,value}], defaultValue), toggle
+ * (defaultValue). Champs communs : key, label, description.
+ *
+ * @param {Array} items - Layout des réglages
+ * @returns {Function} onSettings() → Promise<Array>
+ */
+export function createSettingsLayout(items) {
+  const layout = Array.isArray(items) ? items : [];
+  return async function onSettings() { return layout; }; 
+}
+
+/**
+ * Crée un AbortController, connecte un signal externe (si fourni),
+ * et retourne le signal à utiliser.
+ *
+ * Factorise le boilerplate dupliqué dans tous les extracteurs.
+ *
+ * @param {AbortSignal|null} externalSignal - Signal externe optionnel
+ * @returns {{ signal: AbortSignal|null, controller: AbortController|null }}
+ */
+export function setupAbortSignal(externalSignal) {
+  const controller = createAbortController();
+  const signal = controller ? controller.signal : externalSignal;
+  if (controller && externalSignal && !externalSignal.aborted) {
+    try {
+      if (typeof externalSignal.addEventListener === 'function') {
+        externalSignal.addEventListener('abort', function() {
+          try { controller.abort(); } catch (e) {} });
+      }
+    } catch (e) {}
+  }
+  return { signal, controller };
+}
+
+// ─── Existing Code ──────────────────────────────────────────────────────────
+
+const HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+};
+
+/** User-Agent standard partagé par tous les providers */
+export const USER_AGENT = HEADERS["User-Agent"];
+
+/** Headers de base partagés par tous les providers */
+export const BASE_HEADERS = { ...HEADERS };
+
+const _atob = (str) => {
+    try { return atob(str); }
+    catch (e) { return str; }
+};
+
+/**
+ * Formate une taille en octets vers une chaîne lisible parsable par NuvioTV.
+ * Regex réelle du runtime (StreamTextSizeParser.kt, IGNORE_CASE, premier match)
+ * : (\d+(?:[.,]\d+)?)\s*(TB|GB|MB|KB)\b, base 1024 — nos sorties (ex. "1.4 GB")
+ * la respectent ; voir DOCUMENTATION.md §3.2.
+ * @param {number} bytes
+ * @returns {string|null}
+ */
+export function formatSizeBytes(bytes) {
+    if (!bytes || bytes <= 0) return null;
+    const gb = bytes / (1024 * 1024 * 1024);
+    if (gb >= 1) return `${Math.round(gb * 10) / 10} GB`;
+    const mb = bytes / (1024 * 1024);
+    if (mb >= 1) return `${Math.round(mb * 10) / 10} MB`;
+    const kb = bytes / 1024;
+    return `${Math.round(kb)} KB`;
+}
+
+/**
+ * Récupère la taille d'une vidéo via une requête HEAD (Content-Length).
+ * Retourne une chaîne formatée ex. "1.4 GB" ou null si indisponible.
+ * @param {string} url
+ * @param {object} [headers]
+ * @returns {Promise<string|null>}
+ */
+export async function fetchVideoSize(url, headers = {}) {
+    if (!url) return null;
+    // Sans timers (NuvioTV) un HEAD ne peut PAS être borné (withTimeout no-op,
+    // timeout safeFetch ignoré) → un host muet coûte jusqu'au read-timeout
+    // OkHttp (30 s) pour une simple étiquette de taille. On refuse la sonde.
+    if (!HAS_NATIVE_TIMERS) return null;
+    try {
+        const res = await safeFetch(url, { method: 'HEAD', headers, timeout: 5000 });
+        if (!res || !res.ok) return null;
+        // ⚠️ La réponse n'expose QUE headers.get(name) (polyfill des 2 apps) :
+        // res.headers['content-length'] est TOUJOURS undefined.
+        const cl = getResponseHeader(res.headers, 'content-length');
+        if (!cl) return null;
+        const bytes = Number(cl);
+        if (!Number.isFinite(bytes) || bytes <= 0) return null;
+        return formatSizeBytes(bytes);
+    } catch { return null; }
+}
+
+const CODEC_PREFERENCE = ['AV1', 'H.265', 'H.264', 'VP9'];
+
+
+/**
+ * Sanitize a search query for site search APIs.
+ * Replaces hyphens, apostrophes, and common punctuation that can break
+ * full-text search matching (e.g. TMDB returns "One-Punch Man" but sites
+ * have "One Punch Man").
+ *
+ * @param {string} query - The raw search query
+ * @returns {string} - Sanitized query safe for site search APIs
+ */
+export function sanitizeSearchQuery(query) {
+  return (query || '')
+    .replace(/[–—]/g, ' ')            // long dashes to spaces (preserve regular hyphens)
+    .replace(/[''`]/g, "'")           // normalize smart/curly quotes to straight apostrophe
+    .replace(/[()\[\]{}:;,!?]/g, ' ') // common punctuation to spaces
+    .replace(/\s+/g, ' ')             // collapse multiple spaces
+    .trim();
+}
+
+/**
+ * TV timeout budget: NuvioTV has 30s OkHttp + 60s plugin total
+ * We use 50s as a safe wall-clock budget to leave headroom.
+ */
+export const TV_BUDGET_MS = 50000;
+
+/**
+ * Check if a budget (wall-clock) has been exceeded.
+ * Providers that import this can bail out early instead of starting
+ * new expensive requests when running on NuvioTV.
+ */
+export function isBudgetExhausted(startTime, budgetMs) {
+    const elapsed = Date.now() - (startTime || 0);
+    return elapsed > (budgetMs || TV_BUDGET_MS);
+}
+
+/**
+ * Crée un AbortController de manière sécurisée.
+ * Fonctionne à la fois dans Node.js et dans le runtime QuickJS (NuvioTV)
+ * où AbortController est polyfillé.
+ * Retourne null si AbortController n'est pas disponible.
+ */
+export function createAbortController() {
+  try {
+    if (typeof AbortController !== 'undefined') {
+      return new AbortController();
+    }
+  } catch (_) {}
+  return null;
+}
+
+/**
+ * Vérifie si un AbortSignal est déjà aborted.
+ * Fonctionne avec le polyfill QuickJS ou l'AbortSignal natif.
+ */
+export function isAborted(signal) {
+  return signal && (typeof signal.aborted === 'boolean' ? signal.aborted : false);
+}
+
+/**
+ * Crée un AbortController, connecte un signal externe (si fourni),
+ * et retourne le signal à utiliser.
+ *
+ * Factorise le boilerplate dupliqué dans tous les extracteurs.
+ *
+ * @param {AbortSignal|null} externalSignal - Signal externe optionnel
+
+/**
+ * Safely reads a numeric config value from process.env (Node.js)
+ * or returns the default (QuickJS where process is undefined).
+ */
+export function safeConfig(key, defaultVal) {
+    try {
+        if (typeof process !== 'undefined' && process.env && process.env[key]) {
+            const val = parseInt(process.env[key], 10);
+            return isNaN(val) ? defaultVal : val;
+        }
+    } catch (_) {}
+    return defaultVal;
+}
+
+/**
+ * Enveloppe une promesse d'un timeout dur.
+ * - Node / NuvioMobile (timers dispo) : Promise.race réelle.
+ * - NuvioTV (aucun timer) : renvoie la promesse INCHANGÉE → le budget
+ *   PROVIDER_BUDGET_MS/TV_BUDGET_MS n'y est PAS appliqué, seul le 60 s de
+ *   l'app coupe (et jette alors tout le travail). D'où l'importance de
+ *   isBudgetExhausted() côté providers pour sortir tôt avec du partiel.
+ */
+export async function withTimeout(promise, ms, label = 'Operation') {
+    if (!ms || ms <= 0 || !HAS_NATIVE_TIMERS) return promise;
+    let timer;
+    const timeout = new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`[Timeout] ${label} exceeded ${ms}ms`)), ms);
+    });
+    try {
+        return await Promise.race([promise, timeout]);
+    } finally {
+        clearTimeout(timer);
+    }
+}
+
+function isKnownFakeDirectUrl(url) {
+    if (!url || typeof url !== 'string') return true;
+    const u = url.toLowerCase();
+    return (
+        u.includes('test-videos.co.uk') ||
+        u.includes('big_buck_bunny') ||
+        u.includes('bigbuckbunny') ||
+        u.includes('sample-videos.com') ||
+        u.includes('example.com') ||
+        u.includes('localhost') ||
+        // Leurre anti-scraper fsvid/vidzy : "troll/master.m3u8" est identique
+        // pour tous les embeds (vidéo de test). Empêche le fallback générique
+        // de le renvoyer comme URL directe si resolveFsvidVidzy échoue.
+        u.includes('/troll/master.m3u8')
+    );
+}
+
+function isPlayableMediaUrl(url) {
+    if (!url || typeof url !== 'string') return false;
+    const u = url.toLowerCase();
+    if (isKnownFakeDirectUrl(u)) return false;
+    // .mpd (DASH) est reconnu par ExoPlayer/Media3 nativement (Util.inferContentType)
+    return /\.(mp4|m3u8|mkv|webm|mpd)(\?.*)?$/.test(u) || u.includes('/hls2/') || u.includes('/master.m3u8');
+}
+
+const STRICT_QUALITY_TIERS = [2160, 1080, 720, 480, 360, 240];
+const DEFAULT_QUALITY_TIER = 720;
+
+function nearestQualityTier(height) {
+    if (!Number.isFinite(height) || height <= 0) return DEFAULT_QUALITY_TIER;
+    let nearest = STRICT_QUALITY_TIERS[0];
+    let minDiff = Math.abs(height - nearest);
+    for (const tier of STRICT_QUALITY_TIERS) {
+        const diff = Math.abs(height - tier);
+        if (diff < minDiff) {
+            minDiff = diff;
+            nearest = tier;
+        }
+    }
+    return nearest;
+}
+
+function normalizeQualityLabel(value) {
+    const raw = String(value || '').trim().toLowerCase();
+    if (!raw) return `${DEFAULT_QUALITY_TIER}p`;
+
+    if (raw === '4k' || raw === 'uhd' || raw.includes('2160')) return '2160p';
+    if (raw.includes('fhd') || raw.includes('fullhd') || raw.includes('1080')) return '1080p';
+    if (raw.includes('hd') || raw.includes('720')) return '720p';
+
+    const numericMatch = raw.match(/(\d{3,4})\s*p?/i);
+    if (numericMatch) {
+        const tier = nearestQualityTier(Number(numericMatch[1]));
+        return `${tier}p`;
+    }
+
+    return `${DEFAULT_QUALITY_TIER}p`;
+}
+
+const CODEC_PRIORITY = {
+    'avc1': 'H.264',
+    'h264': 'H.264',
+    'hev1': 'H.265',
+    'hvc1': 'H.265',
+    'h265': 'H.265',
+    'av01': 'AV1',
+    'av1': 'AV1',
+    'vp9': 'VP9',
+    'vp09': 'VP9',
+    'mp4a': 'AAC',
+    'ac-3': 'AC3',
+    'ec-3': 'EAC3',
+    'opus': 'Opus',
+};
+
+function parseCodecs(codecsStr) {
+    if (!codecsStr || typeof codecsStr !== 'string') return { video: null, audio: null };
+    const parts = codecsStr.split(',').map(s => s.trim());
+    let video = null, audio = null;
+    for (const codec of parts) {
+        const base = codec.split('.')[0].toLowerCase();
+        const known = CODEC_PRIORITY[base];
+        if (!known) continue;
+        if (['H.264', 'H.265', 'AV1', 'VP9'].includes(known)) {
+            if (!video) video = { codec: known, raw: codec };
+        } else if (['AAC', 'AC3', 'EAC3', 'Opus'].includes(known)) {
+            if (!audio) audio = { codec: known, raw: codec };
+        }
+    }
+    return { video, audio };
+}
+
+const manifestCache = new Map();
+const MANIFEST_CACHE_TTL = 120_000;
+
+function getCachedManifest(key) {
+    const entry = manifestCache.get(key);
+    if (entry && Date.now() - entry.ts < MANIFEST_CACHE_TTL) return entry.data;
+    return null;
+}
+
+function setCachedManifest(key, data) {
+    manifestCache.set(key, { data, ts: Date.now() });
+}
+
+// ─── Global Fetch Cache ─────────────────────────────────────────────────────
+// Évite les appels réseau dupliqués entre providers (TMDB API, ArmSync, etc.)
+
+/**
+ * Cache mémoire global pour safeFetch.
+ * Clé = méthode|url (ex: "GET|https://api.tmdb.org/3/tv/123")
+ * TTL de 30s pour partager les résultats TMDB/ArmSync entre tous les
+ * providers qui s'exécutent dans la même chaîne (ex: VoirAnime + Vostfree
+ * pour le même titre). Évite ~60 appels API dupliqués sur une requête typique.
+ */
+let FETCH_CACHE_TTL = 300_000; // 5 minutes (augmenté de 30s → 5min pour TMDB API)
+
+/**
+ * Permet de configurer le TTL du cache depuis l'extérieur.
+ * @param {number} ms - Nouveau TTL en millisecondes
+ */
+export function setFetchCacheTtl(ms) {
+    FETCH_CACHE_TTL = ms > 0 ? ms : 30000;
+}
+
+const fetchCache = new Map();
+
+function getCachedFetch(key) {
+    const entry = fetchCache.get(key);
+    if (entry && Date.now() - entry.ts < FETCH_CACHE_TTL) return entry.data;
+    return null;
+}
+
+function setCachedFetch(key, data) {
+    // Éviction LRU : si le cache dépasse 300 entrées, supprimer les 20% plus anciennes
+    // (au lieu de vider tout le cache, ce qui cassait le warm cache)
+    // Augmenté de 200→300 pour supporter plus de providers concurrents
+    if (fetchCache.size >= 300) {
+        const toRemove = Math.ceil(300 * 0.2); // 60 entrées
+        const sorted = [...fetchCache.entries()]
+            .sort((a, b) => a[1].ts - b[1].ts)
+            .slice(0, toRemove);
+        for (const [k] of sorted) fetchCache.delete(k);
+    }
+    fetchCache.set(key, { data, ts: Date.now() });
+}
+
+function qualityRank(value) {
+    const q = normalizeQualityLabel(value).toLowerCase();
+    const match = q.match(/(\d{3,4})p/);
+    const height = match ? Number(match[1]) : DEFAULT_QUALITY_TIER;
+    const tier = nearestQualityTier(height);
+    return STRICT_QUALITY_TIERS.length - 1 - STRICT_QUALITY_TIERS.indexOf(tier);
+}
+
+function appendQualityToTitle(title, quality, codec, fps) {
+    const parts = [];
+    const q = normalizeQualityLabel(quality);
+    if (q && !(title || '').includes(q)) parts.push(q);
+    if (codec && codec !== 'H.264') parts.push(codec);
+    if (fps && fps > 30) parts.push(`${fps}fps`);
+    if (parts.length === 0) return title;
+    return `${title} [${parts.join(' ')}]`;
+}
+
+function inferType(url) {
+    if (!url || typeof url !== 'string') return null;
+    const u = url.toLowerCase();
+    if (u.includes('.m3u8') || u.includes('/hls/') || u.includes('/hls2/') || u.includes('master.m3u8') || u.includes('playlist.m3u8')) return 'hls';
+    if (u.includes('.mpd')) return 'dash';
+    // Endpoints HLS pré-tokenisés sans extension (Zenix/fluxora /v1/anime?t=…&format=hls)
+    if (/[?&]format=hls\b/.test(u) || /\/v1\/(anime|tv|movie)\?/.test(u)) return 'hls';
+    if (u.includes('.mp4')) return 'mp4';
+    if (u.includes('.mkv')) return 'mkv';
+    if (u.includes('.webm')) return 'webm';
+    if (u.includes('.ts') && !u.includes('test') && !u.includes('textures')) return 'hls';
+    return null;
+}
+
+/**
+ * Construit un champ quality enrichi avec les tokens debrid (codec, audio, HDR)
+ * pour que le filtrage debrid de NuvioTV puisse les extraire via streamSearchText().
+ * Ex: "1080p" + codec H.265 + audio AAC → "1080p H.265 AAC"
+ * @param {object} stream - stream avec quality, codec, audioCodec optionnels
+ * @returns {string} quality enrichie
+ */
+function buildEnrichedQuality(stream) {
+    const base = normalizeQualityLabel(stream.quality || 'HD');
+    const parts = [base];
+    // Codec vidéo (depuis HLS expansion ou metadata)
+    if (stream.codec) {
+        const c = String(stream.codec).toUpperCase();
+        if (c && !base.toUpperCase().includes(c)) parts.push(c);
+    }
+    // Codec audio (depuis HLS expansion)
+    if (stream.audioCodec) {
+        const a = String(stream.audioCodec).toUpperCase();
+        if (a && !parts.some(p => p.toUpperCase() === a)) parts.push(a);
+    }
+    return parts.join(' ');
+}
+
+/**
+ * Enrichit la taille avec les métadonnées de qualité pour que le champ
+ * description (= size dans Stream TV) aide le filtrage debrid.
+ * Ex: "1.4 GB" + quality "1080p H.265" → "1.4 GB H.265"
+ * @param {string} size - taille formatée (ex: "1.4 GB")
+ * @param {object} stream - stream avec codec, quality
+ * @returns {string} taille enrichie
+ */
+function formatSizeWithMetadata(size, stream) {
+    if (!size) return size;
+    const extras = [];
+    if (stream.codec) extras.push(String(stream.codec).toUpperCase());
+    if (stream.audioCodec) extras.push(String(stream.audioCodec).toUpperCase());
+    if (extras.length === 0) return size;
+    return `${size} ${extras.join(' ')}`;
+}
+
+/**
+ * Codes de langue compris par NuvioTV/NuvioMobile (DebridStreamLanguage).
+ * L'app compare `language` à ces codes (ou labels anglais) pour les filtres
+ * et le tri ; des valeurs comme "VOSTFR"/"VF" sont classées "Unknown".
+ */
+const LANGUAGE_CODE_MAP = {
+    VF: 'fr', VFQ: 'fr', VFF: 'fr', VFI: 'fr', VFK: 'fr', FRA: 'fr', FR: 'fr', FRENCH: 'fr', 'FRANÇAIS': 'fr',
+    VOSTFR: 'fr', VOSTF: 'fr', VOST: 'fr', SUBF: 'fr',
+    MULTI: 'multi', FAN: 'multi',
+    EN: 'en', ENG: 'en', ENGLISH: 'en', VOA: 'en',
+    VO: 'ja', JA: 'ja', JP: 'ja', JAP: 'ja', JAPANESE: 'ja', VOSTA: 'ja',
+};
+
+/**
+ * Normalise un label de langue brut (VF, VOSTFR, Multi...) vers un code
+ * compris par les apps Nuvio (fr/en/multi/ja). Valeur inconnue → minuscule.
+ * @param {string|null} raw
+ * @returns {string|null}
+ */
+export function normalizeLanguageCode(raw) {
+    if (!raw) return null;
+    const key = String(raw).trim().toUpperCase();
+    if (!key) return null;
+    if (LANGUAGE_CODE_MAP[key]) return LANGUAGE_CODE_MAP[key];
+    const lower = key.toLowerCase();
+    return lower;
+}
+
+function inferLanguage(stream) {
+    if (stream.language) return stream.language;
+    const name = stream.name || '';
+    const match = name.match(/\((\w+)\)/);
+    if (match) {
+        const lang = match[1].toUpperCase();
+        if (['VF', 'VOSTFR', 'VO', 'VOSTF', 'VOA', 'VOST'].includes(lang)) return lang;
+    }
+    return null;
+}
+
+async function expandSingleStreamQualities(stream, options = {}) {
+    if (!stream || !stream.url || typeof stream.url !== 'string') return [];
+    const url = stream.url;
+    const lower = url.toLowerCase();
+
+    if (!lower.includes('.m3u8') && !lower.includes('/hls/')) {
+        return [{ ...stream, quality: normalizeQualityLabel(stream.quality || 'HD'), type: inferType(url) }];
+    }
+
+    const cacheKey = url;
+    if (!options.forceRefresh) {
+        const cached = getCachedManifest(cacheKey);
+        if (cached) return cached;
+    }
+
+    // Cap strict : ce fetch ne sert qu'au parsing qualité — un CDN lent ne
+    // doit pas consommer le budget 60 s de l'app (fallback : quality HD,
+    // type hls, ligne suivante). Double protection : timeout safeFetch
+    // (AbortSignal.timeout, si dispo) + withTimeout (Promise.race, partout).
+    let res = null;
+    try {
+        res = await withTimeout(
+            safeFetch(url, { headers: stream.headers || {}, timeout: options.manifestTimeout || 12000 }),
+            options.manifestTimeout || 12000,
+            'manifest-parse',
+        );
+    } catch (e) {
+        res = null;
+    }
+    if (!res) {
+        return [{ ...stream, quality: normalizeQualityLabel(stream.quality || 'HD'), type: 'hls' }];
+    }
+
+    const manifest = await res.text();
+    // Manifest tronqué (suffixe runtime ou >1 MB) : les variantes de fin sont
+    // perdues — exploser produirait une liste fausse. On sert l'URL originale.
+    if (res.truncated || isTruncatedBody(manifest)) {
+        return [{ ...stream, quality: normalizeQualityLabel(stream.quality || 'HD'), type: 'hls' }];
+    }
+    if (!/#EXT-X-STREAM-INF/i.test(manifest)) {
+        return [{ ...stream, quality: normalizeQualityLabel(stream.quality || 'HD'), type: 'hls' }];
+    }
+
+    const lines = manifest.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+    const variants = [];
+
+    for (let index = 0; index < lines.length; index++) {
+        const line = lines[index];
+        if (!line.startsWith('#EXT-X-STREAM-INF:')) continue;
+
+        const nextLine = lines[index + 1];
+        if (!nextLine || nextLine.startsWith('#')) continue;
+
+        const resolution = line.match(/RESOLUTION=\d+x(\d+)/i)?.[1];
+        const frameRate = line.match(/FRAME-RATE=([0-9.]+)/i)?.[1];
+        const bandwidth = line.match(/BANDWIDTH=(\d+)/i)?.[1];
+        const codecs = line.match(/CODECS="([^"]+)"/i)?.[1];
+
+        let quality = resolution ? `${resolution}p` : null;
+        if (!quality && bandwidth) {
+            const bw = Number(bandwidth);
+            if (bw >= 8_000_000) quality = '2160p';
+            else if (bw >= 5_000_000) quality = '1080p';
+            else if (bw >= 2_500_000) quality = '720p';
+            else if (bw >= 1_200_000) quality = '480p';
+            else quality = '360p';
+        }
+        if (!quality && frameRate) quality = `${normalizeQualityLabel(stream.quality || 'HD')}`;
+
+        const parsedCodec = parseCodecs(codecs);
+        const fps = frameRate ? Math.round(parseFloat(frameRate)) : null;
+
+        let variantUrl = nextLine;
+        try {
+            variantUrl = new URL(nextLine, url).toString();
+        } catch (e) {}
+
+        variants.push({
+            ...stream,
+            url: variantUrl,
+            quality: normalizeQualityLabel(quality || stream.quality || 'HD'),
+            type: 'hls',
+            codec: parsedCodec.video?.codec || null,
+            audioCodec: parsedCodec.audio?.codec || null,
+            fps,
+            bandwidth: bandwidth ? parseInt(bandwidth) : null,
+            title: appendQualityToTitle(
+                stream.title || stream.name || 'Stream',
+                quality || stream.quality || 'HD',
+                options.includeCodec !== false ? parsedCodec.video?.codec : null,
+                options.includeFps !== false ? fps : null
+            )
+        });
+    }
+
+    if (variants.length === 0) {
+        return [{ ...stream, quality: normalizeQualityLabel(stream.quality || 'HD'), type: 'hls' }];
+    }
+
+    const unique = [];
+    const seen = new Set();
+    for (const variant of variants) {
+        if (seen.has(variant.url)) continue;
+        seen.add(variant.url);
+        unique.push(variant);
+    }
+
+    unique.sort((a, b) => qualityRank(b.quality) - qualityRank(a.quality));
+
+    const maxV = options.maxVariants || unique.length;
+    const trimmed = unique.slice(0, maxV);
+
+    setCachedManifest(cacheKey, trimmed);
+    return trimmed;
+}
+
+function filterByPreferredCodec(streams, preferred) {
+    if (!preferred || !streams.length) return streams;
+    const pref = preferred.toUpperCase();
+    const hasPreferred = streams.some(s => s.codec?.toUpperCase() === pref);
+    if (!hasPreferred) return streams;
+    return streams.filter(s => s.codec?.toUpperCase() === pref);
+}
+
+function sortStreams(streams) {
+    return [...streams].sort((a, b) => {
+        const qDiff = qualityRank(b.quality) - qualityRank(a.quality);
+        if (qDiff !== 0) return qDiff;
+        if (a.codec && b.codec) {
+            const getOrder = (c) => CODEC_PREFERENCE.indexOf(c) >= 0 ? CODEC_PREFERENCE.indexOf(c) : 99;
+            return getOrder(a.codec) - getOrder(b.codec);
+        }
+        return 0;
+    });
+}
+
+/**
+ * Nombre max de manifests HLS réellement téléchargés par appel d'expansion.
+ * Sur NuvioTV, chaque fetch BLOQUE la pile JS (Promise.all = séquentiel) :
+ * 40 m3u8 distincts = 40 GET en série, budget 60 s explosé. Au-delà du cap,
+ * on garde l'URL telle quelle (type hls + qualité déclarée).
+ */
+const MAX_MANIFEST_EXPANSIONS = 6;
+
+/** Nombre max de sondes HEAD de taille (mp4/mkv/webm sans size). */
+const MAX_SIZE_PROBES = 3;
+
+/**
+ * Requêtes d'enrichissement uniquement si `budgetDeadline` (timestamp absolu
+ * Date.now()) n'est pas dépassé — cf. createProvider.
+ */
+function isEnrichmentBudgetSpent(options) {
+    const deadline = Number(options && options.budgetDeadline);
+    return deadline > 0 && Date.now() > deadline;
+}
+
+export async function expandStreamQualities(streams, options = {}) {
+    const input = Array.isArray(streams) ? streams : [];
+    const expanded = [];
+
+    const manifestCap = Number(options.maxManifestFetches) > 0
+        ? Number(options.maxManifestFetches)
+        : MAX_MANIFEST_EXPANSIONS;
+    const skipManifests = options.skipManifestExpansion === true;
+    let manifestFetches = 0;
+
+    const results = await Promise.allSettled(
+        input.map(stream => {
+            const url = stream && typeof stream.url === 'string' ? stream.url : '';
+            const lower = url.toLowerCase();
+            const needsManifest = lower.includes('.m3u8') || lower.includes('/hls/');
+            if (!needsManifest) return expandSingleStreamQualities(stream, options);
+            if (skipManifests || isEnrichmentBudgetSpent(options) || manifestFetches >= manifestCap) {
+                return Promise.resolve([{
+                    ...stream,
+                    quality: normalizeQualityLabel((stream && stream.quality) || 'HD'),
+                    type: 'hls',
+                }]);
+            }
+            manifestFetches++;
+            return expandSingleStreamQualities(stream, options);
+        })
+    );
+    for (let i = 0; i < results.length; i++) {
+        const r = results[i];
+        const stream = input[i];
+        if (r.status === 'fulfilled') {
+            for (const variant of r.value) {
+                expanded.push(variant);
+            }
+        } else if (stream) {
+            expanded.push({ ...stream, quality: normalizeQualityLabel(stream.quality || 'HD'), type: inferType(stream.url) });
+        }
+    }
+
+    const deduped = [];
+    const seen = new Set();
+    for (const stream of expanded) {
+        if (!stream?.url) continue;
+        if (isKnownFakeDirectUrl(stream.url)) continue;
+        // Dedup by URL + RAW language (not normalized): preserve VF vs VOSTFR distinction
+        // when same URL is used for both (e.g. FrenchManga S01 where VF=VOSTFR URLs)
+        const rawLang = stream.language || inferLanguage(stream) || '';
+        const dedupKey = `${stream.url}|${String(rawLang).toUpperCase()}`;
+        if (seen.has(dedupKey)) continue;
+        seen.add(dedupKey);
+        deduped.push(stream);
+    }
+
+    let sorted = sortStreams(deduped);
+
+    sorted = sorted.map(s => {
+        const rawLang = inferLanguage(s) || s.language || null;
+        const lang = normalizeLanguageCode(rawLang);
+        const baseTitle = s.title || s.name;
+        let title = s.title;
+        // Conserver le label FR (VF/VOSTFR...) dans le titre si absent :
+        // utile pour l'affichage et sortStreamsByLanguage()
+        if (rawLang && lang && baseTitle &&
+            String(rawLang).toUpperCase() !== lang.toUpperCase() &&
+            !baseTitle.toUpperCase().includes(String(rawLang).toUpperCase())) {
+            title = `${baseTitle} [${String(rawLang).toUpperCase()}]`;
+        }
+        // Enrichir quality avec tokens debrid (codec/audio) si disponibles
+        // depuis l'expansion HLS. Le debrid filter de NuvioTV parse ces tokens
+        // depuis streamSearchText() qui inclut stream.quality.
+        const enrichedQuality = buildEnrichedQuality(s);
+        return {
+            ...s,
+            ...(title !== s.title ? { title } : {}),
+            ...(enrichedQuality !== s.quality ? { quality: enrichedQuality } : {}),
+            type: s.type || inferType(s.url),
+            language: lang,
+        };
+    });
+
+    // Lazy size enrichment : requête HEAD sur les URLs directes (.mp4/.mkv/.webm)
+    // pour fournir la taille aux filtres/tri NuvioTV. Parallélisé, max 5 simultanées.
+    // La taille est enrichie avec les métadonnées de qualité (codec, type) pour que
+    // le champ description (= size dans Stream TV) aide le filtrage debrid.
+    const directVideoRe = /\.(mp4|mkv|webm)(\?.*)?$/i;
+    const sizeProbeEnabled = options.sizeProbe !== false && !isEnrichmentBudgetSpent(options);
+    const streamsNeedingSize = sizeProbeEnabled
+        ? sorted.filter(s => !s.size && s.url && directVideoRe.test(s.url)).slice(0, MAX_SIZE_PROBES)
+        : [];
+    if (streamsNeedingSize.length > 0) {
+        const sizeResults = await Promise.allSettled(
+            streamsNeedingSize.map(s => fetchVideoSize(s.url, s.headers))
+        );
+        for (let i = 0; i < streamsNeedingSize.length; i++) {
+            const size = sizeResults[i].status === 'fulfilled' ? sizeResults[i].value : null;
+            if (size) streamsNeedingSize[i].size = formatSizeWithMetadata(size, streamsNeedingSize[i]);
+        }
+    }
+
+    if (options.preferredCodec) {
+        return filterByPreferredCodec(sorted, options.preferredCodec);
+    }
+
+    return sorted;
+}
+
+// Timeout par défaut appliqué quand l'appelant n'en fournit pas. Sur NuvioTV,
+// AbortSignal.timeout n'existe pas (polyfill minimal) → sans défaut, un fetch
+// mort attend le read-timeout réseau (~30 s) et épuise le budget provider.
+export const DEFAULT_FETCH_TIMEOUT = 15000;
+
+export async function safeFetch(url, options = {}) {
+    const start = Date.now();
+    const SLOW_THRESHOLD = 15000;
+
+    // Cache lookup pour les requêtes GET (élimine les doublons TMDB/ArmSync)
+    // ⚠️ La clé DOIT inclure les headers explicites : certains CDN (uqload,
+    // lecteurvideo…) filtrent par whitelist de Referer — la même URL peut
+    // renvoyer une page différente (stub "restricted" vs joueur complet)
+    // selon le Referer. Sans cela, un stub mis en cache empoisonne toutes
+    // les tentatives suivantes avec d'autres headers.
+    const method = (options.method || 'GET').toUpperCase();
+    let headerTag = '';
+    if (options.headers && typeof options.headers === 'object') {
+        const keys = Object.keys(options.headers).sort();
+        if (keys.length) {
+            headerTag = '|' + keys.map(k => `${k.toLowerCase()}=${String(options.headers[k]).slice(0, 80)}`).join('&');
+        }
+    }
+    const cacheKey = method + '|' + url + headerTag;
+    if (method === 'GET') {
+        const cached = getCachedFetch(cacheKey);
+        if (cached) {
+            return {
+                text: () => Promise.resolve(cached.bodyText),
+                json: async () => {
+                    try { return JSON.parse(cached.bodyText); } catch (e) { throw e; }
+                },
+                ok: cached.ok,
+                status: cached.status,
+                url: cached.finalUrl || url,
+                headers: cached.headers || {},
+                truncated: false
+            };
+        }
+    }
+
+    try {
+        const { timeout, signal: externalSignal, ...rest } = options;
+        const effectiveTimeout = timeout > 0 ? timeout : DEFAULT_FETCH_TIMEOUT;
+        
+        if (isAborted(externalSignal)) {
+            return null;
+        }
+
+        const fetchOpts = {
+            ...rest,
+            headers: { ...HEADERS, ...rest.headers },
+            redirect: 'follow'
+        };
+
+        const hasNativeTimeout = typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout !== 'undefined';
+
+        // Construire le signal combiné : timeout + signal externe
+        if (effectiveTimeout > 0 && hasNativeTimeout) {
+            // Node.js: AbortSignal.timeout natif
+            const timeoutSignal = AbortSignal.timeout(effectiveTimeout);
+            if (externalSignal) {
+                // Avec les deux signaux, on crée un AbortController qui relaye
+                const controller = createAbortController();
+                if (controller) {
+                    fetchOpts.signal = controller.signal;
+                    const onAbort = () => { controller.abort() };
+                    // On ne peut pas addEventListener dans le polyfill QuickJS
+                    // mais on peut attacher des listeners sur le signal externe
+                    try { externalSignal.addEventListener('abort', onAbort); } catch (_) {}
+                    try { timeoutSignal.addEventListener('abort', onAbort); } catch (_) {}
+                } else {
+                    // Fallback: juste le signal externe
+                    fetchOpts.signal = externalSignal;
+                }
+            } else {
+                fetchOpts.signal = timeoutSignal;
+            }
+        } else if (externalSignal) {
+            // Pas de timeout natif disponible, juste un signal externe
+            fetchOpts.signal = externalSignal;
+        }
+
+        // ⚠️ Pas de fallback timeout manuel ici : sur NuvioTV, fetch est un
+        // bridge SYNCHRONE (__native_fetch → OkHttp execute) — un race avec
+        // sleep busy-wait ne peut pas interrompre l'appel et ferait tourner
+        // le microtask drain pendant tout le timeout après coup (CPU TV).
+        // Le garde-fou sur cette plateforme = budget/isBudgetExhausted côté
+        // providers + timeout OkHttp 30s côté natif.
+        const response = await fetch(url, fetchOpts);
+        const elapsed = Date.now() - start;
+        if (elapsed > SLOW_THRESHOLD) {
+            console.warn(`[safeFetch] Slow request (${elapsed}ms): ${(url || '').slice(0, 120)}`);
+        }
+        if (!response) return null;
+
+        const status = response.status;
+        // Le bridge natif ne throw JAMAIS sur erreur réseau : il renvoie
+        // ok:false / status:0 / body vide. Sans ce garde-fou, un `if (!res)`
+        // de provider croit avoir une réponse valide (et parse du vide).
+        if (status === 0) return null;
+        let bodyText = '';
+        let truncated = false;
+        try {
+            // Lecture avec garde taille : si la réponse dépasse 1 MB,
+            // on tronque pour éviter d'exploser la mémoire QuickJS.
+            // (NuvioTV/NuvioMobile imposent 1 MB côté natif et appendent
+            // "\n...[truncated]" — détecté AVANT toute re-troncature pour
+            // préserver le suffixe.)
+            const rawText = await response.text();
+            if (rawText && rawText.endsWith(RUNTIME_TRUNCATION_SUFFIX)) {
+                truncated = true;
+                bodyText = rawText;
+            } else if (rawText && rawText.length >= MAX_SAFE_FETCH_BODY_BYTES) {
+                truncated = true;
+                console.warn(`[safeFetch] Response truncated (${rawText.length} bytes > ${MAX_SAFE_FETCH_BODY_BYTES}): ${(url || '').slice(0, 100)}`);
+                bodyText = rawText.slice(0, MAX_SAFE_FETCH_BODY_BYTES);
+            } else {
+                bodyText = rawText || '';
+            }
+        } catch (e) {
+            bodyText = '';
+        }
+
+        // HTML tronqué → échec honnête (return null) : parser un préfixe
+        // produirait des sélections cheerio silencieusement fausses. Les
+        // JSON tronqués restent livrés (json() throw → null chez les
+        // appelants ; parseMaybeTruncatedJson les récupère dans dle-extractor).
+        if (truncated && responseLooksHtml(response, bodyText)) {
+            console.warn(`[safeFetch] HTML body truncated → refusing partial parse: ${(url || '').slice(0, 100)}`);
+            return null;
+        }
+
+        // Cache uniquement les réponses GET réussies (2xx) ET complètes :
+        // une réponse tronquée ne doit jamais empoisonner le cache de requête.
+        if (method === 'GET' && status >= 200 && status < 300 && !truncated) {
+            setCachedFetch(cacheKey, {
+                bodyText,
+                ok: true,
+                status,
+                finalUrl: response.url,
+                headers: response.headers
+            });
+        }
+
+        return {
+            text: () => Promise.resolve(bodyText),
+            json: async () => {
+                try { return JSON.parse(bodyText); } catch (e) { throw e; }
+            },
+            ok: response.ok,
+            status,
+            url: response.url,
+            headers: response.headers,
+            truncated
+        };
+    } catch (e) {
+        const elapsed = Date.now() - start;
+        if (elapsed > SLOW_THRESHOLD) {
+            console.warn(`[safeFetch] Slow request failed (${elapsed}ms): ${(url || '').slice(0, 120)}`);
+        }
+        return null;
+    }
+}
+
+export function unpack(code) {
+    try {
+        if (!code.includes('p,a,c,k,e,d')) return code;
+
+        const extractEvalBlocks = (input) => {
+            const blocks = [];
+            let pos = 0;
+            while (true) {
+                const start = input.indexOf('eval(function(p,a,c,k,e,d)', pos);
+                if (start === -1) break;
+
+                let i = start;
+                let depth = 0;
+                let inSingle = false;
+                let inDouble = false;
+                let escaped = false;
+
+                for (; i < input.length; i++) {
+                    const ch = input[i];
+                    if (escaped) {
+                        escaped = false;
+                        continue;
+                    }
+                    if (ch === '\\') {
+                        escaped = true;
+                        continue;
+                    }
+                    if (!inDouble && ch === "'") inSingle = !inSingle;
+                    else if (!inSingle && ch === '"') inDouble = !inDouble;
+                    if (inSingle || inDouble) continue;
+
+                    if (ch === '(') depth++;
+                    else if (ch === ')') {
+                        depth--;
+                        if (depth === 0) {
+                            i++;
+                            break;
+                        }
+                    }
+                }
+
+                if (i > start) blocks.push(input.slice(start, i));
+                pos = i;
+            }
+            return blocks;
+        };
+
+        const decodeBlock = (block) => {
+            const parseString = (src, start) => {
+                const quote = src[start];
+                if (quote !== "'" && quote !== '"') return null;
+                let i = start + 1;
+                let out = '';
+                let escaped = false;
+                for (; i < src.length; i++) {
+                    const ch = src[i];
+                    if (escaped) {
+                        out += ch;
+                        escaped = false;
+                        continue;
+                    }
+                    if (ch === '\\') {
+                        escaped = true;
+                        continue;
+                    }
+                    if (ch === quote) return { value: out, end: i + 1 };
+                    out += ch;
+                }
+                return null;
+            };
+
+            const skipWs = (src, i) => {
+                while (i < src.length && /\s/.test(src[i])) i++;
+                return i;
+            };
+
+            const parseIntAt = (src, i) => {
+                i = skipWs(src, i);
+                const m = src.slice(i).match(/^\d+/);
+                if (!m) return null;
+                return { value: parseInt(m[0], 10), end: i + m[0].length };
+            };
+
+            const callStart = block.indexOf('}(');
+            if (callStart === -1) return null;
+            let i = callStart + 2;
+            i = skipWs(block, i);
+
+            const pStr = parseString(block, i);
+            if (!pStr) return null;
+            let p = pStr.value;
+            i = skipWs(block, pStr.end);
+            if (block[i] !== ',') return null;
+
+            const aNum = parseIntAt(block, i + 1);
+            if (!aNum) return null;
+            const a = aNum.value;
+            i = skipWs(block, aNum.end);
+            if (block[i] !== ',') return null;
+
+            const cNum = parseIntAt(block, i + 1);
+            if (!cNum) return null;
+            let c = cNum.value;
+            i = skipWs(block, cNum.end);
+            if (block[i] !== ',') return null;
+
+            const kStr = parseString(block, skipWs(block, i + 1));
+            if (!kStr) return null;
+            const splitPart = block.slice(kStr.end, kStr.end + 20);
+            if (!/\.split\(\s*['"]\|['"]\s*\)/.test(splitPart)) return null;
+            const k = kStr.value.split('|');
+
+            const e = (x) => (x < a ? '' : e(parseInt(x / a, 10))) + ((x = x % a) > 35 ? String.fromCharCode(x + 29) : x.toString(36));
+            const dict = {};
+            while (c--) dict[e(c)] = k[c] || e(c);
+
+            return p.replace(/\b\w+\b/g, (w) => dict[w] || w);
+        };
+
+        let result = code;
+        const blocks = extractEvalBlocks(code);
+        for (const block of blocks) {
+            try {
+                const decoded = decodeBlock(block);
+                if (decoded) result = result.replace(block, decoded);
+            } catch (e) {}
+        }
+
+        return result;
+    } catch (err) { return code; }
+}
+
+export async function resolveSibnet(url) {
+    try {
+        const res = await safeFetch(url, { headers: { 'Referer': 'https://video.sibnet.ru/' } });
+        if (!res) return { url };
+        const html = await res.text();
+        // Extract MP4 URL from multiple patterns:
+        // 1. file: "...mp4" (JWPlayer)
+        // 2. src: "...mp4" (VideoJS)
+        // 3. player.src([{src: "...mp4", type: "video/mp4"}]) (VideoJS player.src)
+        // 4. Generic MP4 URL in quotes
+        let videoUrl = null;
+        const fileMatch = html.match(/file\s*:\s*["']([^"']*\.mp4[^"']*)['"]/i);
+        if (fileMatch) { videoUrl = fileMatch[1]; }
+        if (!videoUrl) {
+            const srcMatch = html.match(/src\s*:\s*["']([^"']*\.mp4[^"']*)['"]/i);
+            if (srcMatch) videoUrl = srcMatch[1];
+        }
+        if (!videoUrl) {
+            // Match player.src([{src: "...", type: "video/mp4"}])
+            const playerSrcMatch = html.match(/player\.src\(\s*\[\s*\{\s*src\s*:\s*["']([^"']+\.mp4[^"']*)['"]/i);
+            if (playerSrcMatch) videoUrl = playerSrcMatch[1];
+        }
+        if (!videoUrl) {
+            const genericMatch = html.match(/["']((?:https?:)?\/\/[^"'\s]+\.mp4[^"'\s]*)["']/i);
+            if (genericMatch) videoUrl = genericMatch[1];
+        }
+        if (!videoUrl) return { url };
+
+        // Normalize URL
+        if (videoUrl.startsWith('//')) videoUrl = "https:" + videoUrl;
+        else if (videoUrl.startsWith('/')) videoUrl = "https://video.sibnet.ru" + videoUrl;
+
+        // Follow 302 redirect to get the final signed CDN URL
+        // (avoids redirect hop in the player for faster playback)
+        try {
+            const headRes = await safeFetch(videoUrl, {
+                method: 'HEAD',
+                headers: { 'Referer': 'https://video.sibnet.ru/' },
+                timeout: 5000
+            });
+            if (headRes && headRes.url && headRes.url !== videoUrl && headRes.url.includes('.mp4')) {
+                videoUrl = headRes.url;
+            }
+        } catch (_) { /* keep original URL */ }
+
+        return { url: videoUrl, headers: { "Referer": "https://video.sibnet.ru/" } };
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveVidmoly(url) {
+    try {
+        // TLD vidmoly connus : .biz, .net, .to, .ru, .is, .me.
+        // Live 2026-10 : les iframes servent vidmoly.biz (m3u8 en clair),
+        // vidmoly.net redirige (301) vers .biz ; vidmoly.to n'a jamais été
+        // observé en production (et .me est mort).
+        const originalDomain = url.match(/^https?:\/\/([^/]+)/)?.[1] || '';
+        const originalReferer = originalDomain ? `https://${originalDomain}/` : 'https://vidmoly.biz/';
+
+        // Priorité : domaine d'origine d'abord, puis .biz vivant, puis replis
+        const tldVariants = ['biz', 'net', 'ru', 'is', 'to'];
+        const domains = [url]; // Original domain first
+        for (const tld of tldVariants) {
+            const altUrl = url.replace(/vidmoly\.(net|to|ru|is|biz|me)/, `vidmoly.${tld}`);
+            if (altUrl !== url) domains.push(altUrl);
+        }
+        const uniqueDomains = [...new Set(domains)].slice(0, 4); // Max 4 attempts
+
+        for (const fetchUrl of uniqueDomains) {
+            try {
+                const fetchDomain = fetchUrl.match(/^https?:\/\/([^/]+)/)?.[1] || '';
+                const ref = fetchDomain ? `https://${fetchDomain}/` : originalReferer;
+                let res = await safeFetch(fetchUrl, { headers: { 'Referer': ref, 'Origin': ref } });
+                if (!res || !res.ok) continue;
+                // Domaine ayant réellement servi la page (après redirects :
+                // ex. .net → 301 → .biz) : le Referer servi avec le flux final
+                // s'aligne dessus, pas sur le domaine demandé.
+                const serveRefOf = (r, fallbackRef) => {
+                    const finalDomain = (r && r.url && r.url.match(/^https?:\/\/([^/]+)/)?.[1]) || '';
+                    return finalDomain ? `https://${finalDomain}/` : fallbackRef;
+                };
+                let html = await res.text();
+                // Skip if response is ad/404 page (short or contains ad scripts)
+                // But allow JWT redirect pages (contain window.location.replace) even if short
+                const hasJsRedirect = /window\.location\.replace/.test(html);
+                if ((html.length < 500 && !hasJsRedirect) || html.includes('finisheddaysflamboyant')) continue;
+                
+                if (html.includes('p,a,c,k,e,d') || html.includes('eval(function')) html = unpack(html);
+
+                const match = html.match(/file\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                              html.match(/sources\s*:\s*\[["']([^"']+\.(?:m3u8|mp4)[^"']*)["']\]/i) ||
+                              html.match(/["'](https?:\/\/[^"']+\.(?:m3u8|mp4)[^"']*)["']/i);
+                if (match) {
+                    const serveRef = serveRefOf(res, ref);
+                    return { url: match[1], headers: { "Referer": serveRef, "Origin": serveRef } };
+                }
+
+                // Vidmoly uses JWT redirect: window.location.replace('URL?ch=1&js=JWT')
+                // Follow the redirect and try again
+                const jsRedirect = html.match(/window\.location\.replace\(['"]([^'"]+)['"]\)/) ||
+                                   html.match(/window\.location\.href\s*=\s*['"]([^'"]+)['"]/);
+                if (jsRedirect && jsRedirect[1] !== fetchUrl) {
+                    res = await safeFetch(jsRedirect[1], { headers: { 'Referer': ref, 'Origin': ref } });
+                    if (res) {
+                        html = await res.text();
+                        if (html.includes('p,a,c,k,e,d') || html.includes('eval(function')) html = unpack(html);
+                        const match2 = html.match(/file\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                                       html.match(/sources\s*:\s*\[["']([^"']+\.(?:m3u8|mp4)[^"']*)["']\]/i) ||
+                                       html.match(/["'](https?:\/\/[^"']+\.(?:m3u8|mp4)[^"']*)["']/i);
+                        if (match2) {
+                            const serveRef = serveRefOf(res, ref);
+                            return { url: match2[1], headers: { "Referer": serveRef, "Origin": serveRef } };
+                        }
+                    }
+                }
+            } catch (e) {}
+        }
+    } catch (e) {}
+    return { url };
+}
+
+/**
+ * Résolveur pour my.mail.ru/video/embed/<ID>.
+ * L'endpoint metadata https://my.mail.ru/+/video/meta/<ID> renvoie un JSON
+ * contenant un tableau `videos` avec des MP4 directs signés (1080p, 720p, 360p).
+ * Vérifié en live : HTTP 200 avec Referer sur la page embed.
+ */
+export async function resolveMailRu(url) {
+    try {
+        const id = url.match(/\/video\/embed\/(\d+)/)?.[1];
+        if (!id) return { url };
+        const metaUrl = `https://my.mail.ru/+/video/meta/${id}`;
+        const res = await safeFetch(metaUrl, {
+            headers: { 'Referer': url, 'Accept': 'application/json' },
+        });
+        if (!res || !res.ok) return { url };
+        // response.json() peut renvoyer null dans le runtime QuickJS → parser le texte
+        let data = null;
+        try { data = JSON.parse(await res.text()); } catch (e) { return { url }; }
+        const videos = Array.isArray(data?.videos) ? data.videos : [];
+        // Meilleure qualité d'abord (keys "1080p", "720p", "360p"...)
+        const sorted = [...videos].sort((a, b) =>
+            (parseInt(b.key, 10) || 0) - (parseInt(a.key, 10) || 0)
+        );
+        const best = sorted.find(v => v && v.url);
+        if (!best) return { url };
+        let videoUrl = best.url.startsWith('//') ? 'https:' + best.url : best.url;
+        return {
+            url: videoUrl,
+            headers: { 'Referer': 'https://my.mail.ru/' },
+            quality: best.key || undefined,
+        };
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveUqload(url) {
+    const normalizedPath = url.replace(/^https?:\/\/[^/]+/, '');
+    const originalDomain = url.match(/^https?:\/\/([^/]+)/)?.[1] || 'uqload.co';
+    // Try original domain + fallbacks for dead domains (uqload.bz is dead, .co is alive)
+    const fallbackDomains = [originalDomain];
+    if (originalDomain.endsWith('.bz')) fallbackDomains.push('uqload.co', 'uqload.to');
+    if (originalDomain.endsWith('.to')) fallbackDomains.push('uqload.co');
+    if (originalDomain.endsWith('.cx')) fallbackDomains.push('uqload.co', 'uqload.vc');
+    const uniqueDomains = [...new Set(fallbackDomains)];
+
+    // Marqueurs de fichier expiré/supprimé servis par uqload (vérifié en live sur
+    // .is ET .co : page ~427 octets "File is no longer available as it expired or
+    // has been deleted"). Un fichier expiré l'est sur TOUS les domaines → on n'a
+    // pas besoin de tenter les fallbacks, et on marque l'embed comme mort pour que
+    // resolveStream saute le generic fallback (évite un re-fetch inutile + peeling
+    // d'iframe + regex sur une page morte → économie de budget).
+    const EXPIRED_MARKERS = [
+        'file is no longer available',
+        'expired or has been deleted',
+        'file no longer exists',
+    ];
+    const isExpiredPage = (html) => {
+        const low = html.toLowerCase();
+        return EXPIRED_MARKERS.some(m => low.includes(m));
+    };
+
+    // ⚠️ uqload filtre les embeds par WHITELIST de Referer (vérifié en live 2026-09) :
+    //  - Referer auto (= domaine uqload) → 38 octets "Video embed restricted for this domain"
+    //  - Referer https://lecteurvideo.com/ (parent réel des embeds wookafr) → page joueur complète
+    //  - Sans Referer → page joueur complète (cas générique)
+    // On essaie dans cet ordre ; le stub "restricted" (~40 octets) est détecté
+    // immédiatement pour ne pas dépacker inutilement.
+    const isRestrictedStub = (html) => html.length < 200 && /restricted for this domain/i.test(html);
+    // Compteurs pour l'échec rapide : si TOUTES les pages lues n'étaient que le
+    // stub "restricted" (38 o, uqload.vc en hotlink-protection), on marque l'embed
+    // comme mort pour que resolveStream saute le generic fallback (re-fetch +
+    // peeling + regex lents pour rien). La chaîne de referers reste essayée en
+    // entier avant (un referer peut passer là où un autre est restreint).
+    let fetchedPages = 0;
+    let restrictedPages = 0;
+    const refererChain = [
+        `https://${uniqueDomains[0]}/`,   // self (comportement historique, autres providers)
+        'https://lecteurvideo.com/',      // parent lecteurvideo (chaîne wookafr)
+        '',                                // sans Referer
+    ];
+
+    // ⚠️ Regexes tolérantes aux query strings : l'URL servie est
+    // "https://strm8.uqload.vc/hls2/.../master.m3u8?t=...&s=..." — l'extension
+    // n'est PAS en fin de chaîne (les anciennes regexes ratent donc le flux).
+    const extractFile = (content) =>
+        content.match(/file\s*:\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i) ||
+        content.match(/sources\s*:\s*\[[^\]]*?\{[^}]*?file\s*:\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i) ||
+        content.match(/sources\s*:\s*\[["']([^"']+\.(?:mp4|m3u8)[^"']*)["']\]/i) ||
+        content.match(/["'](https?:\/\/[^"']*\/hls\d?\/[^"']*\.m3u8[^"']*)["']/i) ||
+        content.match(/["'](https?:\/\/[^"']+\.mp4[^"']*)["']/i);
+
+    for (const domain of uniqueDomains) {
+        const tryUrl = `https://${domain}${normalizedPath}`;
+        for (const referer of refererChain) {
+            try {
+                const headers = { ...HEADERS };
+                if (referer) headers['Referer'] = referer;
+                const res = await safeFetch(tryUrl, { headers });
+                if (!res) continue;
+                let html = await res.text();
+                if (isExpiredPage(html)) {
+                    console.warn(`[Resolver] uqload embed dead (expired/deleted): ${url.slice(0, 80)}`);
+                    return { url, isDead: true };
+                }
+                fetchedPages++;
+                if (isRestrictedStub(html)) { restrictedPages++; continue; }
+                if ((!html.includes('p,a,c,k,e,d') && !html.includes('eval(function') && !extractFile(html))) continue;
+                if (html.includes('p,a,c,k,e,d') || html.includes('eval(function')) html = unpack(html);
+                const match = extractFile(html);
+                if (match) {
+                    const playHeaders = { "Referer": `https://${domain}/` };
+                    return { url: match[1], headers: playHeaders };
+                }
+            } catch (e) {}
+        }
+    }
+    // Tous les domaines/referers épuisés sans fichier trouvé → si on n'a vu
+    // que des stubs "restricted", marquer mort (échec rapide, pas de fallback).
+    // Sinon retourner l'embed tel quel (le generic fallback peut le traiter).
+    if (fetchedPages > 0 && restrictedPages === fetchedPages) {
+        console.warn(`[Resolver] uqload embed dead (restricted on all referers): ${url.slice(0, 80)}`);
+        return { url, isDead: true };
+    }
+    return { url };
+}
+
+/**
+ * Décodage du player VOE « classique » (vérifié en live 2026-10 sur
+ * teresapoliticallearn.com — domaine rotatif servi par voe.sx) :
+ *
+ * La page embed contient EN PARALLÈLE :
+ *   var source='https://test-videos.co.uk/.../Big_Buck_Bunny...mp4';  ← LEURRE
+ *   <script type="application/json">["<payload encodé>"]</script>      ← vrai config
+ *
+ * Le loader (/js/loader.*.js) décode le payload via 5 transforms lues dans
+ * le bundle obfusqué (0x62159 ROT13, 0x62942 atob, 0x63107 shift-3,
+ * 0x63133 reverse, 0x63554 atob + JSON.parse) → objet avec champs :
+ *   key, request, file_code, source (master.m3u8 signé),
+ *   direct_access_url (mp4 fallback), direct_access_allowed, captions…
+ *
+ * ⚠️ Portabilité QuickJS : string ops + atob uniquement (polyfillés sur les
+ * 2 runtimes) — AUCUN crypto.subtle requis → fonctionne aussi sur NuvioTV.
+ * @returns {object|null} config décodé ou null si le format n'est pas attendu
+ */
+function decodeVoePlayerConfig(html) {
+    if (!html || html.indexOf('application/json') < 0) return null;
+    const m = html.match(/<script[^>]*type=["']application\/json["'][^>]*>([\s\S]*?)<\/script>/);
+    if (!m) return null;
+    let payload = null;
+    try {
+        const arr = JSON.parse(m[1]);
+        if (Array.isArray(arr) && typeof arr[0] === 'string') payload = arr[0];
+        else if (typeof arr === 'string') payload = arr;
+    } catch (e) { return null; }
+    if (!payload) return null;
+
+    // Pipeline : ROT13 → base64 → shift(-3) → reverse → base64 → JSON
+    // ⚠️ Atob TOLÉRANT : le payload contient des caractères décoratifs
+    // (#&~@$%?^!*&) intercalés qui ne font PAS partie de l'alphabet base64 —
+    // atob standard (QuickJS/browser) THRO dessus ; Buffer (Node) les ignore.
+    // On strippe manuellement avant atob pour un comportement identique partout.
+    const lenientB64 = (s) => {
+        const clean = String(s || '').replace(/[^A-Za-z0-9+/=]/g, '');
+        const pad = clean.length % 4;
+        const padded = pad ? clean + '='.repeat(4 - pad) : clean;
+        return _atob(padded);
+    };
+    const rot13 = (s) => s.replace(/[a-zA-Z]/g, (c) => {
+        const base = c <= 'Z' ? 65 : 97;
+        return String.fromCharCode(((c.charCodeAt(0) - base + 13) % 26) + base);
+    });
+    try {
+        let s = rot13(payload);
+        s = lenientB64(s);
+        let shifted = '';
+        for (let i = 0; i < s.length; i++) shifted += String.fromCharCode(s.charCodeAt(i) - 3);
+        const reversed = shifted.split('').reverse().join('');
+        const decoded = lenientB64(reversed);
+        const obj = JSON.parse(decoded);
+        if (obj && typeof obj === 'object' && typeof obj.source === 'string' && /^https?:\/\//.test(obj.source)) {
+            return obj;
+        }
+    } catch (e) { /* pipeline non attendu → fallback */ }
+    return null;
+}
+
+export async function resolveVoe(url) {
+    try {
+        const res = await safeFetch(url);
+        if (!res) return { url };
+        let html = await res.text();
+
+        // ── Frontend actuel voe (SPA React "Byse") — vérifié en live ────────
+        // Les domaines voe (voe.sx, weneverbeenfree, sandratableother,
+        // maryspecialwatch, charlestoughrace) servent désormais un shell React
+        // (<div id="root"> + bundle /assets/index-*.js) et résolvent la vidéo
+        // via API REST : /api/videos/<code>/settings|playback|captcha|view et
+        // /api/videos/stream/<code> — avec fingerprint chiffré AES-GCM
+        // (WebCrypto/crypto.subtle : disponible sur NuvioMobile, absent sur NuvioTV),
+        // captcha PoW optionnel (captchaRequired, pow_token) et gating premium (prem=1).
+        // AUCUNE URL de stream n'apparaît dans le HTML → contrairement à
+        // fsvid/vidzy, il n'y a PAS de leurre type "troll/master.m3u8" ni de
+        // bloc XOR à décoder. Sans navigateur ces embeds sont irrésolvables :
+        // on abandonne immédiatement au lieu de gratter des regex inutiles.
+        if (html.includes('<div id="root">') && html.includes('/assets/index-')) {
+            return { url };
+        }
+
+        // ── Redirection JS du shell voe.sx → domaine rotatif joueur classique ─
+        // (vérifié en live : /e/<code> de voe.sx = page 759 o qui fait
+        //  window.location.href = 'https://<rotating>.com/e/<code>' ; le
+        //  rotating sert la VRAIE page joueur 125 KB avec config encodée).
+        // Suivre jusqu'à 3 hops (chaines de redirections observées).
+        let fetchUrl = url;
+        for (let hop = 0; hop < 3; hop++) {
+            const redirect = html.match(/window\.location\.href\s*=\s*['"]([^'"]+)['"]/);
+            if (!redirect || redirect[1] === fetchUrl) break;
+            fetchUrl = redirect[1];
+            const res2 = await safeFetch(fetchUrl);
+            if (!res2) break;
+            html = await res2.text();
+        }
+
+        // ── Player VOE « classique » : config encodée dans application/json ──
+        // (vérifié en live 2026-10) : source = master.m3u8 signé (t/s/e/f/node…
+        //  paramètres déjà inclus, jouable sans headers spéciaux) +
+        // direct_access_url = mp4 fallback. Le "var source=" de la page est
+        // un LEURRE Big Buck Bunny → JAMAIS l'utiliser.
+        const cfg = decodeVoePlayerConfig(html);
+        if (cfg) {
+            const directUrl = String(cfg.direct_access_url || '');
+            const masterUrl = String(cfg.source || '');
+            // Priorité au master HLS (meilleure qualité/adaptive), fallback mp4
+            const finalUrl = masterUrl || directUrl;
+            if (finalUrl && !isKnownFakeDirectUrl(finalUrl)) {
+                return { url: finalUrl, headers: { 'Referer': fetchUrl + '/' } };
+            }
+            if (directUrl && !isKnownFakeDirectUrl(directUrl)) {
+                return { url: directUrl, headers: { 'Referer': fetchUrl + '/' } };
+            }
+        }
+
+        // ── Ancien player voe (script packé avec clé 'hls') ────────────────
+        if (html.includes('p,a,c,k,e,d') || html.includes('eval(function')) html = unpack(html);
+
+        const match = html.match(/'hls'\s*:\s*'([^']+)'/) || 
+                      html.match(/"hls"\s*:\s*"([^"]+)"/) ||
+                      html.match(/file\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                      html.match(/sources\s*:\s*\[["']([^"']+\.(?:m3u8|mp4)[^"']*)["']\]/i) ||
+                      html.match(/https?:\/\/[^"']+\.m3u8[^"']*/);
+        if (match) {
+            let videoUrl = match[1] || match[0];
+            if (videoUrl.includes('base64')) videoUrl = _atob(videoUrl.split(',')[1] || videoUrl);
+            // Garde anti-leurre : le « var source= » du player VOE sert
+            // systématiquement un Big Buck Bunny de démonstration.
+            if (videoUrl.includes('test-videos.co.uk') || isKnownFakeDirectUrl(videoUrl)) return { url };
+            return { url: videoUrl, headers: { "Referer": fetchUrl } };
+        }
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveFsvidVidzy(url) {
+    try {
+        // CRITIQUE (cause racine du ratio ~1/10) : fsvid.lol renvoie 403 si la
+        // page embed est fetchée sans Referer. Dériver le Referer du domaine de
+        // l'embed lui-même (ex: https://fsvid.lol/embed-xxx.html → Referer
+        // https://fsvid.lol/) couvre tous les miroirs fsvid/vidzy. Vérifié en
+        // live : fsvid.lol → 403 sans Referer, 200 avec; vidzy.org → 200 dans
+        // les deux cas (le Referer ne casse rien).
+        const embedDomain = (url.match(/^https?:\/\/([^/]+)/) || [])[1] || '';
+        const embedRef = embedDomain ? `https://${embedDomain}/` : 'https://fsvid.lol/';
+        const res = await safeFetch(url, { headers: { Referer: embedRef } });
+        if (!res) return { url };
+        let html = await res.text();
+        // Unpack si le JS est packé (eval(function(p,a,c,k,e,d)...));
+        // Nouveau pattern (2024+): HTML non packé, IIFE en clair avec reverse+hash.
+        if (html.includes('p,a,c,k,e,d') || html.includes('eval(function')) html = unpack(html);
+
+        // La vraie URL HLS est encodée en base64 puis XORée.
+        // Le m3u8 "s1.fsvid.lol/troll/master.m3u8" présent dans la page est un
+        // LEURRE anti-scraper (identique pour tous les embeds) → à rejeter absolument.
+        let videoUrl = null;
+
+        // --- Pattern 1 (2024+ puis 2026+): clé dynamique via hostname hash+
+        // reverse + constante BC (fingerprint de layout) ---
+        // IIFE: (function(s){var h=(location&&location.hostname)||"",H=0;...
+        //   var BC = largeur CSS mesurée (js injecté 2026) : _ch.offsetWidth|0
+        //   pour une div 1in+54px → dépend du navigateur (≈75urt sur Chrome). 
+        //   var b=atob(s),a=b.split("").reverse().join(""),r="";...
+        //   var kk=(0x3d+i*89+H+BC)&255; r+=String.fromCharCode(a.charCodeAt(i)^kk)
+        //   ...return /^https?:/.test(r)?r:"troll"})("BASE64")
+        // BC n'est PAS calculable en QuickJS (pas de layout engine) → brute-force
+        // sur les 256 valeurs possibles (vérifié en live : chaque embed a un BC
+        // fixe, une seule valeur de 0..255 produit une URL https valide).
+        const hostname = embedDomain ? embedDomain.split('/')[0] : (embedRef.split('//')[1] || '').replace(/\//g, '');
+        const newPattern = html.match(/\}\)\(["']([A-Za-z0-9+/=_-]{50,})["']\)/);
+        if (newPattern && html.includes('reverse().join')) {
+            const b64 = newPattern[1].replace(/-/g, '+').replace(/_/g, '/');
+            let bin = '';
+            try { bin = atob(b64); } catch (e) {}
+            if (bin) {
+                // Compute hostname hash H
+                let H = 0;
+                for (let j = 0; j < hostname.length; j++) {
+                    H = (H + hostname.charCodeAt(j)) & 255;
+                }
+                // Reverse + XOR with dynamic key. BC (fingerprint de layout) est
+                // inconnu du runtime → brute-force 0..255 : une seule valeur
+                // produit une URL https://…m3u8 valide.
+                const a = bin.split('').reverse().join('');
+                for (let BC = 0; BC < 256; BC++) {
+                    let decoded = '';
+                    for (let i = 0; i < a.length; i++) {
+                        const kk = (0x3d + i * 89 + H + BC) & 255;
+                        decoded += String.fromCharCode(a.charCodeAt(i) ^ kk);
+                    }
+                    if (/^https?:\/\//.test(decoded) && decoded.includes('.m3u8') && !decoded.includes('/troll/')) {
+                        videoUrl = decoded;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // --- Pattern 2 (legacy): clé statique var k=[...] ---
+        if (!videoUrl) {
+            const legacyPattern = /(?:var|let|const)\s*k=\[([0-9,\s]+)\],b=atob\(s\)[\s\S]*?return\s+\w+\}\)\(["']([A-Za-z0-9+/=_-]+)["']\)/g;
+            let match;
+            while ((match = legacyPattern.exec(html)) !== null) {
+                const key = match[1].split(',').map(n => parseInt(n, 10));
+                const b64 = match[2].replace(/-/g, '+').replace(/_/g, '/');
+                let bin = '';
+                try { bin = atob(b64); } catch (e) { continue; }
+                let decoded = '';
+                for (let i = 0; i < bin.length; i++) {
+                    decoded += String.fromCharCode(bin.charCodeAt(i) ^ key[i % key.length]);
+                }
+                if (decoded.startsWith('http') && decoded.includes('.m3u8') && !decoded.includes('/troll/')) {
+                    videoUrl = decoded;
+                    break;
+                }
+            }
+        }
+
+        if (!videoUrl) return { url };
+
+        // Referer requis par le CDN (vérifié en live : fsvid.lol → 200, vidzy.live → 200)
+        const referer = url.includes('vidzy') ? 'https://vidzy.live/' : 'https://fsvid.lol/';
+        return { url: videoUrl, headers: { Referer: referer } };
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveStreamtape(url) {
+    try {
+        const res = await safeFetch(url);
+        if (!res) return { url };
+        let html = await res.text();
+        if (html.includes('p,a,c,k,e,d')) html = unpack(html);
+
+        const match = html.match(/robotlink['"]\)\.innerHTML\s*=\s*['"]([^'"]+)['"]\s*\+\s*([^;]+)/);
+        if (match) {
+            let videoUrl = "https:" + match[1];
+            const parts = match[2].split('+');
+            for (const p of parts) {
+                const innerMatch = p.match(/['"]([^'"]+)['"]/);
+                if (innerMatch) {
+                    let val = innerMatch[1];
+                    const sub = p.match(/substring\((\d+)\)/);
+                    if (sub) val = val.substring(parseInt(sub[1]));
+                    videoUrl += val;
+                }
+            }
+            return { url: videoUrl, headers: { "Referer": "https://streamtape.com/" } };
+        }
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveSendvid(url) {
+    try {
+        // Handle daisukianime.xyz wrapper URLs
+        if (url.includes('daisukianime')) {
+            const idMatch = url.match(/[?&]id=([a-z0-9]+)/i);
+            if (idMatch) url = `https://sendvid.com/embed/${idMatch[1]}`;
+        }
+        // Normalize: use embed URL for sendvid
+        const embedUrl = url.includes('/embed/') ? url : url.replace(/sendvid\.com\/([a-z0-9]+)/i, 'sendvid.com/embed/$1');
+        const res = await safeFetch(embedUrl, { headers: { 'Referer': 'https://sendvid.com/' } });
+        if (!res) return { url };
+
+        // Detect service outage (502/503 = Technical Difficulties page)
+        if (res.status === 502 || res.status === 503) {
+            console.warn(`[Sendvid] Service temporarily unavailable (${res.status}): ${embedUrl.slice(0, 60)}`);
+            // Return embed URL as fallback - native player may handle it
+            return { url: embedUrl, isDirect: false };
+        }
+
+        const html = await res.text();
+        // Try multiple extraction patterns
+        const match = html.match(/video_source\s*:\s*["']([^"']+\.mp4[^"']*)["|']/) ||
+                      html.match(/source\s+src=["']([^"']+\.mp4[^"']*)["|']/) ||
+                      html.match(/<source[^>]+src=["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/) ||
+                      html.match(/file\s*:\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["|']/) ||
+                      html.match(/["'](https?:\/\/[^"']+\.mp4[^"']*)["']/);
+        if (match) return { url: match[1], headers: { 'Referer': 'https://sendvid.com/' } };
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveLuluvid(url) {
+    try {
+        const res = await safeFetch(url);
+        if (!res) return { url };
+        let html = await res.text();
+        if (html.includes('p,a,c,k,e,d')) html = unpack(html);
+
+        const match = html.match(/sources\s*:\s*\[["']([^"']+\.(?:m3u8|mp4)[^"']*)["']\]/) ||
+                      html.match(/file\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/);
+        if (match) {
+            let videoUrl = match[1];
+            if (videoUrl.includes('base64')) videoUrl = _atob(videoUrl.split(',')[1] || videoUrl);
+            return { url: videoUrl, headers: { "Referer": url } };
+        }
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveHGCloud(url) {
+    try {
+        const res = await safeFetch(url);
+        if (!res) return { url };
+        const html = await res.text();
+        // HGCloud often uses a direct m3u8 in a script or player config
+        const match = html.match(/["'](https?:\/\/[^"']+\.m3u8[^"']*)["']/);
+        if (match) return { url: match[1], headers: { "Referer": url } };
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveDood(url) {
+    try {
+        const domain = url.match(/https?:\/\/([^\/]+)/)?.[1] || "dood.to";
+        let currentUrl = url;
+        // Redirection 301 de la famille dood (vérifié en live 2026-10 :
+        // dood.to/e/xxx → 301 → playmogo.com/e/xxx,ême flow pass_md5).
+        // On suit une redirection une fois pour garder le résolveur fonctionnel.
+        let res = await safeFetch(currentUrl);
+        if (!res) return { url };
+        let finalUrl = res.url || currentUrl;
+        const finalDomain = finalUrl.match(/https?:\/\/([^\/]+)/)?.[1] || domain;
+        let html = await res.text();
+        // Le redirect safeFetch renvoie déjà la page finale ; si le domaine final
+        // diffère, tous les appel pass_md5 se font sur ce CDN final.
+        if (finalDomain !== domain) {
+            currentUrl = finalUrl;
+        }
+        res = null;
+        if (html.includes('eval(function(p,a,c,k,e,d)')) html = unpack(html);
+        const passMatch = html.match(/\$\.get\(['"]\/pass_md5\/([^'"]+)['"]/)
+            || html.match(/pass_md5\/([^'"\s]+)['"]/);
+            if (passMatch) {
+            const token = passMatch[1];
+            const passUrl = `https://${finalDomain}/pass_md5/${token}`;
+            const passRes = await safeFetch(passUrl, { headers: { "Referer": currentUrl } });
+            if (passRes && passRes.ok) {
+                const content = await passRes.text();
+                const randomStr = Math.random().toString(36).substring(2, 12);
+                return { 
+                    url: content + randomStr + "?token=" + token + "&expiry=" + Date.now(),
+                    headers: { "Referer": `https://${finalDomain}/` }
+                };
+            }
+        }
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveMyTV(url) {
+    try {
+        // myvi.ru / mytv: try the embed page then look for mp4/m3u8
+        const res = await safeFetch(url, { headers: { 'Referer': 'https://www.myvi.ru/' } });
+        if (!res) return { url };
+        let html = await res.text();
+        if (html.includes('eval(function(p,a,c,k,e,d)')) html = unpack(html);
+        // Try JSON player config
+        const match = html.match(/["'](?:file|src|url|stream_url)["']\s*:\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/) ||
+                      html.match(/["'](https?:\/\/[^"']+\.(?:mp4|m3u8)[^"']*)["']/) ||
+                      html.match(/source\s+src=["']([^"']+\.(?:mp4|m3u8)[^"']*)/);
+        if (match) return { url: match[1], headers: { 'Referer': 'https://www.myvi.ru/' } };
+        // Try API endpoint for myvi
+        const idMatch = url.match(/\/(?:embed\/|watch\/|video\/)([a-zA-Z0-9_-]+)/);
+        if (idMatch) {
+            const apiUrl = `https://www.myvi.ru/api/video/${idMatch[1]}`;
+            const apiRes = await safeFetch(apiUrl, { headers: { 'Referer': url } });
+            if (apiRes) {
+                const data = await apiRes.text();
+                const apiMatch = data.match(/["'](?:url|src|file)["']\s*:\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/);
+                if (apiMatch) return { url: apiMatch[1], headers: { 'Referer': 'https://www.myvi.ru/' } };
+            }
+        }
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveYounetu(url) {
+    try {
+        const origin = url.match(/^https?:\/\/[^/]+/)?.[0] || 'https://younetu.org';
+        const res = await safeFetch(url, { headers: { 'Referer': origin + '/' } });
+        if (!res) return { url };
+        let html = await res.text();
+        if (html.includes('p,a,c,k,e,d') || html.includes('eval(function')) html = unpack(html);
+
+        const match = html.match(/src\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                      html.match(/file\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                      html.match(/sources\s*:\s*\[["']([^"']+\.(?:m3u8|mp4)[^"']*)["']\]/i) ||
+                      html.match(/["'](https?:\/\/[^"']+\.(?:m3u8|mp4)[^"']*)["']/i);
+        if (match) {
+            return { url: match[1], headers: { 'Referer': origin + '/' } };
+        }
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveVidoza(url) {
+    try {
+        const res = await safeFetch(url, { headers: { 'Referer': 'https://vidoza.net/' } });
+        if (!res) return { url };
+        const html = await res.text();
+
+        const match = html.match(/src\s*:\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i) ||
+                      html.match(/file\s*:\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i) ||
+                      html.match(/["'](https?:\/\/[^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
+        if (match) {
+            return { url: match[1], headers: { 'Referer': 'https://vidoza.net/' } };
+        }
+    } catch (e) {}
+    return { url };
+}
+
+/**
+ * lecteur2.xtremestream.xyz — lecteur principal de l'embed lecteurvideo.com
+ * (section OD_FR «xtremestream», ~60-70% des liens VF, priorité showVideo=2).
+ * Structure vérifiée en live (2026-10) :
+ *   player/index.php?data={data}          → page HTML (1 MB, Referer lecteurvideo OK)
+ *     var video_id = `b069b…`             → ID de la vidéo
+ *     var m3u8_loader_url = `…/xs1.php?data=`
+ *   {m3u8_loader_url}{video_id}           → master.m3u8 DIRECT (681 o)
+ *     ⚠ Referer requis = domaine propre du player (403 sinon — anti-hotlink)
+ *     ⚠ La page HTML est ~1 MB < 1 MB? NON > 1 MB → tronquée par le runtime à
+ *       1 MB + suffixe "\n...[truncated]". Les var video_id/loader sont à
+ *       ~1 004 000 octets — sous le seuil, mais on parse le texte brut sans
+ *       jamais re-faire confiance à du JSON : safeFetch renvoie null sur
+ *       tronqué (HTML) → dans ce cas on retente une fois sans cache en
+ *       demandant le début de page ? Non : fiable car < seuil vérifié en live ;
+ *       si tronqué un jour, la regex ne matchera pas → return { url } propre.
+ */
+export async function resolveXtremeStream(url) {
+    try {
+        const origin = url.match(/^https?:\/\/[^/]+/)?.[0] || 'https://lecteur2.xtremestream.xyz';
+        const res = await safeFetch(url, {
+            headers: { 'Referer': 'https://lecteurvideo.com/' },
+            timeout: 12000,
+        });
+        if (!res) return { url };
+        const html = await res.text();
+        if (!html || html.length < 100) return { url };
+
+        const videoId = html.match(/var\s+video_id\s*=\s*[`"']([A-Za-z0-9_-]+)[`"']/)?.[1];
+        const loaderUrl = html.match(/var\s+m3u8_loader_url\s*=\s*[`"']([^`"']+)[`"']/)?.[1];
+        if (!videoId || !loaderUrl) return { url };
+
+        // Le loader exige le Referer du player lui-même (403 avec lecteurvideo)
+        const loaderFull = loaderUrl + videoId;
+        const res2 = await safeFetch(loaderFull, {
+            headers: { 'Referer': origin + '/' },
+            timeout: 12000,
+        });
+        if (!res2) return { url };
+        const manifest = await res2.text();
+        if (!manifest || !manifest.includes('#EXTM3U')) return { url };
+        // Loader → m3u8 direct : le body EST le manifest
+        return { url: loaderFull, headers: { 'Referer': origin + '/' } };
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveMoon(url) {
+    try {
+        const res = await safeFetch(url);
+        if (!res) return { url };
+        let html = await res.text();
+        if (html.includes('p,a,c,k,e,d')) html = unpack(html);
+        const match = html.match(/file\s*:\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/);
+        if (match) return { url: match[1], headers: { "Referer": url } };
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolvePackedPlayer(url) {
+    try {
+        const origin = url.match(/^https?:\/\/[^/]+/)?.[0] || url;
+        const res = await safeFetch(url, { headers: { 'Referer': origin + '/' } });
+        if (!res) return { url };
+        let html = await res.text();
+        if (html.includes('p,a,c,k,e,d') || html.includes('eval(function')) html = unpack(html);
+
+        const match = html.match(/file\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                      html.match(/sources\s*:\s*\[[^\]]*?["'](https?:\/\/[^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                      html.match(/["'](https?:\/\/[^"']+\.(?:m3u8|mp4)[^"']*)["']/i);
+
+        if (match) {
+            return { url: match[1], headers: { 'Referer': origin + '/' } };
+        }
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveLecteurVideo(url) {
+    // lecteurvideo.com: aggrégateur de liens vidéo (ex: wookafr → lecteurvideo → filemoon/voe).
+    // Format: /embed.php?id={id}&tp={type}&url={referrer}
+    // Le paramètre `url` est le nom du site référant (ex: wookafr.tel).
+    // La page contient des liens vers des hébergeurs (filemoon, voe, veev, etc.).
+    try {
+        const origin = url.match(/^https?:\/\/[^/]+/)?.[0] || 'https://lecteurvideo.com';
+        // Mapping referrer → domaine de travail (wookafr.tel → wookafr.center)
+        const refParam = url.match(/[?&]url=([^&]+)/)?.[1] || '';
+        const referrerMap = {
+            'wookafr.tel': 'https://wookafr.center',
+            'wookafr.to': 'https://wookafr.center',
+            'wookafr.app': 'https://wookafr.center',
+            'wookafr.fyi': 'https://wookafr.center',
+        };
+        const referer = referrerMap[refParam] || `https://${refParam}` || origin + '/';
+        const res = await safeFetch(url, {
+            headers: { 'Referer': referer, 'Origin': referer.replace(/\/$/, '') },
+            timeout: 12000,
+        });
+        if (!res) return { url };
+        let html = await res.text();
+        if (html.includes('p,a,c,k,e,d') || html.includes('eval(function')) html = unpack(html);
+
+        // 1. Chercher des URLs vidéo directes (m3u8/mp4) — ancien format
+        const directMatch = html.match(/file\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                      html.match(/sources\s*:\s*\[["']([^"']+\.(?:m3u8|mp4)[^"']*)["']\]/i) ||
+                      html.match(/src\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                      html.match(/data-src=["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i);
+        if (directMatch) {
+            let videoUrl = directMatch[1];
+            if (videoUrl.startsWith('//')) videoUrl = 'https:' + videoUrl;
+            if (!isKnownFakeDirectUrl(videoUrl)) {
+                return { url: videoUrl, headers: { 'Referer': origin + '/' } };
+            }
+        }
+
+        // 2. Nouveau format : extraire TOUS les liens externes
+        const allUrls = [...html.matchAll(/href=["'](https?:\/\/[^"']+)["']/gi)].map(m => m[1])
+            .concat([...html.matchAll(/["'](https?:\/\/[^"']+)["']/gi)].map(m => m[1]))
+            .filter(u => !u.includes('lecteurvideo.com') && !u.includes('youtube.com') &&
+                         !u.includes('googlevideo.com') && !u.includes('fonts.googleapis.com') &&
+                         !u.includes('jsdelivr.net') && !u.includes('cloudflareinsights.com') &&
+                         !u.includes('themoviedb.org') && !u.includes('imagizer.imageshack.com') &&
+                         !u.includes('cloudflare') && !u.includes('plyr.'));
+
+        // 2a. PRIORITÉ MAX: URLs directes avec extension vidéo (.mp4/.m3u8/.mkv/.webm)
+        const DIRECT_VIDEO_RE = /^https?:\/\/[^"']+\.(?:m3u8|mp4|mkv|webm)(?:\?[^"']*)?$/i;
+        const directVideo = allUrls.find(u => DIRECT_VIDEO_RE.test(u) && !isKnownFakeDirectUrl(u));
+        if (directVideo) return { url: directVideo, headers: { 'Referer': origin + '/' } };
+
+        // 2b. URLs directes des hébergeurs de download (megaup, 1fichier)
+        //     megaup.net/.../file.mp4 est souvent une URL directe jouable
+        const directHosts = ['megaup.net', '1fichier.com'];
+        for (const host of directHosts) {
+            const found = allUrls.find(u => u.includes(host));
+            if (found) return { url: found, headers: { 'Referer': origin + '/' } };
+        }
+
+        // 2c. Fallback: hébergeurs SPA connus (filemoon, voe, etc.) — moins fiables
+        const spaHosts = ['sibnet.ru', 'sendvid.com', 'dood.to', 'listeamed.net', 'voe.sx', 'veev.to', 'filemoon.sx'];
+        for (const host of spaHosts) {
+            const found = allUrls.find(u => u.includes(host));
+            if (found) return { url: found, headers: { 'Referer': origin + '/' } };
+        }
+
+        // 3. Chercher un iframe vers un autre hébergeur
+        const iframeMatch = html.match(/<iframe[^>]+src=["'](https?:\/\/[^"']+)["']/i);
+        if (iframeMatch) {
+            const iframeSrc = iframeMatch[1];
+            if (!iframeSrc.includes('lecteurvideo.com') && !iframeSrc.includes('youtube.com')) {
+                return { url: iframeSrc, headers: { 'Referer': origin + '/' } };
+            }
+        }
+        // 4. Retourner le premier lien non-tracké
+        const downloadLink = allUrls.find(u =>
+            u.includes('1fichier.com') || u.includes('megaup.net') || u.includes('filemoon') ||
+            u.includes('voe.sx') || u.includes('veev.to') || u.includes('listeamed.net'));
+        if (downloadLink) return { url: downloadLink, headers: { 'Referer': origin + '/' } };
+    } catch (e) {}
+    return { url };
+}
+
+export async function resolveDownParadise(url) {
+    // down-paradise.com: Parked domain with multi-level anti-bot redirect chain
+    // (parklogic -> ww1.down-paradise -> tratobid.com). Unresolvable without a browser.
+    // Return same URL immediately — let the knownSlowHost check handle it fast.
+    return { url };
+}
+
+export async function resolveUp4fun(url) {
+    // up4fun.top is notoriously slow (60s+). Single lightweight fetch attempt, then bail.
+    try {
+        const res = await safeFetch(url, { headers: { 'Referer': 'https://up4fun.top/' } });
+        if (!res) return null;
+        const html = await res.text();
+        // Look for direct video URLs or embedded iframes with video
+        const videoMatch = html.match(/["'](https?:\/\/[^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                           html.match(/file\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i);
+        if (videoMatch) return { url: videoMatch[1], headers: { 'Referer': 'https://up4fun.top/' } };
+    } catch (e) {}
+    return null; // null = don't retry in generic fallback
+}
+
+// ─── Deformed Domain Correction ──────────────────────────────────────────────
+// Certains sites (notamment VoirAnime) déforment délibérément les noms de
+// domaine des hébergeurs vidéo dans les iframes retournés par leur player PHP,
+// afin de contourner les bloqueurs de pub / adblock.
+//
+// Exemples observés :
+//   streamtape.com  → stredamtape.com, streamtapde.com, streamtape.cdom
+//   get_video       → get_viddeo
+//
+// Le principe de détection : pour chaque hôte connu, on vérifie si les
+// caractères du nom de base (sans TLD) apparaissent dans le même ordre dans
+// le domaine déformé (séquence croissante). Si le ratio de correspondance
+// dépasse 75 % et que la longueur est proche, on considère que c'est une
+// déformation et on remplace par le domaine correct.
+
+const KNOWN_HOST_NAMES = [
+    { name: 'streamtape', domain: 'streamtape.com' },
+    { name: 'sibnet', domain: 'sibnet.ru' },
+    { name: 'vidmoly', domain: 'vidmoly.to' },
+    { name: 'uqload', domain: 'uqload.co' },
+    { name: 'voe', domain: 'voe.sx' },
+    { name: 'dood', domain: 'dood.to' },
+    { name: 'younetu', domain: 'younetu.org' },
+    { name: 'netu', domain: 'netu.tv' },
+    { name: 'vidoza', domain: 'vidoza.net' },
+    { name: 'sendvid', domain: 'sendvid.com' },
+    { name: 'myvi', domain: 'myvi.ru' },
+    { name: 'moon', domain: 'filemoon.sx' },
+    { name: 'luluvid', domain: 'luluvid.com' },
+    { name: 'fsvid', domain: 'fsvid.lol' },
+    { name: 'vidzy', domain: 'vidzy.live' },
+    { name: 'lecteurvideo', domain: 'lecteurvideo.com' },
+    { name: 'vidhsareup', domain: 'vidhsareup.fun' },
+    { name: 'hgcloud', domain: 'hgcloud.xyz' },
+    { name: 'up4fun', domain: 'up4fun.top' },
+    { name: 'lulu', domain: 'luluvdo.com' },
+];
+
+/**
+ * Corrige les domaines déformés dans une URL.
+ * Détecte les déformations par séquence de caractères et patterns connus.
+ *
+ * @param {string} url - URL potentiellement déformée
+ * @returns {string} URL corrigée (inchangée si aucune déformation détectée)
+ */
+/**
+ * Domaines parfaitement valides à NE JAMAIS "corriger".
+ * Le matching flou ci-dessous (deformedBase.includes(host.name) + lenDiff<=4)
+ * transforme sinon des domaines légitimes : ex "voembed".includes('voe') avec
+ * |7-3|=4 → voembed.net réécrit en voe.sx, ce qui casse la résolution VidMoly.
+ */
+const NEVER_CORRECT_DOMAINS = [
+    'voembed.net',      // famille VidMoly (m3u8 en clair) — PAS voe
+    'vidmoly.biz',      // domaine VidMoly vivant servi dans les iframes (live 2026-10)
+    'vidmoly.net',      // 301 → vidmoly.biz (live 2026-10) — ne pas réécrire en .to
+    'gn1r5n.org',       // embed "myTV" de VoirAnime
+    'streamhide.to',    // gate ParkLogic — PAS streamtape
+];
+
+function correctDeformedVideoUrl(url) {
+    if (!url || typeof url !== 'string') return url;
+
+    const urlMatch = url.match(/^https?:\/\/([^\/]+)(.*)/);
+    if (!urlMatch) return url;
+
+    // Whitelist: domaines valides à préserver tels quels
+    const fullDomainForWhitelist = urlMatch[1].toLowerCase();
+    if (NEVER_CORRECT_DOMAINS.some(d =>
+        fullDomainForWhitelist === d || fullDomainForWhitelist.endsWith('.' + d)
+    )) {
+        return url;
+    }
+
+    const fullDeformedDomain = urlMatch[1].toLowerCase();
+
+    // Extraire le nom d'hôte principal (ex: "stredamtape" depuis "cdn.stredamtape.com")
+    // On prend l'avant-dernière partie du domaine séparé par points
+    const domainParts = fullDeformedDomain.split('.');
+    const deformedBase = domainParts.length >= 2
+        ? domainParts[domainParts.length - 2]
+        : domainParts[0];
+
+    // Vérifier si le domaine est déjà un sous-domaine valide d'un hôte connu
+    // Ex: "cdn.streamtape.com" → ne PAS corriger le domaine (préserver le sous-domaine)
+    const isKnownSubdomain = KNOWN_HOST_NAMES.some(h =>
+        fullDeformedDomain.endsWith('.' + h.domain)
+    );
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // Vérification 2 : Si le domaine a PLUS DE 2 parties (ex: u14.vidzy.cc),
+    // c'est un sous-domaine potentiellement valide. On ne corrige que si le
+    // nom de base (avant-dernière partie) ressemble à une déformation
+    // (caractères supplémentaires évidents), PAS si c'est un hostname standard.
+    //
+    // Exemples de vrais sous-domaines à NE PAS corriger :
+    //   u14.vidzy.cc       → skip (c'est un CDN subdomain, "u14" est un préfixe)
+    //   cdn.streamtape.com → skip (déjà détecté par isKnownSubdomain)
+    //
+    // Exemples de vrais domaines déformés à corriger :
+    //   stredamtape.com    → "stredamtape" a 11 chars vs "streamtape" 10 → corriger
+    //   streamtapde.com    → "streamtapde" a 11 chars vs "streamtape" 10 → corriger
+    //   vidzy.cdom         → "vidzy" = "vidzy" exact → corriger
+    //   vidhsareup.fun     → "vidhsareup" = "vidhsareup" exact → corriger
+    // ═══════════════════════════════════════════════════════════════════════
+    const isSubdomain = domainParts.length > 2
+
+    let correctedUrl = url;
+    let domainCorrected = isKnownSubdomain; // skip domain correction if already valid subdomain
+
+    // 1. Vérifier si le nom de base (sans TLD) est déjà présent en substring
+    // Ex: "streamtape.cdom" → deformedBase="streamtape", qui contient "streamtape"
+    if (!domainCorrected) {
+        for (const host of KNOWN_HOST_NAMES) {
+            if (deformedBase.includes(host.name)) {
+                const lenDiff = Math.abs(deformedBase.length - host.name.length);
+                if (lenDiff <= 4) {
+                    // Si c'est un sous-domaine (ex: u14.vidzy.cc), ne corriger QUE si
+                    // le sous-domaine lui-même ressemble à une déformation
+                    // (ex: "uhd.vidzy.cc" n'est pas une déformation mais "stredamtape.example.com" oui)
+                    if (isSubdomain) {
+                        // Pour un sous-domaine, le nom de base doit être une déformation CLAIRE.
+                        // "vidzy" dans "u14.vidzy.cc" n'est pas une déformation car "vidzy" est
+                        // le nom exact. On skip si deformedBase === host.name (pas de déformation)
+                        if (deformedBase === host.name) {
+                            // Skip: c'est probablement un vrai sous-domaine CDN valide
+                            continue
+                        }
+                        // Vérification supplémentaire: le préfixe (première partie) ne doit pas
+                        // ressembler à un identifiant CDN (chiffres, lettres courtes)
+                        const prefix = domainParts[domainParts.length - 3]
+                        if (/^[a-z0-9]{1,6}$/i.test(prefix)) {
+                            // Ex: "u14" dans "u14.vidzy.cc" → préfixe CDN, skip
+                            // Ex: "cdn" dans "cdn.vidmoly.com" → préfixe CDN, skip
+                            console.log(`[Resolver] Subdomain skip (CDN prefix "${prefix}"): ${fullDeformedDomain} → NOT corrected`)
+                            continue
+                        }
+                    }
+                    console.log(`[Resolver] Domain corrected (direct): ${fullDeformedDomain} → ${host.domain}`);
+                    correctedUrl = correctedUrl.replace(fullDeformedDomain, host.domain);
+                    domainCorrected = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    // 2. Vérifier par séquence de caractères (match fuzzy)
+    // Parcourt chaque caractère du nom connu dans l'ordre, et le cherche
+    // dans le domaine déformé en avançant. Permet de détecter les
+    // insertions/substitutions comme stredamtape → streamtape.
+    // ⚠ Ne s'applique PAS aux sous-domaines (ex: u14.vidzy.cc) pour éviter
+    //    les faux positifs avec des CDNs valides.
+    if (!domainCorrected && !isSubdomain) {
+        for (const host of KNOWN_HOST_NAMES) {
+            const knownBase = host.name;
+            if (knownBase.length < 5) continue;
+
+            let matches = 0;
+            let j = 0;
+            for (let i = 0; i < knownBase.length; i++) {
+                const target = knownBase[i];
+                while (j < deformedBase.length && deformedBase[j] !== target) {
+                    j++;
+                }
+                if (j < deformedBase.length) {
+                    matches++;
+                    j++;
+                } else {
+                    break;
+                }
+            }
+
+            const ratio = matches / knownBase.length;
+            if (ratio >= 0.75) {
+                const lenDiff = Math.abs(deformedBase.length - knownBase.length);
+                if (lenDiff <= 4) {
+                    console.log(`[Resolver] Domain corrected (fuzzy ${Math.round(ratio * 100)}%): ${fullDeformedDomain} → ${host.domain}`);
+                    correctedUrl = correctedUrl.replace(fullDeformedDomain, host.domain);
+                    domainCorrected = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    // 3. TOUJOURS corriger les patterns de chemin connus (ex: get_viddeo → get_video)
+    // Indépendamment de la correction domaine, car même avec le bon domaine,
+    // le chemin peut être déformé (ex: /gdet_video/, /get_viddeo/).
+    const PATH_CORRECTIONS = [
+        [/get_viddeo/gi, 'get_video'],
+        [/get_videeo/gi, 'get_video'],
+        [/getv_video/gi, 'get_video'],
+        [/gdet_video/gi, 'get_video'],
+        [/gett_video/gi, 'get_video'],
+        [/get_vvdo/gi, 'get_video'],
+        [/get_vide0/gi, 'get_video'],
+    ];
+
+    const beforePath = correctedUrl;
+    for (const [pattern, replacement] of PATH_CORRECTIONS) {
+        correctedUrl = correctedUrl.replace(pattern, replacement);
+    }
+
+    if (domainCorrected) {
+        console.log(`[Resolver] Result: ${url.slice(0, 80)} → ${correctedUrl.slice(0, 80)}`);
+    } else if (correctedUrl !== url) {
+        console.log(`[Resolver] Path corrected: ${url.slice(0, 60)}`);
+    }
+
+    return correctedUrl;
+}
+
+// ─── Playability Probe (verifyPlayableUrl) ────────────────────────────────────
+// Sonde de « jouabilité » avant marquage direct : certains CDN (fsvid/vidzy)
+// servent des masters HLS bien formés (tokens valides) mais répondent 403 au
+// playback selon le réseau — le lecteur reçoit alors une page 403
+// (« invalid or unplayable content »). Cette sonde vérifie que l'URL finale
+// répond réellement avant de l'exposer comme directe.
+//
+// Usage (fail-open : ne rejeter QUE les verdicts 'dead') :
+//   const verdict = await verifyPlayableUrl(s.url, s.headers, { timeoutMs: 6000 });
+//   if (verdict === 'dead') drop(s); else keep(s); // 'ok' + 'unknown' conservés
+//
+// Câblé uniquement sur frenchstream pour l'instant ; réutilisable tel quel par
+// tout autre provider (helper central, aucune dépendance provider).
+//
+// QuickJS-safe : pas de Range (strippé par le runtime), pas de setTimeout
+// (le timeout passe par safeFetch/AbortSignal.timeout), jamais de throw
+// (toute erreur réseau/timeout/exception → 'unknown').
+
+/**
+ * Lit un header de réponse quel que soit son conteneur (Headers natif avec
+ * .get(), ou objet plain issu du cache safeFetch — clés en minuscules sur
+ * les deux apps).
+ * @param {object} headers
+ * @param {string} name
+ * @returns {string}
+ */
+function getResponseHeader(headers, name) {
+    try {
+        if (!headers) return '';
+        if (typeof headers.get === 'function') {
+            return headers.get(name) || headers.get(String(name).toLowerCase()) || '';
+        }
+        const lower = String(name).toLowerCase();
+        const keys = Object.keys(headers);
+        for (let i = 0; i < keys.length; i++) {
+            if (keys[i].toLowerCase() === lower) return String(headers[keys[i]] || '');
+        }
+    } catch (e) {}
+    return '';
+}
+
+function isProbeHlsUrl(url) {
+    const u = String(url || '').toLowerCase();
+    return u.includes('.m3u8') || u.includes('/hls2/') || u.includes('/hls/');
+}
+
+/**
+ * Sonde la jouabilité d'une URL finale (master HLS ou fichier progressif).
+ *
+ * - HLS/m3u8 : GET via safeFetch (timeout 6s, avec les headers du stream dont
+ *   Referer) ; 'ok' si status 2xx ET (body contient #EXTM3U OU content-type
+ *   playlist). Échec définitif ('dead') : 403/404/410 ou body HTML d'erreur
+ *   (page d'erreur servie en 200).
+ * - MP4/MKV/autres : HEAD léger (status 2xx + content-type video/* → 'ok') ;
+ *   si HEAD non supporté (405...) ou échec technique → 'unknown' (pas d'échec).
+ *
+ * @param {string} url - URL finale à sonder
+ * @param {object} [headers] - Headers du stream (Referer/Origin inclus)
+ * @param {object} [opts]
+ * @param {number} [opts.timeoutMs=6000] - Timeout par sonde
+ * @returns {Promise<'ok'|'dead'|'unknown'>} Jamais de throw.
+ */
+export async function verifyPlayableUrl(url, headers = {}, opts = {}) {
+    try {
+        if (!url || typeof url !== 'string' || !/^https?:\/\//i.test(url)) return 'unknown';
+        const timeoutMs = opts && opts.timeoutMs > 0 ? opts.timeoutMs : 6000;
+        const reqHeaders = { ...(headers || {}) };
+
+        if (isProbeHlsUrl(url)) {
+            let res = null;
+            try {
+                res = await safeFetch(url, { headers: reqHeaders, timeout: timeoutMs });
+            } catch (e) { return 'unknown'; }
+            if (!res) return 'unknown';
+            const status = res.status;
+            if (status === 403 || status === 404 || status === 410) return 'dead';
+            if (!res.ok || status < 200 || status >= 300) return 'unknown';
+            let body = '';
+            try { body = await res.text(); } catch (e) { return 'unknown'; }
+            if (typeof body === 'string' && body.includes('#EXTM3U')) return 'ok';
+            const ctype = getResponseHeader(res.headers, 'content-type');
+            if (/m3u8|mpegurl/i.test(ctype)) return 'ok';
+            // 200 avec page HTML d'erreur (403 déguisé, stub expiré...) → mort
+            if (typeof body === 'string' && /^\s*<(!doctype|html|head|body)/i.test(body)) return 'dead';
+            return 'unknown';
+        }
+
+        // Fichiers progressifs (mp4/mkv/webm...) : HEAD léger, sans Range
+        // (strippé par le runtime Nuvio — ne jamais s'appuyer dessus).
+        let res = null;
+        try {
+            res = await safeFetch(url, { method: 'HEAD', headers: reqHeaders, timeout: timeoutMs });
+        } catch (e) { return 'unknown'; }
+        if (!res) return 'unknown';
+        const status = res.status;
+        if (status === 403 || status === 404 || status === 410) return 'dead';
+        if (!res.ok || status < 200 || status >= 300) return 'unknown';
+        const ctype = getResponseHeader(res.headers, 'content-type');
+        if (/^video\//i.test(ctype)) return 'ok';
+        return 'unknown';
+    } catch (e) { return 'unknown'; }
+}
+
+// ─── resolveStream optimizations ────────────────────────────────────────────
+
+/**
+ * Cache partagé entre tous les appels resolveStream d'une même exécution.
+ * Évite de re-peeler le même iframe 10× quand 10 streams pointent vers la même URL.
+ */
+const peeledUrls = new Set();
+
+/**
+ * Domaines d'iframe connus pour être des pubs/analytics/trackers.
+ * On les ignore lors de la sélection de l'iframe à peeler.
+ */
+const AD_IFRAME_PATTERNS = [
+    'googleads', 'doubleclick', 'googlesyndication', 'googletagmanager',
+    'facebook.com/plugins', 'twitter.com/share',
+    'disqus.com', 'hotjar.com',
+    'analytics', 'tracking', 'pixel', 'gtag',
+    'adservice', 'adserver', 'ad.doubleclick',
+    'amazon-adsystem', 'criteo', 'taboola', 'outbrain',
+];
+
+/**
+ * Score de priorité pour les iframes vidéo.
+ * Plus le score est élevé, plus l'iframe a de chances d'être un lecteur vidéo.
+ */
+const VIDEO_IFRAME_SCORE = {
+    'sibnet': 3, 'vidmoly': 3, 'uqload': 3,
+    'voe': 3, 'dood': 3, 'streamtape': 3,
+    'sendvid': 2, 'younetu': 2, 'netu': 2,
+    'moonplayer': 2, 'filemoon': 2, 'vidoza': 2,
+    'myvi': 2, 'luluvid': 2, 'lulu': 2,
+    'embed': 2, 'player': 2, 'video': 2,
+    'cdn': 1, 'hls': 3, 'mp4': 3, 'm3u8': 3,
+};
+
+/**
+ * Extrait et sélectionne le meilleur iframe vidéo du HTML.
+ * - Ignore les iframes de pub/analytics
+ * - Priorise les iframes vers des hébergeurs vidéo connus
+ * - Évite de re-peeler des URLs déjà visitées
+ *
+ * @param {string} html - Contenu HTML de la page
+ * @param {string} pageUrl - URL de la page (pour résoudre les URLs relatives)
+ * @returns {string|null} URL du meilleur iframe, ou null si aucun trouvé
+ */
+function findBestVideoIframe(html, pageUrl) {
+    const iframeRegex = /<iframe\s+[^>]*src=["']([^"']+)["']/gi;
+    const candidates = [];
+    let match;
+
+    while ((match = iframeRegex.exec(html)) !== null) {
+        let iframeUrl = match[1];
+
+        // Résoudre les URLs relatives
+        if (iframeUrl.startsWith('//')) iframeUrl = 'https:' + iframeUrl;
+        if (iframeUrl.startsWith('/')) {
+            const origin = pageUrl.match(/^https?:\/\/[^\/]+/)?.[0];
+            if (origin) iframeUrl = origin + iframeUrl;
+        }
+
+        if (!iframeUrl.startsWith('http')) continue;
+        if (iframeUrl === pageUrl) continue;
+
+        const lower = iframeUrl.toLowerCase();
+
+        // Ignorer les iframes de pub/analytics
+        const isAd = AD_IFRAME_PATTERNS.some(p => lower.includes(p));
+        if (isAd) continue;
+
+        // Calculer le score vidéo
+        let score = 0;
+        for (const [keyword, pts] of Object.entries(VIDEO_IFRAME_SCORE)) {
+            if (lower.includes(keyword)) score += pts;
+        }
+
+        candidates.push({ url: iframeUrl, score });
+    }
+
+    if (candidates.length === 0) return null;
+
+    // Trier par score décroissant, prendre le meilleur
+    candidates.sort((a, b) => b.score - a.score);
+    return candidates[0].url;
+}
+
+export async function resolveStream(stream, depth = 0) {
+    if (depth > 1) return { ...stream, isDirect: false }; // Max 1 recursive peel for TV timeouts
+    if (depth === 0) peeledUrls.clear(); // Fresh cache per top-level call
+
+    // Corriger les domaines déformés AVANT le routage vers les résolveurs
+    // Certains sites (VoirAnime, French-Manga) déforment les noms de domaine
+    // pour contourner les bloqueurs. Voir correctDeformedVideoUrl() ci-dessus.
+    // On remplace stream.url par la version corrigée pour que tout le routage
+    // utilise le bon domaine.
+    stream.url = correctDeformedVideoUrl(stream.url);
+    const originalUrl = stream.url;
+    const urlLower = originalUrl.toLowerCase();
+    
+    // 0. Skip known ad domains or empty URLs
+    if (!originalUrl || originalUrl.includes('google-analytics') || originalUrl.includes('doubleclick')) return null;
+
+    // 1. Check if it's already a direct video link
+    if (isPlayableMediaUrl(originalUrl)) {
+        return { ...stream, isDirect: true };
+    }
+
+    try {
+        let result = null;
+
+        // 2. Specific Host Resolvers
+        if (urlLower.includes('sibnet.ru')) result = await resolveSibnet(originalUrl);
+        else if (urlLower.includes('vidmoly.') || urlLower.includes('voembed.') || urlLower.includes('ansembed.')) result = await resolveVidmoly(originalUrl);
+        else if (urlLower.includes('.mail.ru')) result = await resolveMailRu(originalUrl);
+        else if (urlLower.includes('uqload.') || urlLower.includes('oneupload.')) result = await resolveUqload(originalUrl);
+        else if (urlLower.includes('voe') || urlLower.includes('weneverbeenfree') || urlLower.includes('maryspecialwatch') || urlLower.includes('charlestoughrace') || urlLower.includes('sandratableother') || urlLower.includes('jeremyparticipantanything') || urlLower.includes('teresapoliticallearn')) result = await resolveVoe(originalUrl);
+        else if (urlLower.includes('streamtape.com') || urlLower.includes('stape')) result = await resolveStreamtape(originalUrl);
+        else if (urlLower.includes('dood') || urlLower.includes('ds2play') || urlLower.includes('bigwar5')) result = await resolveDood(originalUrl);
+        else if (urlLower.includes('moonplayer') || urlLower.includes('filemoon')) result = await resolveMoon(originalUrl);
+        else if (urlLower.includes('younetu.') || urlLower.includes('netu.')) result = await resolveYounetu(originalUrl);
+        else if (urlLower.includes('vidoza.')) result = await resolveVidoza(originalUrl);
+        else if (urlLower.includes('xtremestream.')) result = await resolveXtremeStream(originalUrl);
+        else if (urlLower.includes('sendvid.') || urlLower.includes('daisukianime')) result = await resolveSendvid(originalUrl);
+        else if (urlLower.includes('myvi.') || urlLower.includes('mytv.')) result = await resolveMyTV(originalUrl);
+        else if (urlLower.includes('fsvid.') || urlLower.includes('vidzy.')) result = await resolveFsvidVidzy(originalUrl);
+        else if (urlLower.includes('vidstream.pro') || urlLower.includes('vidcdn.') || urlLower.includes('kakaflix.') || urlLower.includes('vidhsareup.')) result = await resolvePackedPlayer(originalUrl);
+        else if (
+            urlLower.includes('luluvid.') ||
+            urlLower.includes('lulust.') ||
+            urlLower.includes('lulustream.') ||
+            urlLower.includes('luluvdo.') ||
+            // Miroirs/wrappers LuluStream (vérifié en live 2026-10 : le packer
+            // expose un master.m3u8 tnmr.org, mais 403 constaté même avec Referer
+            // (test 2026-10-10, 2 masters) — la résolution aboutit mais le CDN
+            // refuse ; les providers filtrent ces URLs en aval)
+            urlLower.includes('livavid.') ||
+            urlLower.includes('lulavid.') ||
+            urlLower.includes('livastream.') ||
+            urlLower.includes('wishonly.') ||
+            urlLower.includes('veev.')
+        ) result = await resolvePackedPlayer(originalUrl);
+        else if (urlLower.includes('lulu.')) result = await resolveLuluvid(originalUrl);
+        else if (urlLower.includes('lecteurvideo.')) result = await resolveLecteurVideo(originalUrl);
+        else if (urlLower.includes('hgcloud.') || urlLower.includes('savefiles.')) result = await resolveHGCloud(originalUrl);
+        else if (urlLower.includes('down-paradise.') || urlLower.includes('ww1.down-paradise.')) result = await resolveDownParadise(originalUrl);
+        else if (urlLower.includes('up4fun.')) result = await resolveUp4fun(originalUrl);
+        
+        // If a specific resolver found a different URL, it's the final direct link
+        if (result && result.url !== originalUrl && !isKnownFakeDirectUrl(result.url)) {
+            // Appliquer aussi la correction de domaine à l'URL de sortie du résolveur
+            // Car même avec le bon domaine d'entrée, la page peut servir la vidéo
+            // depuis un domaine déformé (ex: streamtape.com → streamtape.dcom)
+            const finalUrl = correctDeformedVideoUrl(result.url);
+            if (finalUrl !== result.url) {
+                console.log(`[Resolver] Resolver output corrected: ${result.url.slice(0, 60)} → ${finalUrl.slice(0, 60)}`);
+            }
+            return {
+                ...stream,
+                url: finalUrl,
+                headers: { ...stream.headers, ...(result.headers || {}) },
+                quality: result.quality || stream.quality,
+                isDirect: true,
+                originalUrl: originalUrl
+            };
+        }
+
+        // 3. Generic Fallback & Recursive Peeling
+        // Skip generic fallback for known slow or dead hosts (already tried in specific resolver)
+        const knownSlowHost = urlLower.includes('up4fun.') || urlLower.includes('down-paradise.') || urlLower.includes('getvid.club') || urlLower.includes('vidhsareup.');
+        // Embed explicitement mort (ex: fichier uqload expiré/supprimé détecté par
+        // resolveUqload) : pas de re-fetch ni de peeling, on abandonne immédiatement
+        // pour économiser le budget — le stream sera filtré par isDirect avant
+        // l'expansion des qualités.
+        const deadEmbed = result && result.isDead === true;
+        if (!result || result.url === originalUrl) {
+            if (knownSlowHost || deadEmbed) {
+                return { ...stream, isDirect: false };
+            }
+
+            // Si un résolveur spécifique a déjà traité cette URL (depth 0) et a échoué,
+            // on saute la recherche de direct URL (déjà faite par le résolveur) et on va
+            // directement à la détection d'iframe. Évite un safeFetch + unpack + 6 regex.
+            // ⚠️ let (et non const) : à depth > 0, après un peeling raté, on RÉACTIVE
+            // le scan regex — le player final est souvent packé et contient le flux
+            // direct (ex: minochinos → master.m3u8) que l'ancien code abandonnait ici.
+            let skipDirectScan = (result && result.url === originalUrl && depth === 0);
+
+            const res = await safeFetch(originalUrl, { headers: stream.headers });
+            if (res) {
+                let html = await res.text();
+                if (html.includes('p,a,c,k,e,d')) html = unpack(html);
+
+                // Suivre les redirections JS window.location
+                if (!skipDirectScan) {
+                    const jsRedirect = html.match(/window\.location\.(?:href|replace)\s*=\s*['"]([^'"]+)['"]/);
+                    if (jsRedirect && jsRedirect[1] !== originalUrl) {
+                        const res2 = await safeFetch(jsRedirect[1], { headers: stream.headers });
+                        if (res2) {
+                            html = await res2.text();
+                            if (html.includes('p,a,c,k,e,d')) html = unpack(html);
+                        }
+                    }
+                }
+
+                // Repli contenu VOE : domaines tournants (pattern 3-mots aléatoires,
+                // ex. jeremyparticipantanything.com) non listés dans le routage URL.
+                // Titre page "Watch ... - VOE" → déléguer à resolveVoe.
+                if (/<title>\s*watch/i.test(html) && html.includes('VOE')) {
+                    const voeRes = await resolveVoe(originalUrl);
+                    if (voeRes && voeRes.url !== originalUrl && voeRes.url.startsWith('http') && !isKnownFakeDirectUrl(voeRes.url)) {
+                        const finalVoeUrl = correctDeformedVideoUrl(voeRes.url);
+                        return {
+                            ...stream,
+                            url: finalVoeUrl,
+                            headers: { ...stream.headers, ...(voeRes.headers || {}) },
+                            quality: voeRes.quality || stream.quality,
+                            isDirect: true,
+                            originalUrl: originalUrl
+                        };
+                    }
+                }
+
+                // ÉTAPE 1: Toujours essayer le peeling d'iframe en premier (plus fiable)
+                // Les iframes vidéo sont plus fiables que les regex qui peuvent matcher
+                // des URLs dans des pubs, analytics, ou JSON configs non-liés à la vidéo.
+                // On ne revient du peeling que si l'iframe a été résolu ou qu'on a depth > 1.
+                // Dans ce dernier cas, on continue vers les regex strictes qui peuvent
+                // parfois extraire l'URL directe manquée par le peeling.
+                const iframeUrl = findBestVideoIframe(html, originalUrl);
+
+                if (iframeUrl && !peeledUrls.has(iframeUrl)) {
+                    peeledUrls.add(iframeUrl);
+                    console.log(`[Resolver] Peeling: Found nested iframe -> ${iframeUrl}`);
+                    const peeledResult = await resolveStream({ ...stream, url: iframeUrl }, depth + 1);
+                    // Si le peeling a réussi (isDirect: true) ou si on a depth=1,
+                    // on retourne le résultat. Si depth>1 et isDirect: false, on continue
+                    // vers les regex comme fallback.
+                    if (peeledResult && peeledResult.isDirect) return peeledResult;
+                    if (depth > 0) {
+                        // Peeling raté à depth > 0 → ne pas abandonner : scanner
+                        // quand même les regex sur la page courante (player packé
+                        // contenant le master.m3u8 direct, ex: minochinos).
+                        skipDirectScan = false;
+                    }
+                    // depth=0 et peeling a échoué → continuer vers les regex
+                }
+
+                // ÉTAPE 2: Patterns stricts avec contexte vidéo (file:, sources:, hls:)
+                // Ces patterns ne matchent que quand l'URL est dans un contexte vidéo,
+                // pas de faux positifs avec pubs/analytics.
+                if (!skipDirectScan) {
+                    const strictUrl = html.match(/file\s*:\s*["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/i) ||
+                                     html.match(/sources\s*:\s*\[["']([^"']+\.(?:m3u8|mp4)[^"']*)["']\]/i) ||
+                                     html.match(/'hls'\s*:\s*'([^']+)'/) ||
+                                     html.match(/"hls"\s*:\s*"([^"]+)"/) ||
+                                     html.match(/"hls2"\s*:\s*"(https?[^"]*?\.m3u8[^"]*)"/) ||
+                                     html.match(/'hls2'\s*:\s*'([^']*?\.m3u8[^']*)'/);
+
+                    if (strictUrl) {
+                        let extractedUrl = strictUrl[1] || strictUrl[0];
+                        if (extractedUrl.startsWith('//')) extractedUrl = "https:" + extractedUrl;
+                        // Dé-échapper les slashes JSON (ex: VK "https:\/\/host\/..." dans le player)
+                        if (extractedUrl.includes(String.fromCharCode(92))) {
+                            extractedUrl = extractedUrl.split(String.fromCharCode(92) + '/').join('/').split(String.fromCharCode(92) + 'u002F').join('/');
+                        }
+
+                        const isInvalidExtension = extractedUrl.match(/\.(css|js|html|php|jpg|png|gif|svg)(\?.*)?$/i);
+
+                        if (extractedUrl.startsWith('http') && !extractedUrl.includes(BASE_URL_FORBIDDEN_PATTERN) && !isInvalidExtension && !isKnownFakeDirectUrl(extractedUrl)) {
+                            result = { url: extractedUrl };
+                        }
+                    }
+                }
+
+                // ÉTAPE 3: Dernier recours — regex larges .m3u8/.mp4
+                // Uniquement si les étapes 1 et 2 n'ont rien trouvé.
+                // Ces patterns sont dangereux car ils matchent N'IMPORTE QUELLE URL
+                // contenant .m3u8 ou .mp4, y compris dans les pubs/analytics.
+                if (!result && !skipDirectScan) {
+                    const looseUrl = html.match(/https?:\/\/[^"']+\.m3u8[^"']*/) ||
+                                    html.match(/https?:\/\/[^"']+\.mp4[^"']*/);
+
+                    if (looseUrl) {
+                        let extractedUrl = looseUrl[0];
+                        if (extractedUrl.startsWith('//')) extractedUrl = "https:" + extractedUrl;
+                        // Dé-échapper les slashes JSON (ex: VK "https:\/\/host\/..." dans le player)
+                        if (extractedUrl.includes(String.fromCharCode(92))) {
+                            extractedUrl = extractedUrl.split(String.fromCharCode(92) + '/').join('/').split(String.fromCharCode(92) + 'u002F').join('/');
+                        }
+
+                        const isInvalidExtension = extractedUrl.match(/\.(css|js|html|php|jpg|png|gif|svg)(\?.*)?$/i);
+
+                        if (extractedUrl.startsWith('http') && !extractedUrl.includes(BASE_URL_FORBIDDEN_PATTERN) && !isInvalidExtension && !isKnownFakeDirectUrl(extractedUrl)) {
+                            console.log(`[Resolver] Loose URL match (last resort): ${extractedUrl.slice(0, 80)}`);
+                            result = { url: extractedUrl };
+                        }
+                    }
+                }
+            }
+        }
+
+        if (result && result.url !== originalUrl && result.url.startsWith('http') && !isKnownFakeDirectUrl(result.url)) {
+            // Appliquer aussi la correction de domaine à l'URL de sortie du fallback
+            const finalUrl = correctDeformedVideoUrl(result.url);
+            if (finalUrl !== result.url) {
+                console.log(`[Resolver] Generic fallback output corrected: ${result.url.slice(0, 60)} → ${finalUrl.slice(0, 60)}`);
+            }
+            return {
+                ...stream,
+                url: finalUrl,
+                headers: { ...stream.headers, ...(result.headers || {}) },
+                quality: result.quality || stream.quality,
+                isDirect: true,
+                originalUrl: originalUrl
+            };
+        }
+    } catch (err) {}
+    
+    return { ...stream, isDirect: false };
+}
+
+const BASE_URL_FORBIDDEN_PATTERN = "googletagmanager";
