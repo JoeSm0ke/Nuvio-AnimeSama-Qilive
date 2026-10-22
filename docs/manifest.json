@@ -1,0 +1,24 @@
+{
+  "id": "fr.joesm0ke.animesama.catalog",
+  "version": "0.1.0",
+  "name": "Anime-Sama TV · Catalogue",
+  "description": "Anime uniquement, selection Anime-Sama, VF/VOSTFR via fournisseur Nuvio separe.",
+  "resources": [
+    "catalog"
+  ],
+  "types": [
+    "series"
+  ],
+  "catalogs": [
+    {
+      "type": "series",
+      "id": "as_latest",
+      "name": "Anime-Sama · Derniers ajouts"
+    },
+    {
+      "type": "series",
+      "id": "as_new",
+      "name": "Anime-Sama · Sorties récentes"
+    }
+  ]
+}
