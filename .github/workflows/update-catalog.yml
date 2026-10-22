@@ -18,6 +18,8 @@ jobs:
           python-version: "3.12"
       - name: Installer les dependances
         run: python -m pip install requests beautifulsoup4 rapidfuzz
+      - name: Index complet des titres Anime-Sama
+        run: python scripts/build_site_index.py
       - name: Reconstruire les catalogues
         run: python scripts/build_catalog.py
       - name: Publier les changements
