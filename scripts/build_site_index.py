@@ -57,6 +57,20 @@ def main():
         counts[kind] = sum(len(results[(kind,p)]) for p in range(1,45))
     if len(all_items)<400:
         raise RuntimeError(f"Unexpectedly low count {len(all_items)}; keeping last snapshot")
+    # Exact alternate series titles confirmed on the Anime-Sama detail page.
+    # Do not add generic aliases such as "Bloom": they would admit unrelated
+    # Cinemeta series with identical short names.
+    alternate_titles = {
+        "as:kaoru-hana-wa-rin-to-saku": ["The Fragrant Flower Blooms with Dignity"],
+    }
+    for source_id, titles in alternate_titles.items():
+        original = all_items.get(source_id)
+        if not original:
+            continue
+        for n, title in enumerate(titles):
+            alias = dict(original)
+            alias.update({"id":f"alias:{source_id}:{n}", "name":title})
+            all_items[alias["id"]] = alias
     OUT.parent.mkdir(parents=True,exist_ok=True)
     OUT.write_text(json.dumps({"metas":list(all_items.values())},ensure_ascii=False,indent=2),encoding="utf-8")
     print(f"Index: {len(all_items)} titles, by type {counts}",flush=True)
