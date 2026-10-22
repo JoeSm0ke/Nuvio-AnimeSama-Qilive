@@ -1,0 +1,172 @@
+{
+  "metas": [
+    {
+      "id": "tt0121220",
+      "type": "series",
+      "name": "Dragon Ball Z",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dragon-ball-z.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0088509",
+      "type": "series",
+      "name": "Dragon Ball",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dragon-ball.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0388629",
+      "type": "series",
+      "name": "One Piece",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/one-piece.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0409591",
+      "type": "series",
+      "name": "Naruto",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/naruto.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0988824",
+      "type": "series",
+      "name": "Naruto Shippuden",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/naruto-shippuden.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0434665",
+      "type": "series",
+      "name": "Bleach",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bleach.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2404499",
+      "type": "series",
+      "name": "Kingdom",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kingdom.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0249327",
+      "type": "series",
+      "name": "Yu-Gi-Oh",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/yu-gi-oh.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2098220",
+      "type": "series",
+      "name": "Hunter x Hunter",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hunter-x-hunter.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1355642",
+      "type": "series",
+      "name": "FullMetal Alchemist Brotherhood",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/fullmetal-alchemist-brotherhood.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1528406",
+      "type": "series",
+      "name": "Fairy Tail",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/fairy-tail.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2560140",
+      "type": "series",
+      "name": "Shingeki no Kyojin",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/shingeki-no-kyojin.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12343534",
+      "type": "series",
+      "name": "Jujutsu Kaisen",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/jujutsu-kaisen.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9335498",
+      "type": "series",
+      "name": "Demon Slayer",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/demon-slayer.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5626028",
+      "type": "series",
+      "name": "My Hero Academia",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/my-hero-academia.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2359704",
+      "type": "series",
+      "name": "JoJo's Bizarre Adventure",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/jojos-bizarre-adventure.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0103369",
+      "type": "series",
+      "name": "Sailor Moon",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sailor-moon.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0161952",
+      "type": "series",
+      "name": "Saint Seiya",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/saint-seiya.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0091211",
+      "type": "series",
+      "name": "Ken le Survivant",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ken-le-survivant.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0877057",
+      "type": "series",
+      "name": "Death Note",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/death-note.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0131179",
+      "type": "series",
+      "name": "Detective Conan",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/detective-conan.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0481256",
+      "type": "series",
+      "name": "Hajime no Ippo",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hajime-no-ippo.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0315008",
+      "type": "series",
+      "name": "Great Teacher Onizuka",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/great-teacher-onizuka.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0112159",
+      "type": "series",
+      "name": "Evangelion",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/evangelion.jpg",
+      "posterShape": "poster"
+    }
+  ]
+}
