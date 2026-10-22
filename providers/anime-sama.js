@@ -1,6 +1,6 @@
 /**
  * anime-sama - Built from src/anime-sama/
- * Generated: 2026-10-22T10:16:22.956182932Z
+ * Generated: 2026-10-22T13:45:52.874752842Z
  */
 var __provider = (() => {
   var __create = Object.create;
@@ -1817,7 +1817,7 @@ var __provider = (() => {
       MAX_STREAMS_PER_PROVIDER = 80;
       MAX_SAFE_FETCH_BODY_BYTES = 1024 * 1024;
       RUNTIME_TRUNCATION_SUFFIX = "\n...[truncated]";
-      BUILD_HASH = true ? "8f9e7033" : "dev";
+      BUILD_HASH = true ? "d75a75f7" : "dev";
       HAS_NATIVE_CRYPTO = typeof crypto !== "undefined" && typeof crypto.subtle !== "undefined" && typeof TextEncoder !== "undefined" && typeof TextDecoder !== "undefined";
       _nodeCrypto = null;
       try {
@@ -14630,7 +14630,7 @@ var __provider = (() => {
     }
     return best;
   }
-  function fetchCatalogueTitle(slug) {
+  function fetchCatalogueTitles(slug) {
     return __async(this, null, function* () {
       let html = null;
       try {
@@ -14642,9 +14642,19 @@ var __provider = (() => {
       try {
         const $ = import_cheerio_without_node_native2.default.load(html);
         const h1 = $("h1").first().text().trim();
-        if (h1) return h1;
         const t = $("title").first().text().trim();
-        if (t) return t.split("|")[0].trim();
+        const primaryTitle = h1 || t.split("|")[0].trim();
+        if (!primaryTitle) return null;
+        const pageTitles = [primaryTitle];
+        const keywords = ($('meta[name="keywords"]').attr("content") || "").split(",");
+        for (const raw of keywords) {
+          const alias = raw.trim();
+          if (alias.toLowerCase() === "anime-sama") break;
+          if (alias.split(/\s+/).length >= 3 && !pageTitles.includes(alias)) {
+            pageTitles.push(alias);
+          }
+        }
+        return pageTitles;
       } catch (_) {
       }
       return null;
@@ -14653,17 +14663,17 @@ var __provider = (() => {
   function passesTitleGuard(slug, titles, signal, startTime) {
     return __async(this, null, function* () {
       if (isAborted(signal) || isBudgetExhausted(startTime, BUDGET_MS)) return false;
-      const name = yield fetchCatalogueTitle(slug);
-      if (!name) {
+      const names = yield fetchCatalogueTitles(slug);
+      if (!names || names.length === 0) {
         console.log(`[Anime-Sama] Slug ${slug} rejet\xE9: page catalogue sans titre (404/soft-404)`);
         return false;
       }
-      const score = maxPageTitleScore(name, titles);
+      const score = Math.max(...names.map((name) => maxPageTitleScore(name, titles)));
       if (score < TITLE_GUARD_THRESHOLD) {
-        console.log(`[Anime-Sama] Slug ${slug} rejet\xE9: titre page "${name}" sans rapport (score ${score})`);
+        console.log(`[Anime-Sama] Slug ${slug} rejet\xE9: titre et alias sans rapport (score ${score})`);
         return false;
       }
-      console.log(`[Anime-Sama] Slug ${slug}: titre page "${name}" valid\xE9 (score ${score})`);
+      console.log(`[Anime-Sama] Slug ${slug}: titre ou alias valid\xE9 (score ${score})`);
       return true;
     });
   }

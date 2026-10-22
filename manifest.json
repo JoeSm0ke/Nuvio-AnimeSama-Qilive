@@ -1,12 +1,12 @@
 {
     "name":  "Anime-Sama TV - Qilive",
-    "version":  "1.1.59",
+    "version":  "1.1.60",
     "scrapers":  [
                      {
                          "id":  "anime-sama-qilive",
                          "name":  "Anime-Sama (Qilive)",
-                         "description":  "Source Anime-Sama VF/VOSTFR avec correctif Referer.",
-                         "version":  "1.1.59",
+                         "description":  "Anime-Sama VF/VOSTFR, Referer et titres alternatifs verifiés.",
+                         "version":  "1.1.60",
                          "author":  "Gowaru",
                          "supportedTypes":  [
                                                 "movie",

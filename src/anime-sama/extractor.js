@@ -152,7 +152,7 @@ function maxPageTitleScore(pageName, titles) {
 
 // Titre réel de la fiche : <h1> de la page catalogue (repli : <title>).
 // null si la page est un 404/soft-404 ou sans titre (= rejet du slug).
-async function fetchCatalogueTitle(slug) {
+async function fetchCatalogueTitles(slug) {
     let html = null;
     try {
         html = await fetchText(`${BASE_URL}/catalogue/${slug}/`);
@@ -161,9 +161,22 @@ async function fetchCatalogueTitle(slug) {
     try {
         const $ = cheerio.load(html);
         const h1 = $('h1').first().text().trim();
-        if (h1) return h1;
         const t = $('title').first().text().trim();
-        if (t) return t.split('|')[0].trim();
+        const primaryTitle = h1 || t.split('|')[0].trim();
+        if (!primaryTitle) return null;
+        const pageTitles = [primaryTitle];
+        // Anime-Sama explicitly lists alternate titles in meta keywords before
+        // its generic SEO tags. Accept only multi-word alternatives, never
+        // ambiguous short labels such as BLOOM which could match another show.
+        const keywords = ($('meta[name="keywords"]').attr('content') || '').split(',');
+        for (const raw of keywords) {
+            const alias = raw.trim();
+            if (alias.toLowerCase() === 'anime-sama') break;
+            if (alias.split(/\s+/).length >= 3 && !pageTitles.includes(alias)) {
+                pageTitles.push(alias);
+            }
+        }
+        return pageTitles;
     } catch (_) {}
     return null;
 }
@@ -172,17 +185,17 @@ async function fetchCatalogueTitle(slug) {
 // false = slug rejeté (l'appelant continue sur le candidat suivant).
 async function passesTitleGuard(slug, titles, signal, startTime) {
     if (isAborted(signal) || isBudgetExhausted(startTime, BUDGET_MS)) return false;
-    const name = await fetchCatalogueTitle(slug);
-    if (!name) {
+    const names = await fetchCatalogueTitles(slug);
+    if (!names || names.length === 0) {
         console.log(`[Anime-Sama] Slug ${slug} rejeté: page catalogue sans titre (404/soft-404)`);
         return false;
     }
-    const score = maxPageTitleScore(name, titles);
+    const score = Math.max(...names.map(name => maxPageTitleScore(name, titles)));
     if (score < TITLE_GUARD_THRESHOLD) {
-        console.log(`[Anime-Sama] Slug ${slug} rejeté: titre page "${name}" sans rapport (score ${score})`);
+        console.log(`[Anime-Sama] Slug ${slug} rejeté: titre et alias sans rapport (score ${score})`);
         return false;
     }
-    console.log(`[Anime-Sama] Slug ${slug}: titre page "${name}" validé (score ${score})`);
+    console.log(`[Anime-Sama] Slug ${slug}: titre ou alias validé (score ${score})`);
     return true;
 }
 
