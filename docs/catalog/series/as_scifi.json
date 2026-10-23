@@ -1,0 +1,256 @@
+{
+  "metas": [
+    {
+      "id": "tt37968925",
+      "type": "series",
+      "name": "SEKIRO: NO DEFEAT",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sekiro-no-defeat.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13375866",
+      "type": "series",
+      "name": "Heaven Official's Blessing",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/heaven-officials-blessing.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1992935",
+      "type": "series",
+      "name": "Mononoke",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mononoke.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28612257",
+      "type": "series",
+      "name": "My Daemon",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/my-daemon.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32420174",
+      "type": "series",
+      "name": "Dead Dead Demon's DeDeDeDeDestruction",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dead-dead-demons-dededededestruction.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15250594",
+      "type": "series",
+      "name": "Fairies Album",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/fairies-album.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21197084",
+      "type": "series",
+      "name": "Raven of the Inner Palace",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/raven-of-the-inner-palace.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3950102",
+      "type": "series",
+      "name": "World Trigger",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/world-trigger.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt16409202",
+      "type": "series",
+      "name": "Spare Me, Great Lord !",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/spare-me-great-lord.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7224994",
+      "type": "series",
+      "name": "Restaurant to Another World",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/restaurant-to-another-world.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28597143",
+      "type": "series",
+      "name": "War God System Im Counting On You",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/war-god-system-im-counting-on-you.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7535746",
+      "type": "series",
+      "name": "Konohana Kitan",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/konohana-kitan.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt26625453",
+      "type": "series",
+      "name": "Bureau of Paranormal Investigation",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bureau-of-paranormal-investigation.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5225712",
+      "type": "series",
+      "name": "Kiznaiver",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kiznaiver.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6755926",
+      "type": "series",
+      "name": "Re:Creators",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/re-creators.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11443824",
+      "type": "series",
+      "name": "SSSS.Dynazenon",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ssss-dynazenon.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2341757",
+      "type": "series",
+      "name": "Tsuritama",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tsuritama.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6735466",
+      "type": "series",
+      "name": "Alice & Zoroku",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/alice-and-zoroku.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5334292",
+      "type": "series",
+      "name": "Dimension W",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dimension-w.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6477270",
+      "type": "series",
+      "name": "Grimoire of Zero",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/grimoire-of-zero.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2629496",
+      "type": "series",
+      "name": "Level E",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/level-e.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt39122552",
+      "type": "series",
+      "name": "Always a Catch!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/always-a-catch.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt19409404",
+      "type": "series",
+      "name": "Healer Girl",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/healer-girl.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt25275610",
+      "type": "series",
+      "name": "High Card",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/high-card.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt43691315",
+      "type": "series",
+      "name": "Kanata Kara",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kanata-kara.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt39122739",
+      "type": "series",
+      "name": "Kusunoki's Garden of Gods",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kusunokis-garden-of-gods.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt31435652",
+      "type": "series",
+      "name": "Nyaight of the Living Cat",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/nyaight-of-the-living-cat.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt42487863",
+      "type": "series",
+      "name": "Vertex Force",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/vertex-force.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt43589481",
+      "type": "series",
+      "name": "Thunder 3",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/thunder-3.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt29143189",
+      "type": "series",
+      "name": "16bit Sensation: Another Layer",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/16bit-sensation-another-layer.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt37137805",
+      "type": "series",
+      "name": "Champignon Witch",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/champignon-witch.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28521881",
+      "type": "series",
+      "name": "Goodnight World",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/goodnight-world.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt39229727",
+      "type": "series",
+      "name": "Snowball Earth",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/snowball-earth.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt19893526",
+      "type": "series",
+      "name": "The Last Summoner",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-last-summoner.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt30643998",
+      "type": "series",
+      "name": "'Tis Time for \"Torture,\" Princess",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tis-time-for-torture-princess.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32332642",
+      "type": "series",
+      "name": "My Wife Has no Emotion",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/my-wife-has-no-emotion.jpg",
+      "posterShape": "poster"
+    }
+  ]
+}

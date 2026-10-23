@@ -556,13 +556,7 @@
     "verification_reason": "valid"
   },
   "sakamoto desu ga": null,
-  "rent a girlfriend": {
-    "id": "tt20228246",
-    "score": 100.0,
-    "matched_name": "Rent A Girlfriend",
-    "verified_animation": false,
-    "verification_reason": "unverifiable_now"
-  },
+  "rent a girlfriend": null,
   "on gaku": null,
   "seiyuu radio no uraomote": null,
   "terror in resonance": {
@@ -756,13 +750,7 @@
     "verified_animation": true,
     "verification_reason": "valid"
   },
-  "chibi revengers": {
-    "id": "tt15610202",
-    "score": 96.6,
-    "matched_name": "Chibi Revenger",
-    "verified_animation": false,
-    "verification_reason": "unverifiable_now"
-  },
+  "chibi revengers": null,
   "bubble": null,
   "densetsu no yuusha no densetsu": null,
   "free": {
@@ -865,8 +853,7 @@
     "id": "tt2622978",
     "score": 100.0,
     "matched_name": "Yuyushiki",
-    "verified_animation": false,
-    "verification_reason": "unverifiable_now"
+    "verified_animation": true
   },
   "tonari no kyuuketsuki san": null,
   "akira": {
@@ -1014,8 +1001,7 @@
     "id": "tt1639471",
     "score": 100.0,
     "matched_name": "Arakawa Under the Bridge",
-    "verified_animation": false,
-    "verification_reason": "unverifiable_now"
+    "verified_animation": true
   },
   "bukiyou na senpai": null,
   "akuyaku reijou tensei ojisan": null,
@@ -1098,5 +1084,2602 @@
     "verified_animation": true,
     "verification_reason": "valid"
   },
-  "si tu tends l oreille": null
+  "si tu tends l oreille": null,
+  "star wars tales of the jedi": {
+    "id": "tt20723374",
+    "score": 100.0,
+    "matched_name": "Star Wars: Tales of the Jedi",
+    "verified_animation": true
+  },
+  "tamako love story": null,
+  "the brilliant healer s new life in the shadows": {
+    "id": "tt32524709",
+    "score": 100.0,
+    "matched_name": "The Brilliant Healer's New Life in the Shadows",
+    "verified_animation": true
+  },
+  "the world god only knows": {
+    "id": "tt1899022",
+    "score": 100.0,
+    "matched_name": "The World God Only Knows",
+    "verified_animation": true
+  },
+  "tougen anki": null,
+  "war god system im counting on you": {
+    "id": "tt28597143",
+    "score": 99.0,
+    "matched_name": "War God System! I'm Counting on You!",
+    "verified_animation": true
+  },
+  "uniteup": {
+    "id": "tt25808792",
+    "score": 100.0,
+    "matched_name": "UniteUp!",
+    "verified_animation": true
+  },
+  "100 meters": null,
+  "a rank party wo ridatsu shita ore wa moto oshiego tachi to meikyuu shinbu wo mezasu": null,
+  "arcane": {
+    "id": "tt11126994",
+    "score": 100.0,
+    "matched_name": "Arcane",
+    "verified_animation": true
+  },
+  "alderamin on the sky": {
+    "id": "tt5905350",
+    "score": 100.0,
+    "matched_name": "Alderamin on the Sky",
+    "verified_animation": true
+  },
+  "bakuten": {
+    "id": "tt13412606",
+    "score": 100.0,
+    "matched_name": "Bakuten!",
+    "verified_animation": true
+  },
+  "bungou to alchemist": null,
+  "the last summoner": {
+    "id": "tt19893526",
+    "score": 100.0,
+    "matched_name": "The Last Summoner",
+    "verified_animation": true
+  },
+  "danmachi": null,
+  "chubby love and mistakes": null,
+  "yatagarasu": null,
+  "excel saga": {
+    "id": "tt0240493",
+    "score": 100.0,
+    "matched_name": "Excel Saga",
+    "verified_animation": true
+  },
+  "blood of zeus": {
+    "id": "tt10009170",
+    "score": 100.0,
+    "matched_name": "Blood of Zeus",
+    "verified_animation": true
+  },
+  "hamatora": {
+    "id": "tt3399706",
+    "score": 100.0,
+    "matched_name": "Hamatora",
+    "verified_animation": true
+  },
+  "full dive": null,
+  "high score girl": null,
+  "disney twisted wonderland": null,
+  "i m in love with the villainess": {
+    "id": "tt29171914",
+    "score": 100.0,
+    "matched_name": "I'm in Love with the Villainess",
+    "verified_animation": true
+  },
+  "girls frontline": {
+    "id": "tt13898130",
+    "score": 100.0,
+    "matched_name": "Girls' Frontline",
+    "verified_animation": true
+  },
+  "kageki shoujo": {
+    "id": "tt13351056",
+    "score": 96.0,
+    "matched_name": "Kageki Shojo!!",
+    "verified_animation": true
+  },
+  "kokoro connect": {
+    "id": "tt2250034",
+    "score": 100.0,
+    "matched_name": "Kokoro Connect",
+    "verified_animation": true
+  },
+  "isekai yururi kikou": null,
+  "kekkai sensen": null,
+  "lv999 no murabito": null,
+  "let this grieving soul retire": {
+    "id": "tt32508529",
+    "score": 100.0,
+    "matched_name": "Let This Grieving Soul Retire!",
+    "verified_animation": true
+  },
+  "no game no life": {
+    "id": "tt3431758",
+    "score": 100.0,
+    "matched_name": "No Game, No Life",
+    "verified_animation": true
+  },
+  "oresuki": null,
+  "la princesse et la bete": null,
+  "momokuri": {
+    "id": "tt5905148",
+    "score": 100.0,
+    "matched_name": "Momokuri",
+    "verified_animation": true
+  },
+  "my wife has no emotion": {
+    "id": "tt32332642",
+    "score": 100.0,
+    "matched_name": "My Wife Has No Emotion",
+    "verified_animation": true
+  },
+  "romio vs juliet": null,
+  "series monogatari": null,
+  "sing a bit of harmony": null,
+  "saving 80 000 gold in another world for my retirement": {
+    "id": "tt21608762",
+    "score": 100.0,
+    "matched_name": "Saving 80,000 Gold in Another World for my Retirement",
+    "verified_animation": true
+  },
+  "the light of a firefly forest": null,
+  "the world s strongest rearguard": null,
+  "towa no yugure": null,
+  "the day i became a god": {
+    "id": "tt12305588",
+    "score": 100.0,
+    "matched_name": "The Day I Became a God",
+    "verified_animation": true
+  },
+  "steins gate": {
+    "id": "tt1910272",
+    "score": 100.0,
+    "matched_name": "Steins; Gate",
+    "verified_animation": true
+  },
+  "yofukashi no uta": null,
+  "platinum end": {
+    "id": "tt13676300",
+    "score": 100.0,
+    "matched_name": "Platinum End",
+    "verified_animation": true
+  },
+  "a silent voice": null,
+  "wata nare": null,
+  "in this corner of the world": null,
+  "all out": {
+    "id": "tt6738600",
+    "score": 100.0,
+    "matched_name": "All Out",
+    "verified_animation": true
+  },
+  "busou shoujo machiavellism": null,
+  "city hunter": null,
+  "dark machine": null,
+  "dorohedoro": {
+    "id": "tt11147852",
+    "score": 100.0,
+    "matched_name": "Dorohedoro",
+    "verified_animation": true
+  },
+  "failure frame": null,
+  "uq holder": {
+    "id": "tt7591766",
+    "score": 100.0,
+    "matched_name": "UQ HOLDER!",
+    "verified_animation": true
+  },
+  "fullmetal alchemist": {
+    "id": "tt0421357",
+    "score": 100.0,
+    "matched_name": "Fullmetal Alchemist",
+    "verified_animation": true
+  },
+  "arknights": null,
+  "hanamaru youchien": null,
+  "blue archive the animation": {
+    "id": "tt30989205",
+    "score": 100.0,
+    "matched_name": "Blue Archive: The Animation",
+    "verified_animation": true
+  },
+  "hikikomari kyuuketsuki no monmon": null,
+  "given": null,
+  "kengan ashura": {
+    "id": "tt9058134",
+    "score": 100.0,
+    "matched_name": "Kengan Ashura",
+    "verified_animation": true
+  },
+  "iwa kakeru climbing girls": null,
+  "la tour au dela des nuages": null,
+  "kaichou wa maid sama": null,
+  "i m the villainess so i m taming the final boss": {
+    "id": "tt15533960",
+    "score": 100.0,
+    "matched_name": "I'm the Villainess, So I'm Taming the Final Boss",
+    "verified_animation": true
+  },
+  "mashle": null,
+  "machine doll wa kizutsukanai": null,
+  "mondaiji tachi desu yo": null,
+  "mysterious disappearances": {
+    "id": "tt32083095",
+    "score": 100.0,
+    "matched_name": "Mysterious Disappearances",
+    "verified_animation": true
+  },
+  "osamake": null,
+  "lets make a mug too": {
+    "id": "tt12798548",
+    "score": 99.0,
+    "matched_name": "Let's Make a Mug Too",
+    "verified_animation": true
+  },
+  "plunderer": {
+    "id": "tt11418324",
+    "score": 100.0,
+    "matched_name": "Plunderer",
+    "verified_animation": true
+  },
+  "noblesse": {
+    "id": "tt12885610",
+    "score": 100.0,
+    "matched_name": "Noblesse",
+    "verified_animation": true
+  },
+  "sayonara ryuusei konnichiwa jinsei": null,
+  "raven of the inner palace": {
+    "id": "tt21197084",
+    "score": 100.0,
+    "matched_name": "Raven of the Inner Palace",
+    "verified_animation": true
+  },
+  "rosario to vampire": null,
+  "kono oto tomare": {
+    "id": "tt9886006",
+    "score": 100.0,
+    "matched_name": "Kono Oto Tomare!",
+    "verified_animation": true
+  },
+  "tantei wa mou shindeiru": null,
+  "shakugan no shana": {
+    "id": "tt0972713",
+    "score": 100.0,
+    "matched_name": "Shakugan No Shana",
+    "verified_animation": true
+  },
+  "the dinner table detective": {
+    "id": "tt34818628",
+    "score": 100.0,
+    "matched_name": "The Dinner Table Detective",
+    "verified_animation": true
+  },
+  "skate leading stars": {
+    "id": "tt12390430",
+    "score": 100.0,
+    "matched_name": "Skate Leading Stars",
+    "verified_animation": true
+  },
+  "strike witches": {
+    "id": "tt1300176",
+    "score": 100.0,
+    "matched_name": "Strike Witches",
+    "verified_animation": true
+  },
+  "uruwashi no yoi no tsuki": null,
+  "the maid i hired recently is mysterious": {
+    "id": "tt21237634",
+    "score": 100.0,
+    "matched_name": "The Maid I Hired Recently Is Mysterious",
+    "verified_animation": true
+  },
+  "watashi ni tenshi ga maiorita": null,
+  "the yakuza s guide to babysitting": {
+    "id": "tt21230432",
+    "score": 100.0,
+    "matched_name": "The Yakuza's Guide to Babysitting",
+    "verified_animation": true
+  },
+  "les mikails": null,
+  "yoru wa mijikashi aruke yo otome": null,
+  "tribe nine": {
+    "id": "tt15529750",
+    "score": 100.0,
+    "matched_name": "Tribe Nine",
+    "verified_animation": true
+  },
+  "a wild last boss appeared": {
+    "id": "tt33258199",
+    "score": 100.0,
+    "matched_name": "A Wild Last Boss Appeared!",
+    "verified_animation": true
+  },
+  "arte": {
+    "id": "tt11754514",
+    "score": 100.0,
+    "matched_name": "Arte",
+    "verified_animation": true
+  },
+  "baraou no souretsu": null,
+  "always a catch": {
+    "id": "tt39122552",
+    "score": 100.0,
+    "matched_name": "Always a Catch!",
+    "verified_animation": true
+  },
+  "blue eye samurai": {
+    "id": "tt13309742",
+    "score": 100.0,
+    "matched_name": "Blue Eye Samurai",
+    "verified_animation": true
+  },
+  "doumo sukina hito ni horegusuri wo irai sareta majo desu": null,
+  "class no daikirai na joshi to kekkon suru koto ni natta": null,
+  "darling in the franxx": {
+    "id": "tt7865090",
+    "score": 100.0,
+    "matched_name": "Darling in the Franxx",
+    "verified_animation": true
+  },
+  "bye bye earth": {
+    "id": "tt23844810",
+    "score": 100.0,
+    "matched_name": "Bye Bye, Earth",
+    "verified_animation": true
+  },
+  "goblin slayer": {
+    "id": "tt8690728",
+    "score": 100.0,
+    "matched_name": "Goblin Slayer",
+    "verified_animation": true
+  },
+  "izure saikyou no renkinjutsushi": null,
+  "hinako note": {
+    "id": "tt6844136",
+    "score": 100.0,
+    "matched_name": "Hinako Note",
+    "verified_animation": true
+  },
+  "futsal boys": {
+    "id": "tt15811920",
+    "score": 100.0,
+    "matched_name": "Futsal Boys!!!!!",
+    "verified_animation": true
+  },
+  "hand shakers": {
+    "id": "tt6401430",
+    "score": 100.0,
+    "matched_name": "Hand Shakers",
+    "verified_animation": true
+  },
+  "lady georgie": {
+    "id": "tt0297580",
+    "score": 100.0,
+    "matched_name": "Lady Georgie",
+    "verified_animation": true
+  },
+  "kids on the slope": {
+    "id": "tt2341375",
+    "score": 100.0,
+    "matched_name": "Kids on the Slope",
+    "verified_animation": true
+  },
+  "konohana kitan": {
+    "id": "tt7535746",
+    "score": 100.0,
+    "matched_name": "Konohana Kitan",
+    "verified_animation": true
+  },
+  "monster": null,
+  "made in abyss": {
+    "id": "tt7222086",
+    "score": 100.0,
+    "matched_name": "Made in Abyss",
+    "verified_animation": true
+  },
+  "may i ask for one final thing": {
+    "id": "tt33384856",
+    "score": 100.0,
+    "matched_name": "May I Ask for One Final Thing?",
+    "verified_animation": true
+  },
+  "level e": {
+    "id": "tt2629496",
+    "score": 100.0,
+    "matched_name": "Level E",
+    "verified_animation": true
+  },
+  "naka no hito genome jikkyouchuu": null,
+  "nos mots comme des bulles": null,
+  "oshi no ko": {
+    "id": "tt21030032",
+    "score": 100.0,
+    "matched_name": "Oshi No Ko",
+    "verified_animation": true
+  },
+  "police in a pod": {
+    "id": "tt15715750",
+    "score": 100.0,
+    "matched_name": "Police in a Pod",
+    "verified_animation": true
+  },
+  "runway de waratte": null,
+  "sky high survival": null,
+  "school rumble": {
+    "id": "tt0878036",
+    "score": 100.0,
+    "matched_name": "School Rumble",
+    "verified_animation": true
+  },
+  "suisei no gargantia": null,
+  "re creators": {
+    "id": "tt6755926",
+    "score": 100.0,
+    "matched_name": "Re: Creators",
+    "verified_animation": true
+  },
+  "tearmoon empire story": null,
+  "the mononoke journal by chuzenji sensei": null,
+  "uzaki chan wa asobitai": null,
+  "trinity seven": {
+    "id": "tt3532752",
+    "score": 100.0,
+    "matched_name": "Trinity Seven",
+    "verified_animation": true
+  },
+  "we have always been 10 cm apart": null,
+  "acca 13 ku kansatsu ka": null,
+  "amagami ss": {
+    "id": "tt1685397",
+    "score": 100.0,
+    "matched_name": "Amagami SS",
+    "verified_animation": true
+  },
+  "young gto": {
+    "id": "tt3143922",
+    "score": 100.0,
+    "matched_name": "Young GTO",
+    "verified_animation": true
+  },
+  "asagao to kase san": null,
+  "youth of flavor": null,
+  "battle game in 5 seconds": {
+    "id": "tt13444580",
+    "score": 100.0,
+    "matched_name": "Battle Game in 5 Seconds",
+    "verified_animation": true
+  },
+  "claymore": null,
+  "can a boy girl friendship survive": {
+    "id": "tt35346400",
+    "score": 100.0,
+    "matched_name": "Can a Boy-Girl Friendship Survive?",
+    "verified_animation": true
+  },
+  "fx senshi kurumi chan": null,
+  "farmagia": {
+    "id": "tt34621220",
+    "score": 100.0,
+    "matched_name": "Farmagia",
+    "verified_animation": true
+  },
+  "date a live": {
+    "id": "tt2575684",
+    "score": 100.0,
+    "matched_name": "Date a Live",
+    "verified_animation": true
+  },
+  "blue orchestra": {
+    "id": "tt26450255",
+    "score": 100.0,
+    "matched_name": "Blue Orchestra",
+    "verified_animation": true
+  },
+  "hinata no aoshigure": null,
+  "hanebado": null,
+  "golden boy": null,
+  "jaku chara tomozaki kun": null,
+  "kiki la petite sorciere": null,
+  "kakushigoto": {
+    "id": "tt11299538",
+    "score": 100.0,
+    "matched_name": "Kakushigoto",
+    "verified_animation": true
+  },
+  "idoly pride": {
+    "id": "tt13009190",
+    "score": 100.0,
+    "matched_name": "Idoly Pride",
+    "verified_animation": true
+  },
+  "more than a married couple but not lovers": {
+    "id": "tt16231800",
+    "score": 100.0,
+    "matched_name": "More Than a Married Couple, But Not Lovers",
+    "verified_animation": true
+  },
+  "liar liar": {
+    "id": "tt28100910",
+    "score": 100.0,
+    "matched_name": "Liar Liar",
+    "verified_animation": true
+  },
+  "koroshi ai": null,
+  "otaku ni yasashii gal wa inai": {
+    "id": "tt39443176",
+    "score": 100.0,
+    "matched_name": "Otaku ni Yasashii Gal wa inai!?",
+    "verified_animation": true
+  },
+  "lazaro": null,
+  "reborn as a vending machine": null,
+  "nanare hananare": null,
+  "science fell in love": null,
+  "ntr netsuzou trap": {
+    "id": "tt7122440",
+    "score": 100.0,
+    "matched_name": "NTR: Netsuzou Trap",
+    "verified_animation": true
+  },
+  "pon no michi": null,
+  "shika no ou": null,
+  "ryman s club": {
+    "id": "tt15744206",
+    "score": 100.0,
+    "matched_name": "Ryman's Club",
+    "verified_animation": true
+  },
+  "smoking behind the supermarket with you": {
+    "id": "tt37614297",
+    "score": 100.0,
+    "matched_name": "Smoking Behind the Supermarket with You",
+    "verified_animation": true
+  },
+  "the new gate": {
+    "id": "tt31146105",
+    "score": 100.0,
+    "matched_name": "The New Gate",
+    "verified_animation": true
+  },
+  "tenjou tenge": null,
+  "summer pockets": {
+    "id": "tt16741414",
+    "score": 100.0,
+    "matched_name": "Summer Pockets",
+    "verified_animation": true
+  },
+  "to be hero": {
+    "id": "tt10484890",
+    "score": 100.0,
+    "matched_name": "TO BE HERO",
+    "verified_animation": true
+  },
+  "valerian laureline": null,
+  "07 ghost": {
+    "id": "tt1424033",
+    "score": 100.0,
+    "matched_name": "07-Ghost",
+    "verified_animation": true
+  },
+  "tsue to tsurugi no wistoria": null,
+  "ace attorney": {
+    "id": "tt5603356",
+    "score": 100.0,
+    "matched_name": "Ace Attorney",
+    "verified_animation": true
+  },
+  "ame to kimi to": null,
+  "beastars": {
+    "id": "tt11043632",
+    "score": 100.0,
+    "matched_name": "Beastars",
+    "verified_animation": true
+  },
+  "your lie in april": {
+    "id": "tt3895150",
+    "score": 100.0,
+    "matched_name": "Your Lie in April",
+    "verified_animation": true
+  },
+  "asobi asobase": null,
+  "bocchi the rock": {
+    "id": "tt17158756",
+    "score": 100.0,
+    "matched_name": "Bocchi the Rock!",
+    "verified_animation": true
+  },
+  "dragon ball super": {
+    "id": "tt4644488",
+    "score": 100.0,
+    "matched_name": "Dragon Ball Super",
+    "verified_animation": true
+  },
+  "fena pirate princess": {
+    "id": "tt12779780",
+    "score": 100.0,
+    "matched_name": "Fena: Pirate Princess",
+    "verified_animation": true
+  },
+  "cannon busters": {
+    "id": "tt5066664",
+    "score": 100.0,
+    "matched_name": "Cannon Busters",
+    "verified_animation": true
+  },
+  "clockwork planet": {
+    "id": "tt7120888",
+    "score": 100.0,
+    "matched_name": "Clockwork Planet",
+    "verified_animation": true
+  },
+  "hataage kemono michi": null,
+  "goldorak": null,
+  "dead dead demon s dededededestruction": {
+    "id": "tt32420174",
+    "score": 99.0,
+    "matched_name": "Dead Dead Demons Dededede Destruction",
+    "verified_animation": true
+  },
+  "gakuen babysitters": null,
+  "hitoribocchi no seikatsu": null,
+  "je peux entendre l ocean": null,
+  "kamisama operation divine": null,
+  "le chateau solitaire dans le miroir": null,
+  "liz et l oiseau bleu": null,
+  "koukaku no regios": null,
+  "ikebukuro west gate park": {
+    "id": "tt12642634",
+    "score": 100.0,
+    "matched_name": "Ikebukuro West Gate Park",
+    "verified_animation": true
+  },
+  "medalist": {
+    "id": "tt33310730",
+    "score": 100.0,
+    "matched_name": "Medalist",
+    "verified_animation": true
+  },
+  "muchuu sa kimi ni": null,
+  "observation records of my fiancee": null,
+  "naruto sd rock lee": null,
+  "ouran high school host club": null,
+  "pop team epic": {
+    "id": "tt7808370",
+    "score": 100.0,
+    "matched_name": "Pop Team Epic",
+    "verified_animation": true
+  },
+  "saenai heroine no sodatekata": null,
+  "seija musou": null,
+  "kill la kill": {
+    "id": "tt3114390",
+    "score": 100.0,
+    "matched_name": "Kill La Kill",
+    "verified_animation": true
+  },
+  "shimoseka": null,
+  "tensei goblin dakedo shitsumon aru": null,
+  "magic kyun renaissance": {
+    "id": "tt6114684",
+    "score": 100.0,
+    "matched_name": "Magic Kyun! Renaissance",
+    "verified_animation": true
+  },
+  "super crooks": {
+    "id": "tt14272628",
+    "score": 100.0,
+    "matched_name": "Super Crooks",
+    "verified_animation": true
+  },
+  "to every you i ve loved before": null,
+  "recovery of an mmo junkie": {
+    "id": "tt7662364",
+    "score": 100.0,
+    "matched_name": "Recovery of an MMO Junkie",
+    "verified_animation": true
+  },
+  "tsuki to laika to nosferatu": null,
+  "vampire garden": null,
+  "2 5 jigen no ririsa": null,
+  "whisper me a love song": {
+    "id": "tt30989692",
+    "score": 100.0,
+    "matched_name": "Whisper Me a Love Song",
+    "verified_animation": true
+  },
+  "the perfect insider": {
+    "id": "tt5247480",
+    "score": 100.0,
+    "matched_name": "The Perfect Insider",
+    "verified_animation": true
+  },
+  "yowamushi pedal": null,
+  "an archdemon s dilemma how to love your elf bride": {
+    "id": "tt31940008",
+    "score": 100.0,
+    "matched_name": "An Archdemon's Dilemma: How to Love Your Elf Bride",
+    "verified_animation": true
+  },
+  "asteroid in love": {
+    "id": "tt11405408",
+    "score": 100.0,
+    "matched_name": "Asteroid in Love",
+    "verified_animation": true
+  },
+  "adachi to shimamura": {
+    "id": "tt12728882",
+    "score": 100.0,
+    "matched_name": "Adachi to Shimamura",
+    "verified_animation": true
+  },
+  "boku wa tomodachi ga sukunai": null,
+  "carole tuesday": {
+    "id": "tt8107988",
+    "score": 100.0,
+    "matched_name": "Carole & Tuesday",
+    "verified_animation": true
+  },
+  "beelzebub": {
+    "id": "tt1882240",
+    "score": 100.0,
+    "matched_name": "Beelzebub",
+    "verified_animation": true
+  },
+  "colorful": null,
+  "deaimon": {
+    "id": "tt14489130",
+    "score": 100.0,
+    "matched_name": "Deaimon",
+    "verified_animation": true
+  },
+  "dragon quest": null,
+  "gambling school": null,
+  "firefighter daigo rescuer in orange": {
+    "id": "tt29201691",
+    "score": 100.0,
+    "matched_name": "Firefighter Daigo: Rescuer in Orange",
+    "verified_animation": true
+  },
+  "heat the pig liver": null,
+  "gosick": {
+    "id": "tt1872328",
+    "score": 100.0,
+    "matched_name": "Gosick",
+    "verified_animation": true
+  },
+  "kanan sama wa akumade choroi": null,
+  "imouza": null,
+  "kimi ni todoke": null,
+  "jiisan baasan wakagaeru": null,
+  "honey lemon soda": {
+    "id": "tt31528958",
+    "score": 100.0,
+    "matched_name": "Honey Lemon Soda",
+    "verified_animation": true
+  },
+  "kubo won t let me be invisible": {
+    "id": "tt21844614",
+    "score": 100.0,
+    "matched_name": "Kubo Won't Let Me Be Invisible",
+    "verified_animation": true
+  },
+  "loner life in another world": {
+    "id": "tt32512773",
+    "score": 100.0,
+    "matched_name": "Loner Life in Another World",
+    "verified_animation": true
+  },
+  "mushoku tensei": null,
+  "meiji gekken 1874": {
+    "id": "tt30495035",
+    "score": 100.0,
+    "matched_name": "Meiji Gekken: 1874",
+    "verified_animation": true
+  },
+  "magical explorer": null,
+  "le conte de la princesse kaguya": null,
+  "natsume yuujinchou shishi": null,
+  "saiki kusuo": null,
+  "oddtaxi": {
+    "id": "tt14134550",
+    "score": 99.0,
+    "matched_name": "Odd Taxi",
+    "verified_animation": true
+  },
+  "seiken tsukai no world break": null,
+  "outlaw star": {
+    "id": "tt0266171",
+    "score": 100.0,
+    "matched_name": "Outlaw Star",
+    "verified_animation": true
+  },
+  "super dragon ball heroes": {
+    "id": "tt8433216",
+    "score": 100.0,
+    "matched_name": "Super Dragon Ball Heroes",
+    "verified_animation": true
+  },
+  "pretty boy detective club": {
+    "id": "tt13457122",
+    "score": 100.0,
+    "matched_name": "Pretty Boy Detective Club",
+    "verified_animation": true
+  },
+  "sonny boy": {
+    "id": "tt14642342",
+    "score": 100.0,
+    "matched_name": "Sonny Boy",
+    "verified_animation": true
+  },
+  "tsumasho": null,
+  "toaru ossan no vrmmo katsudouki": null,
+  "the garden of sinners": null,
+  "tensei ouji no akaji": null,
+  "wind breaker": {
+    "id": "tt29605391",
+    "score": 100.0,
+    "matched_name": "Wind Breaker",
+    "verified_animation": true
+  },
+  "aharen san wa hakarenai": null,
+  "yu yu hakusho": null,
+  "atelier ryza": null,
+  "vermeil in gold": {
+    "id": "tt18561422",
+    "score": 100.0,
+    "matched_name": "Vermeil in Gold",
+    "verified_animation": true
+  },
+  "cautious hero": null,
+  "3d kanojo": null,
+  "angels of death": {
+    "id": "tt8670784",
+    "score": 100.0,
+    "matched_name": "Angels of Death",
+    "verified_animation": true
+  },
+  "corpse party": null,
+  "boruto": null,
+  "drifters": {
+    "id": "tt5225764",
+    "score": 100.0,
+    "matched_name": "Drifters",
+    "verified_animation": true
+  },
+  "death parade": {
+    "id": "tt4279012",
+    "score": 100.0,
+    "matched_name": "Death Parade",
+    "verified_animation": true
+  },
+  "ganbare nakamura kun": null,
+  "helck": {
+    "id": "tt26688817",
+    "score": 100.0,
+    "matched_name": "Helck",
+    "verified_animation": true
+  },
+  "flcl": {
+    "id": "tt0279077",
+    "score": 100.0,
+    "matched_name": "FLCL",
+    "verified_animation": true
+  },
+  "granblue fantasy": null,
+  "hoshi no samidare": null,
+  "in spectre": {
+    "id": "tt11328872",
+    "score": 100.0,
+    "matched_name": "In/Spectre",
+    "verified_animation": true
+  },
+  "le garcon et le heron": null,
+  "kimi wa kanata": null,
+  "mahou shoujo ikusei keikaku": null,
+  "kumo desu ga nani ka": null,
+  "my daughter grew up to rank s adventurer": null,
+  "needy girl overdose": {
+    "id": "tt39403976",
+    "score": 100.0,
+    "matched_name": "Needy Girl Overdose",
+    "verified_animation": true
+  },
+  "kancolle": null,
+  "mermaid melody pichi pichi pitch": {
+    "id": "tt4415288",
+    "score": 100.0,
+    "matched_name": "Mermaid Melody Pichi Pichi Pitch",
+    "verified_animation": true
+  },
+  "oi tonbo": null,
+  "overtake": {
+    "id": "tt27679458",
+    "score": 100.0,
+    "matched_name": "Overtake!",
+    "verified_animation": true
+  },
+  "princess of the bibliophile": null,
+  "soul eater": {
+    "id": "tt1214085",
+    "score": 100.0,
+    "matched_name": "Soul Eater",
+    "verified_animation": true
+  },
+  "saint cecilia pastor lawrence": null,
+  "seirei tsukai no blade dance": null,
+  "suzumiya haruhi no yuuutsu": null,
+  "teogonia": {
+    "id": "tt32514593",
+    "score": 100.0,
+    "matched_name": "Teogonia",
+    "verified_animation": true
+  },
+  "the royal tutor": null,
+  "the girl from the other side": null,
+  "shinmai ossan bokensha": null,
+  "tokyo 24 ku": null,
+  "tsurune": {
+    "id": "tt8994044",
+    "score": 100.0,
+    "matched_name": "Tsurune",
+    "verified_animation": true
+  },
+  "witch family": null,
+  "7 jours": null,
+  "yuri is my job": {
+    "id": "tt20234560",
+    "score": 100.0,
+    "matched_name": "Yuri Is My Job!",
+    "verified_animation": true
+  },
+  "victoria of many faces": {
+    "id": "tt38273525",
+    "score": 100.0,
+    "matched_name": "Victoria of Many Faces",
+    "verified_animation": true
+  },
+  "ai no idenshi": null,
+  "aura koga maryuin s last war": null,
+  "boukyaku battery": null,
+  "ano natsu de matteru": null,
+  "dungeon meshi": null,
+  "criminelles fiancailles": null,
+  "dekiru neko wa kyou mo yuuutsu": null,
+  "gantz": {
+    "id": "tt0434685",
+    "score": 100.0,
+    "matched_name": "Gantz",
+    "verified_animation": true
+  },
+  "beyond the boundary": null,
+  "great pretender": {
+    "id": "tt11680468",
+    "score": 100.0,
+    "matched_name": "Great Pretender",
+    "verified_animation": true
+  },
+  "fluffy paradise": {
+    "id": "tt30643982",
+    "score": 100.0,
+    "matched_name": "Fluffy Paradise",
+    "verified_animation": true
+  },
+  "hello world": null,
+  "how a realist hero rebuild the kingdom": {
+    "id": "tt13399402",
+    "score": 97.4,
+    "matched_name": "How a Realist Hero Rebuilt the Kingdom",
+    "verified_animation": true
+  },
+  "infinite dendrogram": {
+    "id": "tt11295582",
+    "score": 100.0,
+    "matched_name": "Infinite Dendrogram",
+    "verified_animation": true
+  },
+  "kanon": {
+    "id": "tt1223625",
+    "score": 100.0,
+    "matched_name": "Kanon",
+    "verified_animation": true
+  },
+  "josee le tigre et les poissons": null,
+  "le royaume des chats": null,
+  "love all play": null,
+  "king s game": {
+    "id": "tt7462702",
+    "score": 100.0,
+    "matched_name": "King's Game",
+    "verified_animation": true
+  },
+  "my gift lvl 9999 unlimited gacha": null,
+  "kurogane no valhallian": null,
+  "omaegotoki": null,
+  "mf ghost": {
+    "id": "tt28299608",
+    "score": 100.0,
+    "matched_name": "MF Ghost",
+    "verified_animation": true
+  },
+  "mahou shoujo madoka magica gaiden": null,
+  "princesse sarah": null,
+  "renai flops": null,
+  "paprika": null,
+  "seitokai yakuindomo": {
+    "id": "tt1694038",
+    "score": 100.0,
+    "matched_name": "Seitokai Yakuindomo",
+    "verified_animation": true
+  },
+  "shirobako": {
+    "id": "tt3985228",
+    "score": 100.0,
+    "matched_name": "Shirobako",
+    "verified_animation": true
+  },
+  "nekopara": {
+    "id": "tt11405370",
+    "score": 100.0,
+    "matched_name": "Nekopara",
+    "verified_animation": true
+  },
+  "souvenirs goutte a goutte": null,
+  "the gorilla god s go to girl": {
+    "id": "tt35348180",
+    "score": 100.0,
+    "matched_name": "The Gorilla God's Go-To Girl",
+    "verified_animation": true
+  },
+  "sword gai the animation": {
+    "id": "tt7415066",
+    "score": 100.0,
+    "matched_name": "Sword Gai: The Animation",
+    "verified_animation": true
+  },
+  "terra formars": {
+    "id": "tt3894916",
+    "score": 100.0,
+    "matched_name": "Terra Formars",
+    "verified_animation": true
+  },
+  "tokyo magnitude 8 0": {
+    "id": "tt1440068",
+    "score": 100.0,
+    "matched_name": "Tokyo Magnitude 8.0",
+    "verified_animation": true
+  },
+  "the shiunji family children": {
+    "id": "tt35331428",
+    "score": 100.0,
+    "matched_name": "The Shiunji Family Children",
+    "verified_animation": true
+  },
+  "uglymug epicfighter": {
+    "id": "tt36592756",
+    "score": 100.0,
+    "matched_name": "Uglymug, Epicfighter",
+    "verified_animation": true
+  },
+  "violet evergarden": {
+    "id": "tt7078180",
+    "score": 100.0,
+    "matched_name": "Violet Evergarden",
+    "verified_animation": true
+  },
+  "yuru yuri": null,
+  "wolf girl black prince": {
+    "id": "tt3950092",
+    "score": 100.0,
+    "matched_name": "Wolf Girl & Black Prince",
+    "verified_animation": true
+  },
+  "86 eighty six": null,
+  "ajin": {
+    "id": "tt5537534",
+    "score": 100.0,
+    "matched_name": "Ajin",
+    "verified_animation": true
+  },
+  "ayaka": null,
+  "ao ashi": {
+    "id": "tt15792808",
+    "score": 99.0,
+    "matched_name": "Aoashi",
+    "verified_animation": true
+  },
+  "cyberpunk edgerunners": {
+    "id": "tt12590266",
+    "score": 100.0,
+    "matched_name": "Cyberpunk: Edgerunners",
+    "verified_animation": true
+  },
+  "demon lord retry": null,
+  "black bullet": {
+    "id": "tt3257166",
+    "score": 100.0,
+    "matched_name": "Black Bullet",
+    "verified_animation": true
+  },
+  "chanto suenai kyuuketsuki chan": null,
+  "brand new animal": null,
+  "food for the soul": null,
+  "gekkan mousou kagaku": null,
+  "dusk maiden of amnesia": {
+    "id": "tt2340511",
+    "score": 100.0,
+    "matched_name": "Dusk Maiden of Amnesia",
+    "verified_animation": true
+  },
+  "grimoire of zero": {
+    "id": "tt6477270",
+    "score": 100.0,
+    "matched_name": "Grimoire of Zero",
+    "verified_animation": true
+  },
+  "hero skill achats en ligne": null,
+  "inou battle wa nichijoukei no naka de": null,
+  "joukamachi no dandelion": null,
+  "karakuri circus": {
+    "id": "tt9050366",
+    "score": 100.0,
+    "matched_name": "Karakuri Circus",
+    "verified_animation": true
+  },
+  "kuroneko to majo no kyoushitsu": {
+    "id": "tt39123043",
+    "score": 100.0,
+    "matched_name": "Kuroneko to Majo no Kyoushitsu",
+    "verified_animation": true
+  },
+  "le voyage de chihiro": null,
+  "majo to yajuu": null,
+  "my hero academia vigilantes": {
+    "id": "tt35636246",
+    "score": 100.0,
+    "matched_name": "My Hero Academia: Vigilantes",
+    "verified_animation": true
+  },
+  "love is like a cocktail": {
+    "id": "tt7727278",
+    "score": 100.0,
+    "matched_name": "Love Is Like a Cocktail",
+    "verified_animation": true
+  },
+  "migi dali": {
+    "id": "tt29371814",
+    "score": 100.0,
+    "matched_name": "Migi & Dali",
+    "verified_animation": true
+  },
+  "parallel world pharmacy": {
+    "id": "tt18574004",
+    "score": 100.0,
+    "matched_name": "Parallel World Pharmacy",
+    "verified_animation": true
+  },
+  "nhk ni youkoso": null,
+  "shokei shoujo no ikiru michi": null,
+  "promare": null,
+  "requiem for the phantom": null,
+  "tada never falls in love": {
+    "id": "tt8249034",
+    "score": 100.0,
+    "matched_name": "Tada Never Falls in Love",
+    "verified_animation": true
+  },
+  "spare me great lord": {
+    "id": "tt16409202",
+    "score": 100.0,
+    "matched_name": "Spare Me, Great Lord!",
+    "verified_animation": true
+  },
+  "sakugan": {
+    "id": "tt13580730",
+    "score": 100.0,
+    "matched_name": "Sakugan",
+    "verified_animation": true
+  },
+  "the summer hikaru died": {
+    "id": "tt33028568",
+    "score": 100.0,
+    "matched_name": "The Summer Hikaru Died",
+    "verified_animation": true
+  },
+  "umamusume pretty derby": {
+    "id": "tt8253268",
+    "score": 99.0,
+    "matched_name": "Uma Musume: Pretty Derby",
+    "verified_animation": true
+  },
+  "vision d escaflowne": null,
+  "the heroic legend of arslan": {
+    "id": "tt5023666",
+    "score": 100.0,
+    "matched_name": "The Heroic Legend of Arslan",
+    "verified_animation": true
+  },
+  "world trigger": {
+    "id": "tt3950102",
+    "score": 100.0,
+    "matched_name": "World Trigger",
+    "verified_animation": true
+  },
+  "yuusha party ni kawaii ko ga ita node kokuhaku shitemita": null,
+  "azur et asmar": null,
+  "akashic records": null,
+  "aoharu x kikanjuu": null,
+  "d frag": {
+    "id": "tt3296914",
+    "score": 100.0,
+    "matched_name": "D-Frag!",
+    "verified_animation": true
+  },
+  "egao no taenai shokuba desu": null,
+  "four knights of the apocalypse": null,
+  "btooom": {
+    "id": "tt2329220",
+    "score": 100.0,
+    "matched_name": "Btooom!",
+    "verified_animation": true
+  },
+  "denkigai no honya san": {
+    "id": "tt3909838",
+    "score": 99.0,
+    "matched_name": "Denki-Gai no Honya-san",
+    "verified_animation": true
+  },
+  "heroine saint no i m an all works maid and proud of it": null,
+  "i became a legend after my 10 year long last stand": {
+    "id": "tt39443204",
+    "score": 100.0,
+    "matched_name": "I Became a Legend after My 10 Year-Long Last Stand",
+    "verified_animation": true
+  },
+  "gensou sangokushi tengen reishinki": {
+    "id": "tt15176722",
+    "score": 100.0,
+    "matched_name": "Gensou Sangokushi: Tengen Reishinki",
+    "verified_animation": true
+  },
+  "inuyasha": {
+    "id": "tt0290223",
+    "score": 100.0,
+    "matched_name": "Inuyasha",
+    "verified_animation": true
+  },
+  "katainaka no ossan kensei ni naru": null,
+  "gunjou no fanfare": null,
+  "cherry magic": null,
+  "les brigades immunitaires": null,
+  "jun la voix du coeur": null,
+  "kiznaiver": {
+    "id": "tt5225712",
+    "score": 100.0,
+    "matched_name": "Kiznaiver",
+    "verified_animation": true
+  },
+  "mikakunin de shinkoukei": null,
+  "love live school idol project": {
+    "id": "tt2595486",
+    "score": 100.0,
+    "matched_name": "Love Live! School Idol Project",
+    "verified_animation": true
+  },
+  "onigamiden": null,
+  "make heroine ga ooisugiru": null,
+  "nier automata": null,
+  "paripi koumei": null,
+  "psycho pass": {
+    "id": "tt2379308",
+    "score": 100.0,
+    "matched_name": "Psycho-Pass",
+    "verified_animation": true
+  },
+  "my love story": null,
+  "revolutionary girl utena": {
+    "id": "tt0205410",
+    "score": 100.0,
+    "matched_name": "Revolutionary Girl Utena",
+    "verified_animation": true
+  },
+  "senpai ga uzai kouhai no hanashi": null,
+  "salaryman ga isekai ni ittara shitennou ni natta hanashi": null,
+  "shoumetsu toshi": null,
+  "taishou otome otogibanashi": null,
+  "tomodachi game": {
+    "id": "tt15830678",
+    "score": 100.0,
+    "matched_name": "Tomodachi Game",
+    "verified_animation": true
+  },
+  "the all devouring whale": null,
+  "spirits seekers": null,
+  "un ete avec coo": null,
+  "the too perfect saint": null,
+  "yuusha yamemasu": null,
+  "voices of a distant star": null,
+  "xxxholic": null,
+  "akiba maid war": {
+    "id": "tt21929358",
+    "score": 100.0,
+    "matched_name": "Akiba Maid War",
+    "verified_animation": true
+  },
+  "a certain scientific railgun": {
+    "id": "tt1515996",
+    "score": 100.0,
+    "matched_name": "A Certain Scientific Railgun",
+    "verified_animation": true
+  },
+  "appare ranman": {
+    "id": "tt11714178",
+    "score": 100.0,
+    "matched_name": "Appare-Ranman!",
+    "verified_animation": true
+  },
+  "baby steps": {
+    "id": "tt3342720",
+    "score": 100.0,
+    "matched_name": "Baby Steps",
+    "verified_animation": true
+  },
+  "chii fuyo": null,
+  "devil may cry": {
+    "id": "tt15716776",
+    "score": 100.0,
+    "matched_name": "Devil May Cry",
+    "verified_animation": true
+  },
+  "bucchigiri": {
+    "id": "tt28454318",
+    "score": 100.0,
+    "matched_name": "BUCCHIGIRI?!",
+    "verified_animation": true
+  },
+  "from overshadowed to overpowered": null,
+  "dagashi kashi": {
+    "id": "tt5346952",
+    "score": 100.0,
+    "matched_name": "Dagashi Kashi",
+    "verified_animation": true
+  },
+  "black summoner": {
+    "id": "tt21249100",
+    "score": 100.0,
+    "matched_name": "Black Summoner",
+    "verified_animation": true
+  },
+  "engage kiss": {
+    "id": "tt21114720",
+    "score": 100.0,
+    "matched_name": "Engage Kiss",
+    "verified_animation": true
+  },
+  "hachinantte sore wa nai deshou": null,
+  "ghost in the shell": null,
+  "hibike euphonium": null,
+  "i made friends with the second prettiest girl in my class": {
+    "id": "tt37532971",
+    "score": 100.0,
+    "matched_name": "I Made Friends with the Second Prettiest Girl in My Class",
+    "verified_animation": true
+  },
+  "iroduku le monde en couleur": null,
+  "just because": {
+    "id": "tt7513452",
+    "score": 100.0,
+    "matched_name": "Just Because!",
+    "verified_animation": true
+  },
+  "katsugeki touken ranbu": {
+    "id": "tt8503628",
+    "score": 100.0,
+    "matched_name": "Katsugeki/Touken Ranbu",
+    "verified_animation": true
+  },
+  "kyuujitsu no warumono san": null,
+  "knights and magic": null,
+  "les enfants de la baleine": null,
+  "ningen fushin": null,
+  "maou 2099": null,
+  "love tyrant": {
+    "id": "tt6777074",
+    "score": 100.0,
+    "matched_name": "Love Tyrant",
+    "verified_animation": true
+  },
+  "my next life as a villainess": null,
+  "opus colors": {
+    "id": "tt19511674",
+    "score": 100.0,
+    "matched_name": "Opus Colors",
+    "verified_animation": true
+  },
+  "penguin highway": null,
+  "sanda": {
+    "id": "tt35127440",
+    "score": 100.0,
+    "matched_name": "Sanda",
+    "verified_animation": true
+  },
+  "rising impact": {
+    "id": "tt30400535",
+    "score": 100.0,
+    "matched_name": "Rising Impact",
+    "verified_animation": true
+  },
+  "shunkashuutou daikousha": null,
+  "qualidea code": {
+    "id": "tt7243824",
+    "score": 100.0,
+    "matched_name": "Qualidea Code",
+    "verified_animation": true
+  },
+  "sentai red isekai de boukensha ni naru": null,
+  "the irregular at magic high school": {
+    "id": "tt3874528",
+    "score": 100.0,
+    "matched_name": "The Irregular at Magic High School",
+    "verified_animation": true
+  },
+  "tong ling fei": null,
+  "the vermilion mask": {
+    "id": "tt41153966",
+    "score": 97.3,
+    "matched_name": "The Vermillion Mask",
+    "verified_animation": true
+  },
+  "takt op destiny": {
+    "id": "tt14935960",
+    "score": 100.0,
+    "matched_name": "Takt Op. Destiny",
+    "verified_animation": true
+  },
+  "wakfu": {
+    "id": "tt1807824",
+    "score": 100.0,
+    "matched_name": "Wakfu",
+    "verified_animation": true
+  },
+  "yamada kun to 7 nin no majo": {
+    "id": "tt4623042",
+    "score": 100.0,
+    "matched_name": "Yamada-kun to 7-nin no Majo",
+    "verified_animation": true
+  },
+  "zenshuu": null,
+  "the aquatope on white sand": {
+    "id": "tt13851952",
+    "score": 100.0,
+    "matched_name": "The Aquatope on White Sand",
+    "verified_animation": true
+  },
+  "akuma no riddle": null,
+  "a destructive god sits next to me": {
+    "id": "tt11296252",
+    "score": 100.0,
+    "matched_name": "A Destructive God Sits Next to Me",
+    "verified_animation": true
+  },
+  "undead murder farce": {
+    "id": "tt27206542",
+    "score": 100.0,
+    "matched_name": "Undead Murder Farce",
+    "verified_animation": true
+  },
+  "build divide": null,
+  "bad girl": {
+    "id": "tt35652446",
+    "score": 100.0,
+    "matched_name": "Bad Girl",
+    "verified_animation": true
+  },
+  "arafou otoko no isekai tsuuhan": null,
+  "dance dance danseur": {
+    "id": "tt15391190",
+    "score": 100.0,
+    "matched_name": "Dance Dance Danseur",
+    "verified_animation": true
+  },
+  "chobits": {
+    "id": "tt0326672",
+    "score": 100.0,
+    "matched_name": "Chobits",
+    "verified_animation": true
+  },
+  "fuguushoku kanteishi ga jitsu wa saikyou datta": null,
+  "haikyuu": {
+    "id": "tt3398540",
+    "score": 100.0,
+    "matched_name": "Haikyuu!!",
+    "verified_animation": true
+  },
+  "gimai seikatsu": null,
+  "i want to eat your pancreas": null,
+  "isekai no sata wa shachiku shidai": null,
+  "higehiro": null,
+  "diabolik lovers": {
+    "id": "tt3114350",
+    "score": 100.0,
+    "matched_name": "Diabolik Lovers",
+    "verified_animation": true
+  },
+  "eris no seihai": null,
+  "l oeuf de l ange": null,
+  "kawaii dake janai shikimori san": null,
+  "koi to senkyo to chocolate": null,
+  "k project": null,
+  "les fleurs du mal": null,
+  "lovely complex": {
+    "id": "tt1587394",
+    "score": 100.0,
+    "matched_name": "Lovely Complex",
+    "verified_animation": true
+  },
+  "maou jou de oyasumi": null,
+  "ore wa seikan kokka no akutoku ryoushu": null,
+  "piano forest": null,
+  "my roommate is a cat": {
+    "id": "tt9522316",
+    "score": 100.0,
+    "matched_name": "My Roommate Is a Cat",
+    "verified_animation": true
+  },
+  "ninja to gokudou": {
+    "id": "tt37038619",
+    "score": 100.0,
+    "matched_name": "Ninja to Gokudou",
+    "verified_animation": true
+  },
+  "mob psycho 100": null,
+  "sasaki to p chan": null,
+  "rokudou no onna tachi": null,
+  "serial experiments lain": {
+    "id": "tt0500092",
+    "score": 100.0,
+    "matched_name": "Serial Experiments Lain",
+    "verified_animation": true
+  },
+  "rahxephon": {
+    "id": "tt0364863",
+    "score": 100.0,
+    "matched_name": "RahXephon",
+    "verified_animation": true
+  },
+  "star wars visions": {
+    "id": "tt13622982",
+    "score": 100.0,
+    "matched_name": "Star Wars: Visions",
+    "verified_animation": true
+  },
+  "shy": {
+    "id": "tt22524872",
+    "score": 100.0,
+    "matched_name": "Shy",
+    "verified_animation": true
+  },
+  "tales of zestiria": null,
+  "the kingdoms of ruin": {
+    "id": "tt28774702",
+    "score": 100.0,
+    "matched_name": "The Kingdoms of Ruin",
+    "verified_animation": true
+  },
+  "the beginning after the end": {
+    "id": "tt34119820",
+    "score": 100.0,
+    "matched_name": "The Beginning After the End",
+    "verified_animation": true
+  },
+  "the world ends with you": null,
+  "under ninja": {
+    "id": "tt15378218",
+    "score": 100.0,
+    "matched_name": "Under Ninja",
+    "verified_animation": true
+  },
+  "toriko": {
+    "id": "tt1899047",
+    "score": 100.0,
+    "matched_name": "Toriko",
+    "verified_animation": true
+  },
+  "wangan midnight": {
+    "id": "tt3385730",
+    "score": 100.0,
+    "matched_name": "Wangan Midnight",
+    "verified_animation": true
+  },
+  "albator 78": null,
+  "yasuke": {
+    "id": "tt9310330",
+    "score": 100.0,
+    "matched_name": "Yasuke",
+    "verified_animation": true
+  },
+  "zombie land saga": {
+    "id": "tt9054354",
+    "score": 99.0,
+    "matched_name": "Zombieland Saga",
+    "verified_animation": true
+  },
+  "a place further than the universe": {
+    "id": "tt7836688",
+    "score": 100.0,
+    "matched_name": "A Place Further Than the Universe",
+    "verified_animation": true
+  },
+  "bungou stray dogs": {
+    "id": "tt5679720",
+    "score": 97.0,
+    "matched_name": "Bungo Stray Dogs",
+    "verified_animation": true
+  },
+  "bakuman": {
+    "id": "tt1738419",
+    "score": 100.0,
+    "matched_name": "Bakuman.",
+    "verified_animation": true
+  },
+  "arcana famiglia": null,
+  "even though i m a super timid noble girl i accepted the bet from my cunning fiance": null,
+  "blood lad": {
+    "id": "tt2760784",
+    "score": 100.0,
+    "matched_name": "Blood Lad",
+    "verified_animation": true
+  },
+  "danganronpa": null,
+  "dimension w": {
+    "id": "tt5334292",
+    "score": 100.0,
+    "matched_name": "Dimension W",
+    "verified_animation": true
+  },
+  "i ll become a villainess that will go down in history": null,
+  "hakata tonkotsu ramens": {
+    "id": "tt8129662",
+    "score": 100.0,
+    "matched_name": "Hakata Tonkotsu Ramens",
+    "verified_animation": true
+  },
+  "high school prodigies have it easy even in another world": {
+    "id": "tt10671282",
+    "score": 100.0,
+    "matched_name": "High School Prodigies Have It Easy Even in Another World!",
+    "verified_animation": true
+  },
+  "isekai shikkaku": null,
+  "kokkoku": {
+    "id": "tt7933666",
+    "score": 100.0,
+    "matched_name": "Kokkoku",
+    "verified_animation": true
+  },
+  "kabukibu": {
+    "id": "tt12758256",
+    "score": 100.0,
+    "matched_name": "Kabukibu!",
+    "verified_animation": true
+  },
+  "girls band cry": {
+    "id": "tt31250134",
+    "score": 100.0,
+    "matched_name": "Girls Band Cry",
+    "verified_animation": true
+  },
+  "la legende de korra": null,
+  "les quatre freres yuzuki": null,
+  "keep your hands off eizouken": {
+    "id": "tt10320398",
+    "score": 100.0,
+    "matched_name": "Keep Your Hands Off Eizouken!",
+    "verified_animation": true
+  },
+  "lucky star": {
+    "id": "tt1086236",
+    "score": 100.0,
+    "matched_name": "Lucky Star",
+    "verified_animation": true
+  },
+  "march comes in like a lion": {
+    "id": "tt6074794",
+    "score": 100.0,
+    "matched_name": "March Comes in Like a Lion",
+    "verified_animation": true
+  },
+  "nisekoi": null,
+  "momentary lily": {
+    "id": "tt33310997",
+    "score": 100.0,
+    "matched_name": "MOMENTARY LILY",
+    "verified_animation": true
+  },
+  "my tiny senpai": null,
+  "plastic memories": {
+    "id": "tt4603222",
+    "score": 100.0,
+    "matched_name": "Plastic Memories",
+    "verified_animation": true
+  },
+  "saved by the ice cold prince s embrace": null,
+  "oreshura": null,
+  "rakudai kishi no cavalry": null,
+  "sewayaki kitsune no senko san": null,
+  "silent witch": null,
+  "romeo x juliet": {
+    "id": "tt1081667",
+    "score": 100.0,
+    "matched_name": "Romeo x Juliet",
+    "verified_animation": true
+  },
+  "the legend of heroes trails of cold steel northern war": {
+    "id": "tt14206996",
+    "score": 100.0,
+    "matched_name": "The Legend of Heroes: Trails of Cold Steel - Northern War",
+    "verified_animation": true
+  },
+  "toumei otoko to ningen onna": null,
+  "tamayomi": null,
+  "stars align": null,
+  "yi nian yong heng": null,
+  "unnamed memory": {
+    "id": "tt24326724",
+    "score": 100.0,
+    "matched_name": "Unnamed Memory",
+    "verified_animation": true
+  },
+  "the world is still beautiful": {
+    "id": "tt3590222",
+    "score": 100.0,
+    "matched_name": "The World Is Still Beautiful",
+    "verified_animation": true
+  },
+  "wash it all away": {
+    "id": "tt37196939",
+    "score": 100.0,
+    "matched_name": "Wash It All Away",
+    "verified_animation": true
+  },
+  "arifureta": null,
+  "fureru": null,
+  "ballroom e youkoso": null,
+  "burn the witch": {
+    "id": "tt12011442",
+    "score": 100.0,
+    "matched_name": "Burn the Witch",
+    "verified_animation": true
+  },
+  "alice zoroku": {
+    "id": "tt6735466",
+    "score": 96.0,
+    "matched_name": "Alice & Zouroku",
+    "verified_animation": true
+  },
+  "bloom into you": {
+    "id": "tt8993464",
+    "score": 100.0,
+    "matched_name": "Bloom Into You",
+    "verified_animation": true
+  },
+  "citrus": {
+    "id": "tt7521578",
+    "score": 100.0,
+    "matched_name": "Citrus",
+    "verified_animation": true
+  },
+  "a sign of affection": {
+    "id": "tt30024091",
+    "score": 100.0,
+    "matched_name": "A Sign of Affection",
+    "verified_animation": true
+  },
+  "domestic girlfriend": {
+    "id": "tt9817980",
+    "score": 100.0,
+    "matched_name": "Domestic Girlfriend",
+    "verified_animation": true
+  },
+  "dark gathering": {
+    "id": "tt21844490",
+    "score": 100.0,
+    "matched_name": "Dark Gathering",
+    "verified_animation": true
+  },
+  "full moon wo sagashite": null,
+  "eyeshield 21": {
+    "id": "tt0996695",
+    "score": 100.0,
+    "matched_name": "Eyeshield 21",
+    "verified_animation": true
+  },
+  "hiiro no kakera": {
+    "id": "tt2338857",
+    "score": 100.0,
+    "matched_name": "Hiiro no Kakera",
+    "verified_animation": true
+  },
+  "girls last tour": {
+    "id": "tt7474942",
+    "score": 100.0,
+    "matched_name": "Girls' Last Tour",
+    "verified_animation": true
+  },
+  "i m standing on a million lives": {
+    "id": "tt12706854",
+    "score": 100.0,
+    "matched_name": "I'm Standing on a Million Lives",
+    "verified_animation": true
+  },
+  "la tortue rouge": null,
+  "island": {
+    "id": "tt8526106",
+    "score": 100.0,
+    "matched_name": "Island",
+    "verified_animation": true
+  },
+  "kai byou ramune": null,
+  "kono healer mendokusai": null,
+  "mon voisin totoro": null,
+  "maboroshi": null,
+  "noble new world adventures": null,
+  "masamune kun no revenge": null,
+  "oroka na tenshi wa akuma to odoru": null,
+  "sayonara lara": null,
+  "mysteria friends": {
+    "id": "tt9203780",
+    "score": 100.0,
+    "matched_name": "Mysteria Friends",
+    "verified_animation": true
+  },
+  "let s play": null,
+  "rascal does not dream of bunny girl senpai": {
+    "id": "tt8993398",
+    "score": 100.0,
+    "matched_name": "Rascal Does Not Dream of Bunny Girl Senpai",
+    "verified_animation": true
+  },
+  "shadows house": {
+    "id": "tt13362302",
+    "score": 100.0,
+    "matched_name": "Shadows House",
+    "verified_animation": true
+  },
+  "sk8 the infinity": {
+    "id": "tt13129190",
+    "score": 100.0,
+    "matched_name": "SK8 the Infinity",
+    "verified_animation": true
+  },
+  "strike the blood": {
+    "id": "tt2789238",
+    "score": 100.0,
+    "matched_name": "Strike the Blood",
+    "verified_animation": true
+  },
+  "urusei yatsura": {
+    "id": "tt16764368",
+    "score": 100.0,
+    "matched_name": "Urusei yatsura",
+    "verified_animation": true
+  },
+  "the demon prince momochi": null,
+  "trapped in a dating sim the world of otome games is tough for mobs": {
+    "id": "tt16255458",
+    "score": 100.0,
+    "matched_name": "Trapped in a Dating Sim: The World of Otome Games Is Tough for Mobs",
+    "verified_animation": true
+  },
+  "the magical revolution of the reincarnated princess and the genius young lady": {
+    "id": "tt22889156",
+    "score": 100.0,
+    "matched_name": "The Magical Revolution of the Reincarnated Princess and the Genius Young Lady",
+    "verified_animation": true
+  },
+  "alma chan wa kazoku ni naritai": null,
+  "watari kun no ga houkai sunzen": null,
+  "les belles cicatrices": null,
+  "arrietty le petit monde des chapardeurs": null,
+  "blue exorcist": {
+    "id": "tt1799631",
+    "score": 100.0,
+    "matched_name": "Blue Exorcist",
+    "verified_animation": true
+  },
+  "barakamon": {
+    "id": "tt3660104",
+    "score": 100.0,
+    "matched_name": "Barakamon",
+    "verified_animation": true
+  },
+  "yoru no kurage wa oyogenai": null,
+  "doukyuusei": null,
+  "by the grace of the gods": {
+    "id": "tt12642654",
+    "score": 100.0,
+    "matched_name": "By the Grace of the Gods",
+    "verified_animation": true
+  },
+  "darker than black": {
+    "id": "tt0995941",
+    "score": 100.0,
+    "matched_name": "Darker Than Black",
+    "verified_animation": true
+  },
+  "clannad": {
+    "id": "tt1118804",
+    "score": 100.0,
+    "matched_name": "Clannad",
+    "verified_animation": true
+  },
+  "futari solo camp": null,
+  "fairies album": {
+    "id": "tt15250594",
+    "score": 96.3,
+    "matched_name": "Fairies Albums",
+    "verified_animation": true
+  },
+  "gnosia": {
+    "id": "tt34852231",
+    "score": 100.0,
+    "matched_name": "Gnosia",
+    "verified_animation": true
+  },
+  "himouto umaru chan": {
+    "id": "tt5059866",
+    "score": 100.0,
+    "matched_name": "Himouto! Umaru-chan",
+    "verified_animation": true
+  },
+  "hanasaku iroha": {
+    "id": "tt1820941",
+    "score": 100.0,
+    "matched_name": "Hanasaku Iroha",
+    "verified_animation": true
+  },
+  "kaijin kaihatsubu no kuroitsu san": null,
+  "ibitte konai gibo to gishi": null,
+  "konobi": null,
+  "kenshin le vagabond": null,
+  "la voie du tablier": null,
+  "izetta the last witch": {
+    "id": "tt6104656",
+    "score": 100.0,
+    "matched_name": "Izetta: The Last Witch",
+    "verified_animation": true
+  },
+  "level 1 dakedo unique skill de saikyou desu": null,
+  "mawaru penguindrum": null,
+  "nagi no asukara": null,
+  "madan no ou to vanadis": null,
+  "mononoke": {
+    "id": "tt1992935",
+    "score": 100.0,
+    "matched_name": "Mononoke",
+    "verified_animation": true
+  },
+  "noragami": {
+    "id": "tt3225270",
+    "score": 100.0,
+    "matched_name": "Noragami",
+    "verified_animation": true
+  },
+  "pokemon": {
+    "id": "tt0168366",
+    "score": 100.0,
+    "matched_name": "Pokémon",
+    "verified_animation": true
+  },
+  "oshi ga budoukan itte kuretara shinu": {
+    "id": "tt11147864",
+    "score": 97.1,
+    "matched_name": "Oshi ga Budôkan ittekuretara shinu",
+    "verified_animation": true
+  },
+  "run with the wind": {
+    "id": "tt9402026",
+    "score": 100.0,
+    "matched_name": "Run with the Wind",
+    "verified_animation": true
+  },
+  "shaman king": {
+    "id": "tt12502782",
+    "score": 100.0,
+    "matched_name": "Shaman King",
+    "verified_animation": true
+  },
+  "re main": {
+    "id": "tt14201334",
+    "score": 100.0,
+    "matched_name": "Re-Main",
+    "verified_animation": true
+  },
+  "tasuuketsu": null,
+  "suicide squad isekai": {
+    "id": "tt28279848",
+    "score": 100.0,
+    "matched_name": "Suicide Squad Isekai",
+    "verified_animation": true
+  },
+  "the misfit of demon king academy": {
+    "id": "tt12432936",
+    "score": 100.0,
+    "matched_name": "The Misfit of Demon King Academy",
+    "verified_animation": true
+  },
+  "skip to loafer": null,
+  "the dreaming boy is a realist": {
+    "id": "tt28278738",
+    "score": 100.0,
+    "matched_name": "The Dreaming Boy is a Realist",
+    "verified_animation": true
+  },
+  "utawarerumono": {
+    "id": "tt0978215",
+    "score": 100.0,
+    "matched_name": "Utawarerumono",
+    "verified_animation": true
+  },
+  "youjo senki": null,
+  "school days": null,
+  "trillion game": {
+    "id": "tt33609048",
+    "score": 100.0,
+    "matched_name": "Trillion Game",
+    "verified_animation": true
+  },
+  "absolute duo": {
+    "id": "tt4216878",
+    "score": 100.0,
+    "matched_name": "Absolute Duo",
+    "verified_animation": true
+  },
+  "amaama to inazuma": null,
+  "wave surfing yappe": {
+    "id": "tt13795144",
+    "score": 100.0,
+    "matched_name": "Wave!!: Surfing Yappe!!",
+    "verified_animation": true
+  },
+  "wasurenagumo": null,
+  "bastard ankoku no hakai shin": null,
+  "campione": {
+    "id": "tt2250160",
+    "score": 100.0,
+    "matched_name": "Campione!",
+    "verified_animation": true
+  },
+  "darwin s incident": null,
+  "as miss beelzebub likes it": {
+    "id": "tt9522024",
+    "score": 100.0,
+    "matched_name": "As Miss Beelzebub Likes It",
+    "verified_animation": true
+  },
+  "classroom of the elite": {
+    "id": "tt7263328",
+    "score": 100.0,
+    "matched_name": "Classroom of the Elite",
+    "verified_animation": true
+  },
+  "fantasy bishoujo juniku oji san to": null,
+  "gods games we play": {
+    "id": "tt31860621",
+    "score": 100.0,
+    "matched_name": "Gods' Games We Play",
+    "verified_animation": true
+  },
+  "dr stone": {
+    "id": "tt9679542",
+    "score": 100.0,
+    "matched_name": "Dr. Stone",
+    "verified_animation": true
+  },
+  "fuuto tantei": null,
+  "hinamizawa le village maudit": null,
+  "jahy sama wa kujikenai": null,
+  "handyman saitou in another world": {
+    "id": "tt21844644",
+    "score": 100.0,
+    "matched_name": "Handyman Saitou in Another World",
+    "verified_animation": true
+  },
+  "kore kaite shine": null,
+  "kikaijikake no marie": null,
+  "idolish7": {
+    "id": "tt11834102",
+    "score": 100.0,
+    "matched_name": "IDOLiSH7",
+    "verified_animation": true
+  },
+  "magi the labyrinth of magic": {
+    "id": "tt2425098",
+    "score": 100.0,
+    "matched_name": "Magi: The Labyrinth of Magic",
+    "verified_animation": true
+  },
+  "kaina of the great snow sea": {
+    "id": "tt17221100",
+    "score": 100.0,
+    "matched_name": "Kaina of the Great Snow Sea",
+    "verified_animation": true
+  },
+  "lance dur": {
+    "id": "tt21211412",
+    "score": 100.0,
+    "matched_name": "Lance-Dur",
+    "verified_animation": true
+  },
+  "noucome": null,
+  "mayonaka punch": {
+    "id": "tt32333015",
+    "score": 100.0,
+    "matched_name": "Mayonaka Punch",
+    "verified_animation": true
+  },
+  "nanana s buried treasure": {
+    "id": "tt3519238",
+    "score": 100.0,
+    "matched_name": "Nanana's Buried Treasure",
+    "verified_animation": true
+  },
+  "reborn as a space mercenary": null,
+  "rwby": {
+    "id": "tt3066242",
+    "score": 100.0,
+    "matched_name": "RWBY",
+    "verified_animation": true
+  },
+  "moonrise": null,
+  "pompoko": null,
+  "otaku elf": {
+    "id": "tt26895902",
+    "score": 100.0,
+    "matched_name": "Otaku Elf",
+    "verified_animation": true
+  },
+  "shichisei no subaru": null,
+  "tengoku daimakyou": null,
+  "slow loop": {
+    "id": "tt14694762",
+    "score": 100.0,
+    "matched_name": "Slow Loop",
+    "verified_animation": true
+  },
+  "summer ghost": null,
+  "time shadows": null,
+  "tsubasa chronicle": null,
+  "schwarzesmarken": {
+    "id": "tt5375996",
+    "score": 100.0,
+    "matched_name": "Schwarzesmarken",
+    "verified_animation": true
+  },
+  "the eminence in shadow": {
+    "id": "tt14115938",
+    "score": 100.0,
+    "matched_name": "The Eminence in Shadow",
+    "verified_animation": true
+  },
+  "the most notorious talker": null,
+  "weathering with you": null,
+  "tis time for torture princess": {
+    "id": "tt30643998",
+    "score": 100.0,
+    "matched_name": "Tis Time for \"Torture,\" Princess",
+    "verified_animation": true
+  },
+  "ubel blatt": {
+    "id": "tt32581027",
+    "score": 100.0,
+    "matched_name": "Ubel Blatt",
+    "verified_animation": true
+  },
+  "acchi kocchi": {
+    "id": "tt2309934",
+    "score": 100.0,
+    "matched_name": "Acchi Kocchi",
+    "verified_animation": true
+  },
+  "beast tamer": {
+    "id": "tt21345944",
+    "score": 100.0,
+    "matched_name": "Beast Tamer",
+    "verified_animation": true
+  },
+  "your forma": {
+    "id": "tt32513973",
+    "score": 100.0,
+    "matched_name": "Your Forma",
+    "verified_animation": true
+  },
+  "ashita no joe": null,
+  "blue wolves": null,
+  "amagi brilliant park": {
+    "id": "tt3950084",
+    "score": 100.0,
+    "matched_name": "Amagi Brilliant Park",
+    "verified_animation": true
+  },
+  "gachiakuta": {
+    "id": "tt32612521",
+    "score": 100.0,
+    "matched_name": "Gachiakuta",
+    "verified_animation": true
+  },
+  "candy candy": {
+    "id": "tt0270761",
+    "score": 100.0,
+    "matched_name": "Candy Candy",
+    "verified_animation": true
+  },
+  "golden time": {
+    "id": "tt3105452",
+    "score": 100.0,
+    "matched_name": "Golden Time",
+    "verified_animation": true
+  },
+  "harukana receive": {
+    "id": "tt8530992",
+    "score": 100.0,
+    "matched_name": "Harukana Receive",
+    "verified_animation": true
+  },
+  "jashin chan dropkick": null,
+  "dragon ball gt": {
+    "id": "tt0139774",
+    "score": 100.0,
+    "matched_name": "Dragon Ball GT",
+    "verified_animation": true
+  },
+  "fate": null,
+  "koujo denka no kateikyoushi": null,
+  "le chateau dans le ciel": null,
+  "ijiranaide nagatoro san": null,
+  "magic repo man": null,
+  "kamierabi god app": {
+    "id": "tt29475583",
+    "score": 100.0,
+    "matched_name": "KamiErabi God.app",
+    "verified_animation": true
+  },
+  "little witch academia": {
+    "id": "tt6352180",
+    "score": 100.0,
+    "matched_name": "Little Witch Academia",
+    "verified_animation": true
+  },
+  "mou ippon": null,
+  "medaka box": {
+    "id": "tt2341171",
+    "score": 100.0,
+    "matched_name": "Medaka Box",
+    "verified_animation": true
+  },
+  "nyaight of the living cat": {
+    "id": "tt31435652",
+    "score": 100.0,
+    "matched_name": "Nyaight of the Living Cat",
+    "verified_animation": true
+  },
+  "sabikui bisco": null,
+  "ponyo sur la falaise": null,
+  "our dating story": null,
+  "shikkakumon no saikyou kenja": null,
+  "scott pilgrim": null,
+  "tensei akujo no kuro rekishi": null,
+  "summoned to another world again": null,
+  "tsuki ga kirei": null,
+  "the fire hunter": {
+    "id": "tt21912036",
+    "score": 100.0,
+    "matched_name": "The Fire Hunter",
+    "verified_animation": true
+  },
+  "to be heroine": null,
+  "vampire dormitory": {
+    "id": "tt31976012",
+    "score": 100.0,
+    "matched_name": "Vampire Dormitory",
+    "verified_animation": true
+  },
+  "2 43 seiin koukou danshi volley bu": {
+    "id": "tt13286958",
+    "score": 100.0,
+    "matched_name": "2.43 Seiin Koukou Danshi Volley Bu",
+    "verified_animation": true
+  },
+  "youth literature": null,
+  "when will ayumu make his move": {
+    "id": "tt14979456",
+    "score": 100.0,
+    "matched_name": "When Will Ayumu Make His Move?",
+    "verified_animation": true
+  },
+  "amnesia": null,
+  "beck": null,
+  "actually i am": {
+    "id": "tt4689276",
+    "score": 100.0,
+    "matched_name": "Actually, I Am...",
+    "verified_animation": true
+  },
+  "assassins pride": {
+    "id": "tt10973152",
+    "score": 100.0,
+    "matched_name": "Assassins Pride",
+    "verified_animation": true
+  },
+  "code geass": null,
+  "boku no kokoro no yabai yatsu": null,
+  "card captor sakura": {
+    "id": "tt0221735",
+    "score": 99.0,
+    "matched_name": "Cardcaptor Sakura",
+    "verified_animation": true
+  },
+  "deadman wonderland": {
+    "id": "tt1909447",
+    "score": 100.0,
+    "matched_name": "Deadman Wonderland",
+    "verified_animation": true
+  },
+  "dragon ie wo kau": null,
+  "fire force": {
+    "id": "tt9307686",
+    "score": 100.0,
+    "matched_name": "Fire Force",
+    "verified_animation": true
+  },
+  "hokkaido gals are super adorable": {
+    "id": "tt23029874",
+    "score": 100.0,
+    "matched_name": "Hokkaido Gals Are Super Adorable!",
+    "verified_animation": true
+  },
+  "galaxy express 999": {
+    "id": "tt0185066",
+    "score": 100.0,
+    "matched_name": "Galaxy Express: 999",
+    "verified_animation": true
+  },
+  "healer girl": {
+    "id": "tt19409404",
+    "score": 100.0,
+    "matched_name": "Healer Girl",
+    "verified_animation": true
+  },
+  "goodnight world": {
+    "id": "tt28521881",
+    "score": 99.0,
+    "matched_name": "Good Night World",
+    "verified_animation": true
+  },
+  "imagine un cambrousard": null,
+  "jeanne et serge": null,
+  "kamitsubaki shi kensetsuchuu": null,
+  "kimi ga shinu made koi wo shitai": null,
+  "kubikiri cycle": null,
+  "loin de moi pres de toi": null,
+  "le college noir complainte d auvergne": null,
+  "magical doremi": {
+    "id": "tt0303503",
+    "score": 100.0,
+    "matched_name": "Magical DoReMi",
+    "verified_animation": true
+  },
+  "megami no cafe terrace": null,
+  "mushishi": {
+    "id": "tt0807832",
+    "score": 99.0,
+    "matched_name": "Mushi-Shi",
+    "verified_animation": true
+  },
+  "odayaka kizoku no kyuuka no susume": null,
+  "natsume yuujinchou": null,
+  "potion danomi de ikinobimasu": null,
+  "outbreak company": {
+    "id": "tt3196310",
+    "score": 100.0,
+    "matched_name": "Outbreak Company",
+    "verified_animation": true
+  },
+  "saihate no paladin": null,
+  "seiken gakuin no maken tsukai": null,
+  "shingeki no bahamut": null,
+  "reign of the seven spellblades": {
+    "id": "tt27845099",
+    "score": 100.0,
+    "matched_name": "Reign of the Seven Spellblades",
+    "verified_animation": true
+  },
+  "tensei kizoku kantei skill de nariagaru": null,
+  "the furious princess decided to take revenge": null,
+  "the quintessential quintuplets": {
+    "id": "tt9584920",
+    "score": 100.0,
+    "matched_name": "The Quintessential Quintuplets",
+    "verified_animation": true
+  },
+  "super cube": {
+    "id": "tt28197251",
+    "score": 100.0,
+    "matched_name": "Super Cube",
+    "verified_animation": true
+  },
+  "tsukimichi moonlight fantasy": {
+    "id": "tt13311344",
+    "score": 96.3,
+    "matched_name": "Tsukimichi: Moonlit Fantasy",
+    "verified_animation": true
+  },
+  "sonic prime": {
+    "id": "tt13961348",
+    "score": 100.0,
+    "matched_name": "Sonic Prime",
+    "verified_animation": true
+  },
+  "to your eternity": {
+    "id": "tt12063450",
+    "score": 100.0,
+    "matched_name": "To Your Eternity",
+    "verified_animation": true
+  },
+  "why nobody remembers my world": null,
+  "yozakura quartet": {
+    "id": "tt1301972",
+    "score": 100.0,
+    "matched_name": "Yozakura Quartet",
+    "verified_animation": true
+  },
+  "vampire knight": {
+    "id": "tt1209393",
+    "score": 100.0,
+    "matched_name": "Vampire Knight",
+    "verified_animation": true
+  },
+  "365 days to the wedding": {
+    "id": "tt27497575",
+    "score": 100.0,
+    "matched_name": "365 Days to the Wedding",
+    "verified_animation": true
+  },
+  "belle": null,
+  "bokura wa minna kawaisou": null,
+  "afterlife inn cooking": null,
+  "cat s eye": {
+    "id": "tt34710525",
+    "score": 100.0,
+    "matched_name": "Cat's Eye",
+    "verified_animation": true
+  },
+  "goumon baito kun no nichijou": null,
+  "fireworks": null,
+  "horimiya": {
+    "id": "tt13103134",
+    "score": 100.0,
+    "matched_name": "Horimiya",
+    "verified_animation": true
+  },
+  "coppelion": {
+    "id": "tt3105492",
+    "score": 100.0,
+    "matched_name": "Coppelion",
+    "verified_animation": true
+  },
+  "gamers": null,
+  "heike monogatari": null,
+  "kanata no astra": null,
+  "kimi to koete koi ni naru": null,
+  "in the heart of kunoichi tsubaki": {
+    "id": "tt15929150",
+    "score": 100.0,
+    "matched_name": "In the Heart of Kunoichi Tsubaki",
+    "verified_animation": true
+  },
+  "jingai kyoushitsu no ningen girai kyoushi": null,
+  "le garcon et la bete": null,
+  "lookism": {
+    "id": "tt22297722",
+    "score": 100.0,
+    "matched_name": "Lookism",
+    "verified_animation": true
+  },
+  "kuma kuma kuma bear": {
+    "id": "tt12415504",
+    "score": 100.0,
+    "matched_name": "Kuma Kuma Kuma Bear",
+    "verified_animation": true
+  },
+  "magilumiere": null,
+  "nausicaa de la vallee du vent": null,
+  "my daemon": {
+    "id": "tt28612257",
+    "score": 100.0,
+    "matched_name": "My Daemon",
+    "verified_animation": true
+  },
+  "reiwa no dara san": null,
+  "shinka no mi": null,
+  "overlord": {
+    "id": "tt4869896",
+    "score": 100.0,
+    "matched_name": "Overlord",
+    "verified_animation": true
+  },
+  "ohoku": null,
+  "tensei shitara slime datta ken": null,
+  "suzume": null,
+  "princess connect re dive": {
+    "id": "tt11886236",
+    "score": 100.0,
+    "matched_name": "Princess Connect! Re: Dive",
+    "verified_animation": true
+  },
+  "sorairo utility": {
+    "id": "tt34621563",
+    "score": 100.0,
+    "matched_name": "Sorairo Utility",
+    "verified_animation": true
+  },
+  "the rising of the shield hero": {
+    "id": "tt9529546",
+    "score": 100.0,
+    "matched_name": "The Rising of the Shield Hero",
+    "verified_animation": true
+  },
+  "tojima wants to be a kamen rider": {
+    "id": "tt37532319",
+    "score": 100.0,
+    "matched_name": "Tojima Wants to Be a Kamen Rider",
+    "verified_animation": true
+  },
+  "the girl downstairs": {
+    "id": "tt28216375",
+    "score": 100.0,
+    "matched_name": "The Girl Downstairs",
+    "verified_animation": true
+  },
+  "yuragi sou no yuuna san": null,
+  "tsuritama": {
+    "id": "tt2341757",
+    "score": 100.0,
+    "matched_name": "Tsuritama",
+    "verified_animation": true
+  },
+  "5cm per second": null,
+  "wise man s grandchild": {
+    "id": "tt9828724",
+    "score": 100.0,
+    "matched_name": "Wise Man's Grandchild",
+    "verified_animation": true
+  },
+  "aho girl": {
+    "id": "tt7136968",
+    "score": 100.0,
+    "matched_name": "Aho Girl",
+    "verified_animation": true
+  },
+  "attaque des titans junior high school": null,
+  "anne shirley": {
+    "id": "tt34702901",
+    "score": 100.0,
+    "matched_name": "Anne Shirley",
+    "verified_animation": true
+  },
+  "betrothed to my sister s ex": {
+    "id": "tt35652469",
+    "score": 100.0,
+    "matched_name": "Betrothed to My Sister's Ex",
+    "verified_animation": true
+  }
 }

@@ -1,6 +1,6 @@
 {
   "id": "fr.joesm0ke.animesama.catalog",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "name": "Anime-Sama TV - Catalogue",
   "description": "Anime uniquement, selection Anime-Sama, VF/VOSTFR via fournisseur Nuvio separe.",
   "resources": [
@@ -14,6 +14,31 @@
       "type": "series",
       "id": "as_classics",
       "name": "Les classiques - Anime-Sama"
+    },
+    {
+      "type": "series",
+      "id": "as_action",
+      "name": "Action & aventure"
+    },
+    {
+      "type": "series",
+      "id": "as_fantasy",
+      "name": "Magie & fantasy"
+    },
+    {
+      "type": "series",
+      "id": "as_romance",
+      "name": "Romance & émotions"
+    },
+    {
+      "type": "series",
+      "id": "as_comedy",
+      "name": "Comédies"
+    },
+    {
+      "type": "series",
+      "id": "as_scifi",
+      "name": "Imaginaire & science-fiction"
     },
     {
       "type": "series",

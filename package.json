@@ -10,6 +10,7 @@
     "build:provider": "node build.js",
     "serve": "node server.js",
     "audit:catalog": "node scripts/audit-static-catalog.cjs",
+    "build:genres": "python scripts/build_genre_catalogs.py",
     "smoke:anime-sama": "node scripts/smoke-anime-sama-tv.cjs"
   },
   "devDependencies": {

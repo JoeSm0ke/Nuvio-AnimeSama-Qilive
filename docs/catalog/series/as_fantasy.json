@@ -1,0 +1,256 @@
+{
+  "metas": [
+    {
+      "id": "tt0807832",
+      "type": "series",
+      "name": "Mushishi",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mushishi.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt23139038",
+      "type": "series",
+      "name": "To Be Hero X",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/to-be-hero-x.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7078180",
+      "type": "series",
+      "name": "Violet Evergarden",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/violet-evergarden.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13616990",
+      "type": "series",
+      "name": "Chainsaw Man",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/chainsaw-man.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21030032",
+      "type": "series",
+      "name": "Oshi No Ko",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/oshi-no-ko.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt8993398",
+      "type": "series",
+      "name": "Rascal Does Not Dream of Bunny Girl Senpai",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/rascal-does-not-dream-of-bunny-girl-senpai.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt38491451",
+      "type": "series",
+      "name": "Fujimoto Tatsuki 17-26",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/fujimoto-tatsuki-1726.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7326322",
+      "type": "series",
+      "name": "The Ancient Magus Bride",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-ancient-magus-bride.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt27206542",
+      "type": "series",
+      "name": "Undead Murder Farce",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/undead-murder-farce.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt19869172",
+      "type": "series",
+      "name": "My Happy Marriage",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/my-happy-marriage.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13362302",
+      "type": "series",
+      "name": "Shadows House",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/shadows-house.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt16255458",
+      "type": "series",
+      "name": "Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/trapped-in-a-dating-sim-the-world-of-otome-games-is-tough-for-mobs.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21844490",
+      "type": "series",
+      "name": "Dark Gathering",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dark-gathering.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt29171914",
+      "type": "series",
+      "name": "I'm in Love with the Villainess",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/im-in-love-with-the-villainess.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7224994",
+      "type": "series",
+      "name": "Restaurant to Another World",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/restaurant-to-another-world.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7537488",
+      "type": "series",
+      "name": "Sagrada Reset",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sagrada-reset.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1899022",
+      "type": "series",
+      "name": "The World God Only Knows",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-world-god-only-knows.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3590222",
+      "type": "series",
+      "name": "The World is Still Beautiful",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-world-is-still-beautiful.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21249100",
+      "type": "series",
+      "name": "Black Summoner",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/black-summoner.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6407994",
+      "type": "series",
+      "name": "Gabriel DropOut",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/gabriel-dropout.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13049906",
+      "type": "series",
+      "name": "The Saint's Magic Power Is Omnipotent",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-saints-magic-power-is-omnipotent.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3950084",
+      "type": "series",
+      "name": "Amagi Brilliant Park",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/amagi-brillant-park.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1639471",
+      "type": "series",
+      "name": "Arakawa Under the Bridge",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/arakawa-under-the-bridge.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12642654",
+      "type": "series",
+      "name": "By the Grace of the Gods",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/by-the-grace-of-the-gods.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9050366",
+      "type": "series",
+      "name": "Karakuri Circus",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/karakuri-circus.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15533960",
+      "type": "series",
+      "name": "I'm the Villainess, So I'm Taming the Final Boss",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/im-the-villainess-so-im-taming-the-final-boss.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28685497",
+      "type": "series",
+      "name": "Berserk of Gluttony",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/berserk-of-gluttony.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt27489241",
+      "type": "series",
+      "name": "Dead Mount Death Play",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dead-mount-death-play.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2338857",
+      "type": "series",
+      "name": "Hiiro no Kakera",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hiiro-no-kakera.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13444580",
+      "type": "series",
+      "name": "Battle Game in 5 Seconds",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/battle-game-in-5-seconds.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12011442",
+      "type": "series",
+      "name": "Burn the Witch",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/burn-the-witch.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3399706",
+      "type": "series",
+      "name": "Hamatora",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hamatora.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt26895902",
+      "type": "series",
+      "name": "Otaku Elf",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/otaku-elf.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt38037460",
+      "type": "series",
+      "name": "Pass the Monster Meat, Milady!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/pass-the-monster-meat-milady.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5066664",
+      "type": "series",
+      "name": "Cannon Busters",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/cannon-busters.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt17221100",
+      "type": "series",
+      "name": "Kaina of the Great Snow Sea",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kaina-of-the-great-snow-sea.jpg",
+      "posterShape": "poster"
+    }
+  ]
+}

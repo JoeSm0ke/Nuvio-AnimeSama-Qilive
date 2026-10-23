@@ -1,10 +1,31 @@
 {
   "metas": [
     {
+      "id": "tt1424033",
+      "type": "series",
+      "name": "07 Ghost",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/07-ghost.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt29143189",
       "type": "series",
       "name": "16bit Sensation: Another Layer",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/16bit-sensation-another-layer.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13286958",
+      "type": "series",
+      "name": "2.43 Seiin Koukou Danshi Volley-bu",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/2.43-seiin-koukou-danshi-volley-bu.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt27497575",
+      "type": "series",
+      "name": "365 Days To The Wedding",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/365-days-to-the-wedding.jpg",
       "posterShape": "poster"
     },
     {
@@ -43,10 +64,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt1515996",
+      "type": "series",
+      "name": "A Certain Scientific Railgun",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/a-certain-scientific-railgun.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt29899598",
       "type": "series",
       "name": "A Condition Called Love",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/a-condition-called-love.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11296252",
+      "type": "series",
+      "name": "A Destructive God Sits Next to Me",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/a-destructive-god-sits-next-to-me.jpg",
       "posterShape": "poster"
     },
     {
@@ -57,10 +92,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt7836688",
+      "type": "series",
+      "name": "A Place Further Than The Universe",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/a-place-further-than-the-universe.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt28313387",
       "type": "series",
       "name": "A Returner's Magic Should be Special",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/a-returners-magic-should-be-special.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt30024091",
+      "type": "series",
+      "name": "A Sign of Affection",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/a-sign-of-affection.jpg",
       "posterShape": "poster"
     },
     {
@@ -71,6 +120,20 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt33258199",
+      "type": "series",
+      "name": "A Wild Last Boss Appeared!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/a-wild-last-boss-appeared.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt4216878",
+      "type": "series",
+      "name": "Absolute Duo",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/absolute-duo.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt2339875",
       "type": "series",
       "name": "Accel World",
@@ -78,10 +141,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt2309934",
+      "type": "series",
+      "name": "Acchi Kocchi",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/acchi-kocchi.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5603356",
+      "type": "series",
+      "name": "Ace Attorney",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ace-attorney.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt3105422",
       "type": "series",
       "name": "Ace of Diamond",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ace-of-diamond.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt4689276",
+      "type": "series",
+      "name": "Actually, I am",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/actually-i-am.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12728882",
+      "type": "series",
+      "name": "Adachi to Shimamura",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/adachi-to-shimamura.jpg",
       "posterShape": "poster"
     },
     {
@@ -99,6 +190,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt7136968",
+      "type": "series",
+      "name": "Aho Girl",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/aho-girl.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt0953916",
       "type": "series",
       "name": "Air Gear",
@@ -113,10 +211,73 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt5537534",
+      "type": "series",
+      "name": "Ajin",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ajin.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt38797595",
       "type": "series",
       "name": "Akane Banashi",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/akane-banashi.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21929358",
+      "type": "series",
+      "name": "Akiba Maid War",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/akiba-maid-war.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5905350",
+      "type": "series",
+      "name": "Alderamin on the Sky",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/alderamin-on-the-sky.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6735466",
+      "type": "series",
+      "name": "Alice & Zoroku",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/alice-and-zoroku.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6738600",
+      "type": "series",
+      "name": "All Out",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/all-out.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt39122552",
+      "type": "series",
+      "name": "Always a Catch!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/always-a-catch.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1685397",
+      "type": "series",
+      "name": "Amagami SS",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/amagami-ss.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3950084",
+      "type": "series",
+      "name": "Amagi Brilliant Park",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/amagi-brillant-park.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt31940008",
+      "type": "series",
+      "name": "An Archdemon's Dilemma: How to Love Your Elf Bride",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/an-archdemons-dilemma-how-to-love-your-elf-bride.jpg",
       "posterShape": "poster"
     },
     {
@@ -134,6 +295,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt8670784",
+      "type": "series",
+      "name": "Angels of Death",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/angels-of-death.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt10787030",
       "type": "series",
       "name": "Anime de Wakaru Shinryounaika",
@@ -141,10 +309,73 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt34702901",
+      "type": "series",
+      "name": "Anne Shirley",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/anne-shirley.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15792808",
+      "type": "series",
+      "name": "Ao Ashi",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ao-ashi.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11714178",
+      "type": "series",
+      "name": "Appare-Ranman!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/appare-ranman.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1639471",
+      "type": "series",
+      "name": "Arakawa Under the Bridge",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/arakawa-under-the-bridge.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11126994",
+      "type": "series",
+      "name": "Arcane",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/arcane.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11754514",
+      "type": "series",
+      "name": "Arte",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/arte.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9522024",
+      "type": "series",
+      "name": "As Miss Beelzebub Likes It",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/as-miss-beelzebub-likes-it.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt10885406",
       "type": "series",
       "name": "Ascendance of a Bookworm",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ascendance-of-a-bookworm.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt10973152",
+      "type": "series",
+      "name": "Assassins Pride",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/assassins-pride.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11405408",
+      "type": "series",
+      "name": "Asteroid in Love",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/asteroid-in-love.jpg",
       "posterShape": "poster"
     },
     {
@@ -169,6 +400,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt3342720",
+      "type": "series",
+      "name": "Baby Steps",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/baby-steps.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt1334722",
       "type": "series",
       "name": "Baccano!",
@@ -176,10 +414,66 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt35652446",
+      "type": "series",
+      "name": "Bad Girl",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bad-girl.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1738419",
+      "type": "series",
+      "name": "Bakuman",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bakuman.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13412606",
+      "type": "series",
+      "name": "Bakuten!!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bakuten.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt8515016",
       "type": "series",
       "name": "Banana Fish",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/banana-fish.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3660104",
+      "type": "series",
+      "name": "Barakamon",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/barakamon.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13444580",
+      "type": "series",
+      "name": "Battle Game in 5 Seconds",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/battle-game-in-5-seconds.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21345944",
+      "type": "series",
+      "name": "Beast Tamer",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/beast-tamer.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11043632",
+      "type": "series",
+      "name": "Beastars",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/beastars.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1882240",
+      "type": "series",
+      "name": "Beelzebub",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/beelzebub.jpg",
       "posterShape": "poster"
     },
     {
@@ -197,6 +491,20 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt35652469",
+      "type": "series",
+      "name": "Betrothed to my Sister's Ex",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/betrothed-to-my-sisters-ex.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3257166",
+      "type": "series",
+      "name": "Black Bullet",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/black-bullet.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt1316554",
       "type": "series",
       "name": "Black Butler",
@@ -208,6 +516,13 @@
       "type": "series",
       "name": "Black Clover",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/black-clover.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21249100",
+      "type": "series",
+      "name": "Black Summoner",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/black-summoner.jpg",
       "posterShape": "poster"
     },
     {
@@ -225,6 +540,34 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt2760784",
+      "type": "series",
+      "name": "Blood Lad",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/blood-lad.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt10009170",
+      "type": "series",
+      "name": "Blood of Zeus",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/blood-of-zeus.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt8993464",
+      "type": "series",
+      "name": "Bloom Into You",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bloom-into-you.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt30989205",
+      "type": "series",
+      "name": "Blue Archive The Animation",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/blue-archive-the-animation.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt32639706",
       "type": "series",
       "name": "Blue Box",
@@ -232,10 +575,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt1799631",
+      "type": "series",
+      "name": "Blue Exorcist",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/blue-exorcist.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13309742",
+      "type": "series",
+      "name": "Blue Eye Samurai",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/blue-eye-samurai.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt15222080",
       "type": "series",
       "name": "Blue Lock",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/blue-lock.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt26450255",
+      "type": "series",
+      "name": "Blue Orchestra",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/blue-orchestra.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt17158756",
+      "type": "series",
+      "name": "Bocchi the Rock",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bocchi-the-rock.jpg",
       "posterShape": "poster"
     },
     {
@@ -253,10 +624,80 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt2329220",
+      "type": "series",
+      "name": "Btooom!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/btooom.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28454318",
+      "type": "series",
+      "name": "BUCCHIGIRI?!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bucchigiri.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5679720",
+      "type": "series",
+      "name": "Bungou Stray Dogs",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bungou-stray-dogs.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt26625453",
       "type": "series",
       "name": "Bureau of Paranormal Investigation",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bureau-of-paranormal-investigation.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12011442",
+      "type": "series",
+      "name": "Burn the Witch",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/burn-the-witch.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12642654",
+      "type": "series",
+      "name": "By the Grace of the Gods",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/by-the-grace-of-the-gods.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt23844810",
+      "type": "series",
+      "name": "Bye Bye, Earth",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/bye-bye-earth.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2250160",
+      "type": "series",
+      "name": "Campione!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/campione.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt35346400",
+      "type": "series",
+      "name": "Can a Boy-Girl Friendship Survive?",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/can-a-boy-girl-friendship-survive.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0270761",
+      "type": "series",
+      "name": "Candy Candy",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/candy-candy.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5066664",
+      "type": "series",
+      "name": "Cannon Busters",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/cannon-busters.jpg",
       "posterShape": "poster"
     },
     {
@@ -267,10 +708,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt0221735",
+      "type": "series",
+      "name": "Card Captor Sakura",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/card-captor-sakura.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt8107988",
+      "type": "series",
+      "name": "Carole & Tuesday",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/carole-tuesday.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt6517102",
       "type": "series",
       "name": "Castlevania",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/castlevania.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt34710525",
+      "type": "series",
+      "name": "Cat's Eye",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/cats-eye.jpg",
       "posterShape": "poster"
     },
     {
@@ -295,10 +757,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt0326672",
+      "type": "series",
+      "name": "Chobits",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/chobits.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt43691391",
       "type": "series",
       "name": "Choujun! Choujou Senpai",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/choujun-choujou-senpai.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7521578",
+      "type": "series",
+      "name": "Citrus",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/citrus.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1118804",
+      "type": "series",
+      "name": "Clannad",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/clannad.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7263328",
+      "type": "series",
+      "name": "Classroom of the Elite",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/classroom-of-the-elite.jpg",
       "posterShape": "poster"
     },
     {
@@ -309,10 +799,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt7120888",
+      "type": "series",
+      "name": "Clockwork Planet",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/clockwork-planet.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt2294070",
       "type": "series",
       "name": "Code Breaker",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/code-breaker.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3105492",
+      "type": "series",
+      "name": "Coppelion",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/coppelion.jpg",
       "posterShape": "poster"
     },
     {
@@ -323,6 +827,27 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt3296914",
+      "type": "series",
+      "name": "D-Frag!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/d-frag.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5346952",
+      "type": "series",
+      "name": "Dagashi Kashi",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dagashi-kashi.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15391190",
+      "type": "series",
+      "name": "Dance Dance Danseur",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dance-dance-danseur.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt30217403",
       "type": "series",
       "name": "Dandadan",
@@ -330,10 +855,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt21844490",
+      "type": "series",
+      "name": "Dark Gathering",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dark-gathering.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt8985078",
       "type": "series",
       "name": "DARK MOON",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dark-moon.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0995941",
+      "type": "series",
+      "name": "Darker than Black",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/darker-than-black.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7865090",
+      "type": "series",
+      "name": "Darling in the Franxx",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/darling-in-the-franxx.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2575684",
+      "type": "series",
+      "name": "Date a Live",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/date-a-live.jpg",
       "posterShape": "poster"
     },
     {
@@ -351,10 +904,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt32420174",
+      "type": "series",
+      "name": "Dead Dead Demon's DeDeDeDeDestruction",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dead-dead-demons-dededededestruction.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt27489241",
       "type": "series",
       "name": "Dead Mount Death Play",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dead-mount-death-play.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1909447",
+      "type": "series",
+      "name": "Deadman Wonderland",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/deadman-wonderland.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt14489130",
+      "type": "series",
+      "name": "Deaimon",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/deaimon.jpg",
       "posterShape": "poster"
     },
     {
@@ -365,10 +939,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt4279012",
+      "type": "series",
+      "name": "Death Parade",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/death-parade.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt9335498",
       "type": "series",
       "name": "Demon Slayer",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/demon-slayer.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3909838",
+      "type": "series",
+      "name": "Denkigai no Honya-san",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/denkigai-no-honya-san.jpg",
       "posterShape": "poster"
     },
     {
@@ -379,10 +967,52 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt15716776",
+      "type": "series",
+      "name": "Devil May Cry",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/devil-may-cry.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt6660498",
       "type": "series",
       "name": "Devilman Crybaby",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/devilman-crybaby.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3114350",
+      "type": "series",
+      "name": "Diabolik Lovers",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/diabolik-lovers.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5334292",
+      "type": "series",
+      "name": "Dimension W",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dimension-w.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9817980",
+      "type": "series",
+      "name": "Domestic Girlfriend",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/domestic-girlfriend.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11147852",
+      "type": "series",
+      "name": "Dorohedoro",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dorohedoro.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9679542",
+      "type": "series",
+      "name": "Dr Stone",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dr-stone.jpg",
       "posterShape": "poster"
     },
     {
@@ -400,6 +1030,20 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt0139774",
+      "type": "series",
+      "name": "Dragon Ball GT",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dragon-ball-gt.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt4644488",
+      "type": "series",
+      "name": "Dragon Ball Super",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dragon-ball-super.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt0121220",
       "type": "series",
       "name": "Dragon Ball Z",
@@ -414,6 +1058,20 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt5225764",
+      "type": "series",
+      "name": "Drifters",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/drifters.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2340511",
+      "type": "series",
+      "name": "Dusk Maiden of Amnesia",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/dusk-maiden-of-amnesia.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt0480489",
       "type": "series",
       "name": "Elfen Lied",
@@ -421,10 +1079,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt21114720",
+      "type": "series",
+      "name": "Engage Kiss",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/engage-kiss.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt0112159",
       "type": "series",
       "name": "Evangelion",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/evangelion.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0240493",
+      "type": "series",
+      "name": "Excel Saga",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/excel-saga.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0996695",
+      "type": "series",
+      "name": "Eyeshield 21",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/eyeshield-21.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15250594",
+      "type": "series",
+      "name": "Fairies Album",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/fairies-album.jpg",
       "posterShape": "poster"
     },
     {
@@ -442,6 +1128,20 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt34621220",
+      "type": "series",
+      "name": "Farmagia",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/farmagia.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12779780",
+      "type": "series",
+      "name": "Fena : Pirate Princess",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/fena-pirate-princess.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt36131958",
       "type": "series",
       "name": "Fermat Kitchen",
@@ -449,10 +1149,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt9307686",
+      "type": "series",
+      "name": "Fire Force",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/fire-force0.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt29201691",
+      "type": "series",
+      "name": "Firefighter Daigo: Rescuer in Orange",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/firefighter-daigo-rescuer-in-orange.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0279077",
+      "type": "series",
+      "name": "FLCL",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/flcl.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt6139566",
       "type": "series",
       "name": "Flip Flappers",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/flip-flappers.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt30643982",
+      "type": "series",
+      "name": "Fluffy Paradise",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/fluffy-paradise.jpg",
       "posterShape": "poster"
     },
     {
@@ -491,10 +1219,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt0421357",
+      "type": "series",
+      "name": "Fullmetal Alchemist",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/fullmetal-alchemist.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt1355642",
       "type": "series",
       "name": "FullMetal Alchemist Brotherhood",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/fullmetal-alchemist-brotherhood.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15811920",
+      "type": "series",
+      "name": "Futsal Boys!!!!!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/futsal-boys.jpg",
       "posterShape": "poster"
     },
     {
@@ -505,10 +1247,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt32612521",
+      "type": "series",
+      "name": "Gachiakuta",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/gachiakuta.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0185066",
+      "type": "series",
+      "name": "Galaxy Express 999",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/galaxy-express-999.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt15379212",
       "type": "series",
       "name": "Ganbare, Douki-chan",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ganbare-douki-chan.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0434685",
+      "type": "series",
+      "name": "Gantz",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/gantz.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15176722",
+      "type": "series",
+      "name": "Gensou Sangokushi : Tengen Reishinki",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/gensou-sangokushi-tengen-reishinki.jpg",
       "posterShape": "poster"
     },
     {
@@ -526,10 +1296,87 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt31250134",
+      "type": "series",
+      "name": "Girls Band Cry",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/girls-band-cry.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13898130",
+      "type": "series",
+      "name": "Girls Frontline",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/girls-frontline.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7474942",
+      "type": "series",
+      "name": "Girls' Last Tour",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/girls-last-tour.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt34852231",
+      "type": "series",
+      "name": "Gnosia",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/gnosia.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt8690728",
+      "type": "series",
+      "name": "Goblin Slayer",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/goblin-slayer.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt31860621",
+      "type": "series",
+      "name": "Gods' Games We Play",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/gods-games-we-play.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3105452",
+      "type": "series",
+      "name": "Golden Time",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/golden-time.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28521881",
+      "type": "series",
+      "name": "Goodnight World",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/goodnight-world.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1872328",
+      "type": "series",
+      "name": "Gosick",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/gosick.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11680468",
+      "type": "series",
+      "name": "Great Pretender",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/great-pretender.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt0315008",
       "type": "series",
       "name": "Great Teacher Onizuka",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/great-teacher-onizuka.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6477270",
+      "type": "series",
+      "name": "Grimoire of Zero",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/grimoire-of-zero.jpg",
       "posterShape": "poster"
     },
     {
@@ -540,10 +1387,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt3398540",
+      "type": "series",
+      "name": "Haikyuu",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/haikyuu.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt0481256",
       "type": "series",
       "name": "Hajime no Ippo",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hajime-no-ippo.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt8129662",
+      "type": "series",
+      "name": "Hakata Tonkotsu Ramens",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hakata-tonkotsu-ramens.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3399706",
+      "type": "series",
+      "name": "Hamatora",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hamatora.jpg",
       "posterShape": "poster"
     },
     {
@@ -561,6 +1429,27 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt1820941",
+      "type": "series",
+      "name": "Hanasaku Iroha",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hanasaku-iroha.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6401430",
+      "type": "series",
+      "name": "Hand Shakers",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hand-shakers.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21844644",
+      "type": "series",
+      "name": "Handyman Saitou In Another World",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/handyman-saitou-in-another-world.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt8696458",
       "type": "series",
       "name": "Happy Sugar Life",
@@ -568,10 +1457,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt8530992",
+      "type": "series",
+      "name": "Harukana Receive",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/harukana-receive.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt19409404",
+      "type": "series",
+      "name": "Healer Girl",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/healer-girl.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt13375866",
       "type": "series",
       "name": "Heaven Official's Blessing",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/heaven-officials-blessing.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt26688817",
+      "type": "series",
+      "name": "Helck",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/helck.jpg",
       "posterShape": "poster"
     },
     {
@@ -589,6 +1499,34 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt10671282",
+      "type": "series",
+      "name": "High School Prodigies Have It Easy Even in Another World!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/high-school-prodigies-have-it-easy-even-in-another-world.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2338857",
+      "type": "series",
+      "name": "Hiiro no Kakera",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hiiro-no-kakera.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5059866",
+      "type": "series",
+      "name": "Himouto! Umaru-chan",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/himouto-umaru-chan.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6844136",
+      "type": "series",
+      "name": "Hinako Note",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hinako-note.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt12882132",
       "type": "series",
       "name": "Hitori no Shita, The Outcast",
@@ -603,10 +1541,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt23029874",
+      "type": "series",
+      "name": "Hokkaido Gals Are Super Adorable!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hokkaido-gals-are-super-adorable.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt31528958",
+      "type": "series",
+      "name": "Honey Lemon Soda",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/honey-lemon-soda.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13103134",
+      "type": "series",
+      "name": "Horimiya",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/horimiya.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt35995459",
       "type": "series",
       "name": "Hotel Inhumans",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hotel-inhumans.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13399402",
+      "type": "series",
+      "name": "How A Realist Hero Rebuild The Kingdom",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/how-a-realist-hero-rebuild-the-kingdom.jpg",
       "posterShape": "poster"
     },
     {
@@ -617,10 +1583,45 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt39443204",
+      "type": "series",
+      "name": "I Became a Legend After My 10 Year-Long Last Stand",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/i-became-a-legend-after-my-10-year-long-last-stand.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt4045510",
       "type": "series",
       "name": "I Can't Understand What My Husband Is Saying",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/i-cant-understand-what-my-husband-is-saying.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt29171914",
+      "type": "series",
+      "name": "I'm in Love with the Villainess",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/im-in-love-with-the-villainess.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12706854",
+      "type": "series",
+      "name": "I'm Standing on a Million Lives",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/im-standing-on-a-million-lives.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15533960",
+      "type": "series",
+      "name": "I'm the Villainess, So I'm Taming the Final Boss",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/im-the-villainess-so-im-taming-the-final-boss.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt37532971",
+      "type": "series",
+      "name": "I Made Friends with the Second Prettiest Girl in My Class",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/i-made-friends-with-the-second-prettiest-girl-in-my-class.jpg",
       "posterShape": "poster"
     },
     {
@@ -631,10 +1632,45 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt11834102",
+      "type": "series",
+      "name": "Idolish7",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/idolish7.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13009190",
+      "type": "series",
+      "name": "Idoly Pride",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/idoly-pride.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12642634",
+      "type": "series",
+      "name": "Ikebukuro West Gate Park",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ikebukuro-west-gate-park.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt7088332",
       "type": "series",
       "name": "In Another World With My Smartphone",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/in-another-world-with-my-smartphone.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11328872",
+      "type": "series",
+      "name": "In/Spectre",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/in-spectre.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15929150",
+      "type": "series",
+      "name": "In the Heart of Kunoichi Tsubaki",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/in-the-heart-of-kunoichi-tsubaki.jpg",
       "posterShape": "poster"
     },
     {
@@ -645,6 +1681,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt11295582",
+      "type": "series",
+      "name": "Infinite Dendrogram",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/infinite-dendrogram.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt1929675",
       "type": "series",
       "name": "Infinite Stratos",
@@ -652,10 +1695,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt0290223",
+      "type": "series",
+      "name": "Inuyasha",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/inuyasha.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt10431262",
       "type": "series",
       "name": "Isekai Cheat Magician",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/isekai-cheat-magician.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt8526106",
+      "type": "series",
+      "name": "Island",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/island.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6104656",
+      "type": "series",
+      "name": "Izetta, The Last Witch",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/izetta-the-last-witch.jpg",
       "posterShape": "poster"
     },
     {
@@ -687,10 +1751,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt7513452",
+      "type": "series",
+      "name": "Just Because!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/just-because.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt1410218",
       "type": "series",
       "name": "K-ON !",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/k-on.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12758256",
+      "type": "series",
+      "name": "Kabukibu",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kabukibu.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13351056",
+      "type": "series",
+      "name": "Kageki Shoujo",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kageki-shoujo.jpg",
       "posterShape": "poster"
     },
     {
@@ -701,10 +1786,45 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt17221100",
+      "type": "series",
+      "name": "Kaina of the Great Snow Sea",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kaina-of-the-great-snow-sea.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11299538",
+      "type": "series",
+      "name": "Kakushigoto",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kakushigoto.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt29475583",
+      "type": "series",
+      "name": "KamiErabi GOD.App",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kamierabi-god-app.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt43691315",
       "type": "series",
       "name": "Kanata Kara",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kanata-kara.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1223625",
+      "type": "series",
+      "name": "Kanon",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kanon.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9050366",
+      "type": "series",
+      "name": "Karakuri Circus",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/karakuri-circus.jpg",
       "posterShape": "poster"
     },
     {
@@ -715,10 +1835,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt8503628",
+      "type": "series",
+      "name": "Katsugeki/Touken Ranbu",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/katsugeki-touken-ranbu.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt10320398",
+      "type": "series",
+      "name": "Keep Your Hands Off Eizouken!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/keep-your-hands-off-eizouken.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt0091211",
       "type": "series",
       "name": "Ken le Survivant",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ken-le-survivant.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9058134",
+      "type": "series",
+      "name": "Kengan Ashura",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kengan-ashura.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2341375",
+      "type": "series",
+      "name": "Kids on the Slope",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kids-on-the-slope.jpg",
       "posterShape": "poster"
     },
     {
@@ -729,10 +1877,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt3114390",
+      "type": "series",
+      "name": "Kill la Kill",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kill-la-kill.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt39122702",
       "type": "series",
       "name": "Killed Again, Mr. Detective?",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/killed-again-mr-detective.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7462702",
+      "type": "series",
+      "name": "King's Game",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kings-game.jpg",
       "posterShape": "poster"
     },
     {
@@ -757,10 +1919,66 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt5225712",
+      "type": "series",
+      "name": "Kiznaiver",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kiznaiver.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7933666",
+      "type": "series",
+      "name": "Kokkoku",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kokkoku.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2250034",
+      "type": "series",
+      "name": "Kokoro Connect",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kokoro-connect.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9886006",
+      "type": "series",
+      "name": "Kono Oto Tomare",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kono-oto-tomare.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7535746",
+      "type": "series",
+      "name": "Konohana Kitan",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/konohana-kitan.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt33999377",
       "type": "series",
       "name": "Kowloon Generic Romance",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kowloon-generic-romance0.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21844614",
+      "type": "series",
+      "name": "Kubo Won't Let Me be invisible",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kubo-wont-let-me-be-invisible.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12415504",
+      "type": "series",
+      "name": "Kuma Kuma Kuma Bear",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kuma-kuma-kuma-bear.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt39123043",
+      "type": "series",
+      "name": "Kuroneko to Majo no Kyoushitsu",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/kuroneko-to-majo-no-kyoushitsu.jpg",
       "posterShape": "poster"
     },
     {
@@ -778,10 +1996,45 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt0297580",
+      "type": "series",
+      "name": "Lady Georgie",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/lady-georgie.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21211412",
+      "type": "series",
+      "name": "Lance Dur",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/lance-dur.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt41278494",
       "type": "series",
       "name": "Let's Go Kaikigumi",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/lets-go-kaikigumi.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32508529",
+      "type": "series",
+      "name": "Let This Grieving Soul Retire!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/let-this-grieving-soul-retire.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12798548",
+      "type": "series",
+      "name": "Lets Make a Mug Too",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/lets-make-a-mug-too.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2629496",
+      "type": "series",
+      "name": "Level E",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/level-e.jpg",
       "posterShape": "poster"
     },
     {
@@ -792,6 +2045,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt28100910",
+      "type": "series",
+      "name": "Liar Liar",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/liar-liar.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt14976292",
       "type": "series",
       "name": "Link Click",
@@ -799,10 +2059,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt6352180",
+      "type": "series",
+      "name": "Little Witch Academia",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/little-witch-academia.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt2942218",
       "type": "series",
       "name": "Log Horizon",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/log-horizon.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32512773",
+      "type": "series",
+      "name": "Loner Life in Another World",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/loner-life-in-another-world.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt22297722",
+      "type": "series",
+      "name": "Lookism",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/lookism.jpg",
       "posterShape": "poster"
     },
     {
@@ -820,10 +2101,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt7727278",
+      "type": "series",
+      "name": "Love is Like a Cocktail",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/love-is-like-a-cocktail.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt2904686",
       "type": "series",
       "name": "Love Lab",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/love-lab.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2595486",
+      "type": "series",
+      "name": "Love Live! School Idol Project",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/love-live-school-idol-project.jpg",
       "posterShape": "poster"
     },
     {
@@ -834,10 +2129,52 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt6777074",
+      "type": "series",
+      "name": "Love Tyrant",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/love-tyrant.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1587394",
+      "type": "series",
+      "name": "Lovely Complex",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/lovely-complex.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1086236",
+      "type": "series",
+      "name": "Lucky Star",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/lucky-star.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7222086",
+      "type": "series",
+      "name": "Made in Abyss",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/made-in-abyss.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2425098",
+      "type": "series",
+      "name": "Magi: The Labyrinth of Magic",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/magi-the-labyrinth-of-magic.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt32813343",
       "type": "series",
       "name": "Magic Knight Rayearth",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/magic-knight-rayearth.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6114684",
+      "type": "series",
+      "name": "Magic-kyun Renaissance",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/magic-kyun-renaissance.jpg",
       "posterShape": "poster"
     },
     {
@@ -848,10 +2185,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt0303503",
+      "type": "series",
+      "name": "Magical DoReMi",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/magical-doremi.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt37577523",
       "type": "series",
       "name": "MAO",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mao.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6074794",
+      "type": "series",
+      "name": "March Comes in Like a Lion",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/march-comes-in-like-a-lion.jpg",
       "posterShape": "poster"
     },
     {
@@ -862,10 +2213,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt33384856",
+      "type": "series",
+      "name": "May I Ask for One Final Thing?",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/may-i-ask-for-one-final-thing.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32333015",
+      "type": "series",
+      "name": "Mayonaka Punch",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mayonaka-punch.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt43587102",
       "type": "series",
       "name": "Mebius Dust",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mebius-dust.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2341171",
+      "type": "series",
+      "name": "Medaka Box",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/medaka-box.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt33310730",
+      "type": "series",
+      "name": "Medalist",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/medalist.jpg",
       "posterShape": "poster"
     },
     {
@@ -876,10 +2255,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt30495035",
+      "type": "series",
+      "name": "Meiji Gekken: 1874",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/meiji-gekken-1874.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt3475064",
       "type": "series",
       "name": "Mekakucity Actors",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mekakucity-actors.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt4415288",
+      "type": "series",
+      "name": "Mermaid Melody : Pichi Pichi Pitch",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mermaid-melody-pichi-pichi-pitch.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28299608",
+      "type": "series",
+      "name": "MF Ghost",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mf-ghost.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt29371814",
+      "type": "series",
+      "name": "Migi & Dali",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/migi-and-dali.jpg",
       "posterShape": "poster"
     },
     {
@@ -897,10 +2304,52 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt33310997",
+      "type": "series",
+      "name": "Momentary Lily",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/momentary-lily.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5905148",
+      "type": "series",
+      "name": "Momokuri",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/momokuri.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1992935",
+      "type": "series",
+      "name": "Mononoke",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mononoke.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt16231800",
+      "type": "series",
+      "name": "More Than a Married Couple, But not Lovers",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/more-than-a-married-couple-but-not-lovers.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt12831098",
       "type": "series",
       "name": "Moriarty The Patriot",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/moriarty.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0807832",
+      "type": "series",
+      "name": "Mushishi",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mushishi.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28612257",
+      "type": "series",
+      "name": "My Daemon",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/my-daemon.jpg",
       "posterShape": "poster"
     },
     {
@@ -915,6 +2364,13 @@
       "type": "series",
       "name": "My Hero Academia",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/my-hero-academia.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt35636246",
+      "type": "series",
+      "name": "My Hero Academia: Vigilantes",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/my-hero-academia-vigilantes.jpg",
       "posterShape": "poster"
     },
     {
@@ -939,10 +2395,45 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt9522316",
+      "type": "series",
+      "name": "My Roommate is a Cat",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/my-roommate-is-a-cat.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt19848112",
       "type": "series",
       "name": "My Stepmom's Daughter Is My Ex",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/my-stepmoms-daughter-is-my-ex.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32332642",
+      "type": "series",
+      "name": "My Wife Has no Emotion",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/my-wife-has-no-emotion.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9203780",
+      "type": "series",
+      "name": "Mysteria Friends",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mysteria-friends.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32083095",
+      "type": "series",
+      "name": "Mysterious Disappearances",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/mysterious-disappearances.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3519238",
+      "type": "series",
+      "name": "Nanana's Buried Treasure",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/nananas-buried-treasure.jpg",
       "posterShape": "poster"
     },
     {
@@ -967,6 +2458,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt39403976",
+      "type": "series",
+      "name": "Needy Girl Overdose",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/needy-girl-overdose.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt41278620",
       "type": "series",
       "name": "Neko to Ryuu",
@@ -974,10 +2472,66 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt11405370",
+      "type": "series",
+      "name": "Nekopara",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/nekopara.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt5862798",
       "type": "series",
       "name": "New Game!",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/new-game.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt37038619",
+      "type": "series",
+      "name": "Ninja to Gokudou",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ninja-to-gokudou.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3431758",
+      "type": "series",
+      "name": "No Game, No Life",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/no-game-no-life.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12885610",
+      "type": "series",
+      "name": "Noblesse",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/noblesse.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3225270",
+      "type": "series",
+      "name": "Noragami",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/noragami.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7122440",
+      "type": "series",
+      "name": "NTR: Netsuzou Trap",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ntr-netsuzou-trap.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt31435652",
+      "type": "series",
+      "name": "Nyaight of the Living Cat",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/nyaight-of-the-living-cat.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt14134550",
+      "type": "series",
+      "name": "OddTaxi",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/odd-taxi.jpg",
       "posterShape": "poster"
     },
     {
@@ -1009,10 +2563,45 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt19511674",
+      "type": "series",
+      "name": "Opus.COLORs",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/opus-colors.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt5839732",
       "type": "series",
       "name": "Orange",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/orange.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11147864",
+      "type": "series",
+      "name": "Oshi ga Budoukan Itte Kuretara Shinu",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/oshi-ga-budoukan-itte-kuretara-shinu.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21030032",
+      "type": "series",
+      "name": "Oshi No Ko",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/oshi-no-ko.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt26895902",
+      "type": "series",
+      "name": "Otaku Elf",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/otaku-elf.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt39443176",
+      "type": "series",
+      "name": "Otaku ni Yasashii Gal wa Inai!?",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/otaku-ni-yasashii-gal-wa-inai.jpg",
       "posterShape": "poster"
     },
     {
@@ -1023,6 +2612,20 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt3196310",
+      "type": "series",
+      "name": "Outbreak Company",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/outbreak-company.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0266171",
+      "type": "series",
+      "name": "Outlaw Star",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/outlaw-star.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt43691353",
       "type": "series",
       "name": "Overgeared",
@@ -1030,10 +2633,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt4869896",
+      "type": "series",
+      "name": "Overlord",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/overlord.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt27679458",
+      "type": "series",
+      "name": "Overtake!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/overtake.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt0498443",
       "type": "series",
       "name": "Paradise Kiss",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/paradise-kiss.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt18574004",
+      "type": "series",
+      "name": "Parallel World Pharmacy",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/parallel-world-pharmacy.jpg",
       "posterShape": "poster"
     },
     {
@@ -1058,10 +2682,66 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt4603222",
+      "type": "series",
+      "name": "Plastic Memories",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/plastic-memories.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13676300",
+      "type": "series",
+      "name": "Platinum END",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/platinum-end.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt41293320",
       "type": "series",
       "name": "Please Excuse My Younger Brothers",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/please-excuse-my-younger-brothers.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11418324",
+      "type": "series",
+      "name": "Plunderer",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/plunderer.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0168366",
+      "type": "series",
+      "name": "Pokémon",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/pokemon.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15715750",
+      "type": "series",
+      "name": "Police in a Pod",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/hakozume-kouban-joshi-no-gyakushuu.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7808370",
+      "type": "series",
+      "name": "Pop Team Epic",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/pop-team-epic.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13457122",
+      "type": "series",
+      "name": "Pretty Boy Detective Club",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/pretty-boy-detective-club.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt11886236",
+      "type": "series",
+      "name": "Princess Connect! Re:Dive",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/princess-connect-re-drive.jpg",
       "posterShape": "poster"
     },
     {
@@ -1072,10 +2752,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt2379308",
+      "type": "series",
+      "name": "Psycho Pass",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/psycho-pass.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt39181351",
       "type": "series",
       "name": "Psyren",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/psyren.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7243824",
+      "type": "series",
+      "name": "Qualidea Code",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/qualidea-code.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0364863",
+      "type": "series",
+      "name": "RahXephon",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/rahxephon.jpg",
       "posterShape": "poster"
     },
     {
@@ -1086,6 +2787,34 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt8993398",
+      "type": "series",
+      "name": "Rascal Does Not Dream of Bunny Girl Senpai",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/rascal-does-not-dream-of-bunny-girl-senpai.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21197084",
+      "type": "series",
+      "name": "Raven of the Inner Palace",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/raven-of-the-inner-palace.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt6755926",
+      "type": "series",
+      "name": "Re:Creators",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/re-creators.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt14201334",
+      "type": "series",
+      "name": "RE-MAIN",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/re-main.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt0100044",
       "type": "series",
       "name": "Record of Lodoss War",
@@ -1093,10 +2822,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt7662364",
+      "type": "series",
+      "name": "Recovery of an MMO Junkie",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/recovery-of-an-mmo-junkie.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt41278592",
       "type": "series",
       "name": "Red River",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/red-river.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt27845099",
+      "type": "series",
+      "name": "Reign of the Seven Spellblades",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/reign-of-the-seven-spellblades.jpg",
       "posterShape": "poster"
     },
     {
@@ -1121,6 +2864,20 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt0205410",
+      "type": "series",
+      "name": "Revolutionary Girl Utena",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/revolutionary-girl-utena.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt30400535",
+      "type": "series",
+      "name": "Rising Impact",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/rising-impact.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt35436553",
       "type": "series",
       "name": "Rock is a lady's modesty",
@@ -1135,10 +2892,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt1081667",
+      "type": "series",
+      "name": "Romeo x Juliet",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/romeo-x-juliet.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt33086804",
       "type": "series",
       "name": "Rooster Fighter",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/rooster-fighter.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9402026",
+      "type": "series",
+      "name": "Run with the wind",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/run-with-the-wind.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3066242",
+      "type": "series",
+      "name": "RWBY",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/rwby-ice-queendom.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15744206",
+      "type": "series",
+      "name": "Ryman's Club",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/rymans-club.jpg",
       "posterShape": "poster"
     },
     {
@@ -1170,10 +2955,45 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt13580730",
+      "type": "series",
+      "name": "Sakugan",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sakugan.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt3198956",
       "type": "series",
       "name": "Sakura Trick",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sakura-trick.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt35127440",
+      "type": "series",
+      "name": "Sanda",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sanda.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21608762",
+      "type": "series",
+      "name": "Saving 80,000 Gold in Another World for my Retirement",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/saving-80000-gold-in-another-world-for-my-retirement.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0878036",
+      "type": "series",
+      "name": "School Rumble",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/school-rumble.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5375996",
+      "type": "series",
+      "name": "Schwarzesmarken",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/schwarzesmarken.jpg",
       "posterShape": "poster"
     },
     {
@@ -1188,6 +3008,13 @@
       "type": "series",
       "name": "Seirei Gensouki : Spirit Chronicles",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/seirei-gensouki-spirit-chronicles.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1694038",
+      "type": "series",
+      "name": "Seitokai Yakuindomo",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/seitokai-yakuindomo.jpg",
       "posterShape": "poster"
     },
     {
@@ -1212,6 +3039,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt0500092",
+      "type": "series",
+      "name": "Serial Experiments Lain",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/serial-experiments-lain.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt5861440",
       "type": "series",
       "name": "Servamp",
@@ -1223,6 +3057,27 @@
       "type": "series",
       "name": "Seven Deadly Sins",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/seven-deadly-sins.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13362302",
+      "type": "series",
+      "name": "Shadows House",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/shadows-house.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0972713",
+      "type": "series",
+      "name": "Shakugan no Shana",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/shakugan-no-shana.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12502782",
+      "type": "series",
+      "name": "Shaman King",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/shaman-king.jpg",
       "posterShape": "poster"
     },
     {
@@ -1254,6 +3109,48 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt3985228",
+      "type": "series",
+      "name": "Shirobako",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/shirobako.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt22524872",
+      "type": "series",
+      "name": "SHY",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/shy.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13129190",
+      "type": "series",
+      "name": "SK8 the Infinity",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sk8-the-infinity.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12390430",
+      "type": "series",
+      "name": "Skate Leading Stars",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/skate-leading-stars.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt14694762",
+      "type": "series",
+      "name": "Slow Loop",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/slow-loop.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt37614297",
+      "type": "series",
+      "name": "Smoking Behind The Supermarket With You",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/smoking-behind-the-supermarket-with-you.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt39229727",
       "type": "series",
       "name": "Snowball Earth",
@@ -1261,10 +3158,45 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt13961348",
+      "type": "series",
+      "name": "Sonic Prime",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sonic-prime.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt14642342",
+      "type": "series",
+      "name": "Sonny Boy",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sonny-boy.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt34621563",
+      "type": "series",
+      "name": "Sorairo Utility",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sorairo-utility.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1214085",
+      "type": "series",
+      "name": "Soul Eater",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/soul-eater.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt3453204",
       "type": "series",
       "name": "Soul Eater Not!",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/soul-eater-not.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt16409202",
+      "type": "series",
+      "name": "Spare Me, Great Lord !",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/spare-me-great-lord.jpg",
       "posterShape": "poster"
     },
     {
@@ -1289,10 +3221,101 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt20723374",
+      "type": "series",
+      "name": "Star Wars Tales of the Jedi",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/star-wars-tales-of-the-jedi.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13622982",
+      "type": "series",
+      "name": "Star Wars : Visions",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/star-wars-visions.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1910272",
+      "type": "series",
+      "name": "Steins Gate",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/steins-gate.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2789238",
+      "type": "series",
+      "name": "Strike the Blood",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/strike-the-blood.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1300176",
+      "type": "series",
+      "name": "Strike Witches",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/strike-witches.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28279848",
+      "type": "series",
+      "name": "Suicide Squad ISEKAI",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/suicide-squad-isekai.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt16741414",
+      "type": "series",
+      "name": "Summer Pockets",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/summer-pockets.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt14272628",
+      "type": "series",
+      "name": "Super Crooks",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/super-crooks.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28197251",
+      "type": "series",
+      "name": "Super Cube",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/super-cube.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt8433216",
+      "type": "series",
+      "name": "Super Dragon Ball Heroes",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/super-dragon-ball-heroes.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt27990718",
       "type": "series",
       "name": "Sweet Reincarnation",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sweet-reincarnation.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7415066",
+      "type": "series",
+      "name": "Sword Gai The Animation",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/sword-gai-the-animation.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt8249034",
+      "type": "series",
+      "name": "Tada Never Falls in Love",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tada-kun-wa-koi-wo-shinai.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt14935960",
+      "type": "series",
+      "name": "Takt Op. Destiny",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/takt-op-destiny.jpg",
       "posterShape": "poster"
     },
     {
@@ -1307,6 +3330,20 @@
       "type": "series",
       "name": "Tank Chair",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tank-chair.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32514593",
+      "type": "series",
+      "name": "Teogonia",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/teogonia.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3894916",
+      "type": "series",
+      "name": "Terra Formars",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/terra-formars.jpg",
       "posterShape": "poster"
     },
     {
@@ -1338,10 +3375,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt13851952",
+      "type": "series",
+      "name": "The Aquatope on White Sand",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-aquatope-on-white-sand.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt28131643",
       "type": "series",
       "name": "The Banished Former Hero Lives as He Pleases",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-banished-former-hero-lives-as-he-pleases.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt34119820",
+      "type": "series",
+      "name": "The Beginning After the End",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-beginning-after-the-end0.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32524709",
+      "type": "series",
+      "name": "The Brilliant Healer's New Life in the Shadows",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-brilliant-healers-new-life-in-the-shadows.jpg",
       "posterShape": "poster"
     },
     {
@@ -1359,10 +3417,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt12305588",
+      "type": "series",
+      "name": "The Day I Became A God",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-day-i-became-a-god.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt34818628",
+      "type": "series",
+      "name": "The Dinner Table Detective",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-dinner-table-detective.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28278738",
+      "type": "series",
+      "name": "The Dreaming Boy is a Realist",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-dreaming-man-is-a-realist.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt41277587",
       "type": "series",
       "name": "The Duke's Son Claims He Won't Love Me Yet Showers Me with Adoration",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-dukes-son-claims-he-wont-love-me-yet-showers-me-with-adoration.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt14115938",
+      "type": "series",
+      "name": "The Eminence in Shadow",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-eminence-in-shadow.jpg",
       "posterShape": "poster"
     },
     {
@@ -1380,6 +3466,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt21912036",
+      "type": "series",
+      "name": "The Fire Hunter",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-fire-hunter.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt41095208",
       "type": "series",
       "name": "The Forsaken Saintess and Her Foodie Roadtrip in Another World",
@@ -1394,6 +3487,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt28216375",
+      "type": "series",
+      "name": "The Girl Downstairs",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-girl-downstairs.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt28265657",
       "type": "series",
       "name": "The Girl I Like Forgot Her Glasses",
@@ -1401,10 +3501,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt35348180",
+      "type": "series",
+      "name": "The Gorilla God’s Go-To Girl",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-gorilla-gods-go-to-girl.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt15447890",
       "type": "series",
       "name": "The Greatest Demon Lord Is Reborn as a Typical Nobody",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-greatest-demon-lord-is-reborn-as-a-typical-nobody.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt5023666",
+      "type": "series",
+      "name": "The Heroic Legend of Arslan",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-heroic-legend-of-arslan.jpg",
       "posterShape": "poster"
     },
     {
@@ -1429,6 +3543,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt3874528",
+      "type": "series",
+      "name": "The Irregular at Magic High School",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-irregular-at-magic-high-school.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt6859260",
       "type": "series",
       "name": "The King's Avatar",
@@ -1436,10 +3557,59 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt28774702",
+      "type": "series",
+      "name": "The Kingdoms of Ruin",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-kingdoms-of-ruin.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt19893526",
+      "type": "series",
+      "name": "The Last Summoner",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-last-summoner.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt27531070",
       "type": "series",
       "name": "The Legend of Hei",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-legend-of-hei.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt14206996",
+      "type": "series",
+      "name": "The Legend of Heroes: Trails of Cold Steel, Northern War",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-legend-of-heroes-trails-of-cold-steel-northern-war.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt22889156",
+      "type": "series",
+      "name": "The Magical Revolution of the Reincarnated Princess and the Genius Young Lady",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-magical-revolution-of-the-reincarnated-princess-and-the-genius-young-lady.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21237634",
+      "type": "series",
+      "name": "The Maid I hired recently is Mysterious...",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-maid-i-hired-recently-is-mysterious.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12432936",
+      "type": "series",
+      "name": "The Misfit of Demon King Academy",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-misfit-of-demon-king-academy.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt31146105",
+      "type": "series",
+      "name": "The New Gate",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-new-gate.jpg",
       "posterShape": "poster"
     },
     {
@@ -1457,10 +3627,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt5247480",
+      "type": "series",
+      "name": "The Perfect Insider",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-perfect-insider.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt8788458",
       "type": "series",
       "name": "The Promised Neverland",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-promised-neverland.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9584920",
+      "type": "series",
+      "name": "The Quintessential Quintuplets",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-quintessential-quintuplets.jpg",
       "posterShape": "poster"
     },
     {
@@ -1471,10 +3655,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt9529546",
+      "type": "series",
+      "name": "The Rising of the Shield Hero",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-rising-of-the-shield-hero.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt13049906",
       "type": "series",
       "name": "The Saint's Magic Power Is Omnipotent",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-saints-magic-power-is-omnipotent.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt35331428",
+      "type": "series",
+      "name": "The Shiunji Family Children",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-shiunji-family-children.jpg",
       "posterShape": "poster"
     },
     {
@@ -1485,10 +3683,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt33028568",
+      "type": "series",
+      "name": "The Summer Hikaru died",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-summer-hikaru-died.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt35014218",
       "type": "series",
       "name": "The Unaware Atelier Master",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-unaware-atelier-master.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt41153966",
+      "type": "series",
+      "name": "The Vermilion Mask",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-vermilion-mask.jpg",
       "posterShape": "poster"
     },
     {
@@ -1499,6 +3711,13 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt1899022",
+      "type": "series",
+      "name": "The World God Only Knows",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-world-god-only-knows.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt41279522",
       "type": "series",
       "name": "The World is Dancing",
@@ -1506,10 +3725,24 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt3590222",
+      "type": "series",
+      "name": "The World is Still Beautiful",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-world-is-still-beautiful.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt15237152",
       "type": "series",
       "name": "The Wrong Way to Use Healing Magic",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-wrong-way-to-use-healing-magic.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt21230432",
+      "type": "series",
+      "name": "The Yakuza's Guide to Babysitting",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/the-yakuzas-guide-to-babysitting.jpg",
       "posterShape": "poster"
     },
     {
@@ -1527,10 +3760,38 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt30643998",
+      "type": "series",
+      "name": "'Tis Time for \"Torture,\" Princess",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tis-time-for-torture-princess.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt10484890",
+      "type": "series",
+      "name": "To Be Hero",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/to-be-hero.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt23139038",
       "type": "series",
       "name": "To Be Hero X",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/to-be-hero-x.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt12063450",
+      "type": "series",
+      "name": "To Your Eternity",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/to-your-eternity.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt37532319",
+      "type": "series",
+      "name": "Tojima Wants to Be a Kamen Rider",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tojima-wants-to-be-a-kamen-rider.jpg",
       "posterShape": "poster"
     },
     {
@@ -1545,6 +3806,13 @@
       "type": "series",
       "name": "Tokyo Ghoul Re",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tokyo-ghoul-re.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1440068",
+      "type": "series",
+      "name": "Tokyo Magnitude 8.0",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tokyo-magnitude-80.jpg",
       "posterShape": "poster"
     },
     {
@@ -1569,10 +3837,87 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt15830678",
+      "type": "series",
+      "name": "Tomodachi Game",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tomodachi-game.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1899047",
+      "type": "series",
+      "name": "Toriko",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/toriko.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt16255458",
+      "type": "series",
+      "name": "Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/trapped-in-a-dating-sim-the-world-of-otome-games-is-tough-for-mobs.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15529750",
+      "type": "series",
+      "name": "Tribe Nine",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tribe-nine.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt33609048",
+      "type": "series",
+      "name": "Trillion Game",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/trillion-game.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3532752",
+      "type": "series",
+      "name": "Trinity Seven",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/trinity-seven.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13311344",
+      "type": "series",
+      "name": "TSUKIMICHI Moonlight Fantasy",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tsukimichi-moonlit-fantasy.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt7155052",
       "type": "series",
       "name": "Tsuredure Children",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tsuredure-children.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2341757",
+      "type": "series",
+      "name": "Tsuritama",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tsuritama.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt8994044",
+      "type": "series",
+      "name": "Tsurune",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/tsurune.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32581027",
+      "type": "series",
+      "name": "Übel Blatt",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/ubel-blatt.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt36592756",
+      "type": "series",
+      "name": "Uglymug, Epicfighter",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/uglymug-epicfighter.jpg",
       "posterShape": "poster"
     },
     {
@@ -1583,10 +3928,87 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt8253268",
+      "type": "series",
+      "name": "Umamusume Pretty Derby",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/umamusume-pretty-derby.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt2127216",
       "type": "series",
       "name": "Un-Go",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/un-go.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt27206542",
+      "type": "series",
+      "name": "Undead Murder Farce",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/undead-murder-farce.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt15378218",
+      "type": "series",
+      "name": "Under Ninja",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/under-ninja.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt25808792",
+      "type": "series",
+      "name": "UniteUp!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/uniteup.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt24326724",
+      "type": "series",
+      "name": "Unnamed Memory",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/unnamed-memory.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7591766",
+      "type": "series",
+      "name": "UQ Holder!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/uq-holder.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt16764368",
+      "type": "series",
+      "name": "Urusei Yatsura",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/urusei-yatsura.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt0978215",
+      "type": "series",
+      "name": "Utawarerumono",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/utawarerumono.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt31976012",
+      "type": "series",
+      "name": "Vampire Dormitory",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/vampire-dormitory.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1209393",
+      "type": "series",
+      "name": "Vampire Knight",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/vampire-knight.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt18561422",
+      "type": "series",
+      "name": "Vermeil in Gold",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/vermeil-in-gold.jpg",
       "posterShape": "poster"
     },
     {
@@ -1597,10 +4019,94 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt38273525",
+      "type": "series",
+      "name": "Victoria of Many Faces",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/victoria-of-many-faces.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt7078180",
+      "type": "series",
+      "name": "Violet Evergarden",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/violet-evergarden.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1807824",
+      "type": "series",
+      "name": "Wakfu",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/wakfu.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3385730",
+      "type": "series",
+      "name": "Wangan Midnight",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/wangan-midnight.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt28597143",
+      "type": "series",
+      "name": "War God System Im Counting On You",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/war-god-system-im-counting-on-you.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt37196939",
+      "type": "series",
+      "name": "Wash it All Away",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/wash-it-all-away.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt13795144",
+      "type": "series",
+      "name": "Wave Surfing Yappe",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/wave-surfing-yappe.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt11034066",
       "type": "series",
       "name": "Welcome To Demon School Iruma-kun",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/welcome-to-demon-school-iruma-kun.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt14979456",
+      "type": "series",
+      "name": "When Will Ayumu Make His Move?",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/when-will-ayumu-make-his-move.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt30989692",
+      "type": "series",
+      "name": "Whisper Me a Love Song",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/whisper-me-a-love-song.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt29605391",
+      "type": "series",
+      "name": "Wind Breaker",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/wind-breaker-manga0.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9828724",
+      "type": "series",
+      "name": "Wise Man's Grandchild",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/wise-mans-grandchild.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3950092",
+      "type": "series",
+      "name": "Wolf Girl & Black Prince",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/wolf-girl-and-black-prince.jpg",
       "posterShape": "poster"
     },
     {
@@ -1611,10 +4117,59 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt3950102",
+      "type": "series",
+      "name": "World Trigger",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/world-trigger.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt4623042",
+      "type": "series",
+      "name": "Yamada-kun to 7-nin no Majo",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/yamada-kun-to-7-nin-no-majo.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9310330",
+      "type": "series",
+      "name": "Yasuke",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/yasuke.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3143922",
+      "type": "series",
+      "name": "Young gto",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/young-gto.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt32513973",
+      "type": "series",
+      "name": "Your Forma",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/your-forma.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt3895150",
+      "type": "series",
+      "name": "Your Lie in April",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/your-lie-in-april.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt38895862",
       "type": "series",
       "name": "Yowayowa Sensei",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/yowayowa-sensei.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt1301972",
+      "type": "series",
+      "name": "Yozakura Quartet",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/yozakura-quartet.jpg",
       "posterShape": "poster"
     },
     {
@@ -1625,10 +4180,31 @@
       "posterShape": "poster"
     },
     {
+      "id": "tt20234560",
+      "type": "series",
+      "name": "Yuri Is My Job!",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/yuri-is-my-job.jpg",
+      "posterShape": "poster"
+    },
+    {
       "id": "tt6112556",
       "type": "series",
       "name": "Yuri on Ice",
       "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/yuri-on-ice.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt2622978",
+      "type": "series",
+      "name": "Yuyushiki",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/yuyushiki.jpg",
+      "posterShape": "poster"
+    },
+    {
+      "id": "tt9054354",
+      "type": "series",
+      "name": "Zombie Land Saga",
+      "poster": "https://raw.githubusercontent.com/Anime-Sama/IMG/img/contenu/zombie-land-saga.jpg",
       "posterShape": "poster"
     },
     {
