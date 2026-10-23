@@ -90,7 +90,10 @@ def build(args):
         if m and m.group(1) in slug_titles:
             aliases.setdefault(m.group(1), []).append(item["name"])
     existing = load_metas("as_search")
-    by_id = {i["id"]: dict(i) for i in existing if IMDB.fullmatch(str(i.get("id", "")))}
+    bad_mappings = json.loads((ROOT / "scripts/quarantined-imdb-mappings.json").read_text(encoding="utf-8"))
+    blocked_ids = {entry["id"] for entry in bad_mappings}
+    by_id = {i["id"]: dict(i) for i in existing
+             if IMDB.fullmatch(str(i.get("id", ""))) and i["id"] not in blocked_ids}
     old_ids = set(by_id)
     by_normal = {normal(i["name"]): i["id"] for i in by_id.values()}
     site_by_name = {normal(i["name"]): i for i in canonical}
@@ -101,7 +104,7 @@ def build(args):
             key = normal(item.get("name", ""))
             source = site_by_name.get(key)
             imdb_id = str(item.get("id", ""))
-            if key in by_normal or not source or imdb_id in by_id or not IMDB.fullmatch(imdb_id):
+            if key in by_normal or not source or imdb_id in by_id or imdb_id in blocked_ids or not IMDB.fullmatch(imdb_id):
                 continue
             by_id[imdb_id] = {"id": imdb_id, "type": "series", "name": source["name"],
                               "poster": source["poster"], "posterShape": "poster"}
@@ -111,7 +114,7 @@ def build(args):
     for key, hit in historic.items():
         source = site_by_name.get(normal(key))
         imdb_id = str((hit or {}).get("id") or "")
-        if (not source or not IMDB.fullmatch(imdb_id) or
+        if (not source or not IMDB.fullmatch(imdb_id) or imdb_id in blocked_ids or
             float((hit or {}).get("match", 0)) < 96 or
             normal(source["name"]) in by_normal or imdb_id in by_id):
             continue
@@ -126,7 +129,7 @@ def build(args):
         nonlocal from_live
         key = normal(item["name"])
         imdb_id = str((hit or {}).get("id") or "")
-        if imdb_id in by_id or key in by_normal or not IMDB.fullmatch(imdb_id):
+        if imdb_id in by_id or imdb_id in blocked_ids or key in by_normal or not IMDB.fullmatch(imdb_id):
             return
         # Old title-only lookup caches are unsafe: names alone can resolve to
         # live-action adaptations with identical names. Require full meta proof.

@@ -1,0 +1,4 @@
+# Isolated catalog-maintenance Python environment; install in .venv, not globally.
+requests>=2.32.3,<3
+beautifulsoup4>=4.12,<5
+rapidfuzz>=3.9,<4

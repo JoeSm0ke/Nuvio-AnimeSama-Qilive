@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Build Anime-Sama TV's 'Les classiques' row from Anime-Sama's own homepage.
+"""Refresh the classics snapshot without changing the catalog manifest.
 
-Series only: films/scan-only entries are deliberately excluded until a verified
-movie-compatible metadata/player path is available. IDs have been manually
-verified against Cinemeta as anime series, not similarly titled live-action.
+Only already-verified search entries may be included. A shortened or changed
+website response must not overwrite the last known-good classics list.
+Use --dry-run to preview a regeneration without writing anything.
 """
-import html
+import argparse
 import json
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 import requests
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-# These IMDb IDs point to the original anime, not remakes/live-action adaptations.
 SERIES = {
     "dragon-ball-z": "tt0121220",
     "dragon-ball": "tt0088509",
@@ -40,37 +40,51 @@ SERIES = {
     "great-teacher-onizuka": "tt0315008",
     "evangelion": "tt0112159",
 }
-r = requests.get("https://anime-sama.to/", timeout=25, headers={"User-Agent": "Mozilla/5.0"})
-r.raise_for_status()
-container = BeautifulSoup(r.text, "html.parser").select_one("#containerClassiques")
-if container is None:
-    raise RuntimeError("Anime-Sama changed the classics section; preserving previous snapshot")
-result = []
-for item in container.select(".as-carte-oeuvre[data-url][data-nom][data-img]"):
-    slug = item["data-url"].strip("/").split("/")[-1]
-    if slug not in SERIES:
-        continue
-    name = html.unescape(item["data-nom"]).strip()
-    poster = item["data-img"]
-    if not poster.startswith("https://"):
-        continue
-    result.append({"id": SERIES[slug], "type": "series", "name": name,
-                   "poster": poster, "posterShape": "poster"})
-if len(result) < 8:
-    raise RuntimeError("Too few classics; keeping previous snapshot")
-path = DOCS / "catalog" / "series" / "as_classics.json"
-path.parent.mkdir(parents=True, exist_ok=True)
-path.write_text(json.dumps({"metas":result}, ensure_ascii=False, indent=2), encoding="utf-8")
-manifest_file = DOCS / "manifest.json"
-manifest = json.loads(manifest_file.read_text(encoding="utf-8-sig"))
-manifest["version"] = "0.3.0"
-manifest["name"] = "Anime-Sama TV - Catalogue"
-manifest["catalogs"] = [c for c in manifest["catalogs"] if c["id"] != "as_classics"]
-manifest["catalogs"].insert(0, {
-    "type":"series", "id":"as_classics", "name":"Les classiques - Anime-Sama"
-})
-for entry in manifest["catalogs"]:
-    if entry["id"] == "as_latest": entry["name"] = "Anime-Sama - Derniers ajouts"
-    if entry["id"] == "as_new": entry["name"] = "Anime-Sama - Sorties recentes"
-manifest_file.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
-print(f"Published {len(result)} classics; first: {[x['name'] for x in result[:8]]}")
+
+
+def main(dry_run: bool = False) -> None:
+    manifest = json.loads((DOCS / "manifest.json").read_text(encoding="utf-8"))
+    if sum(row.get("id") == "as_classics" for row in manifest["catalogs"]) != 1:
+        raise RuntimeError("Expected exactly one existing classics row; preserving manifest")
+    canonical_path = DOCS / "catalog/series/as_search.json"
+    canonical = {
+        item["id"]: item
+        for item in json.loads(canonical_path.read_text(encoding="utf-8"))["metas"]
+    }
+    output = DOCS / "catalog/series/as_classics.json"
+    previous = json.loads(output.read_text(encoding="utf-8"))["metas"]
+    r = requests.get("https://anime-sama.to/", timeout=25,
+                     headers={"User-Agent": "Mozilla/5.0"})
+    r.raise_for_status()
+    container = BeautifulSoup(r.text, "html.parser").select_one("#containerClassiques")
+    if container is None:
+        raise RuntimeError("Classics section missing; preserving previous snapshot")
+    entries = []
+    seen = set()
+    for element in container.select(".as-carte-oeuvre[data-url]"):
+        slug = element.get("data-url", "").strip("/").split("/")[-1]
+        imdb_id = SERIES.get(slug)
+        if not imdb_id or imdb_id in seen or imdb_id not in canonical:
+            continue
+        seen.add(imdb_id)
+        # Use the canonical verified title + poster; site labels/covers can drift.
+        entries.append(canonical[imdb_id])
+    minimum = max(16, len(previous) - 4)
+    if len(entries) < minimum:
+        raise RuntimeError(f"Only {len(entries)} classics, expected >= {minimum}; preserving snapshot")
+    print(f"Classics: {len(entries)} entries; catalog version preserved as {manifest['version']}")
+    if dry_run:
+        print("DRY RUN: no files changed")
+        return
+    with NamedTemporaryFile(mode="w", encoding="utf-8", suffix=".tmp",
+                            dir=output.parent, delete=False) as temp:
+        json.dump({"metas": entries}, temp, ensure_ascii=False, indent=2)
+        temp.write("\n")
+        tmp_path = Path(temp.name)
+    tmp_path.replace(output)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dry-run", action="store_true")
+    main(parser.parse_args().dry_run)

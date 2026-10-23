@@ -1,0 +1,14 @@
+[
+  {
+    "id": "tt0108088",
+    "catalog_title": "Seven Deadly Sins",
+    "reason": "Cinemeta maps this ID to Seven Deadly Sins (1993), seven episodes named Lust/Pride/etc.; not the anime. Verified replacement for 2014 anime: tt3909224.",
+    "replacement_id": "tt3909224"
+  },
+  {
+    "id": "tt27531070",
+    "catalog_title": "The Legend of Hei",
+    "reason": "Cinemeta maps this ID to The Legend of Shen Li (live-action Chinese fantasy), not The Legend of Hei. No validated anime-series IMDb replacement; exclude from playable index.",
+    "replacement_id": null
+  }
+]

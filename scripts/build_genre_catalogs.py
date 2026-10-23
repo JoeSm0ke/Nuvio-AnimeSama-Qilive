@@ -89,7 +89,7 @@ def main():
     if len(records) < 3:
         raise RuntimeError("Not enough populated genres, preserving catalog")
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    manifest["version"] = "0.4.0"  # New themed shelves since catalog 0.3.0.
+    # Do not silently downgrade an already published manifest version.
     original = manifest.get("catalogs", [])
     manifest["catalogs"] = [x for x in original if x.get("id") not in GENRES]
     insert_after = next((n for n, x in enumerate(manifest["catalogs"])

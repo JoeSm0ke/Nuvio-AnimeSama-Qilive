@@ -8,7 +8,16 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '../docs/catalog/series');
+const quarantined = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'quarantined-imdb-mappings.json'), 'utf8'));
+const blockedIds = new Set(quarantined.map(entry => entry.id));
 const manifest = JSON.parse(fs.readFileSync(path.resolve(root, '../../manifest.json'), 'utf8'));
+if (!Array.isArray(manifest.catalogs) || manifest.catalogs.length < 8) {
+  throw new Error('Unexpectedly small/invalid catalog manifest');
+}
+const ids = manifest.catalogs.map(x => x.id);
+if (ids.length !== new Set(ids).size || ids.filter(id => id === 'as_search').length !== 1) {
+  throw new Error('Duplicate catalog ID or missing search catalog');
+}
 const shelves = manifest.catalogs.filter(x => x.type === 'series' && x.id !== 'as_search');
 const sets = [['as_search', 'Search'], ...shelves.map(x => [x.id, x.name])];
 const genreCachePath = path.resolve(__dirname, 'genre-metadata-cache.json');
@@ -27,7 +36,7 @@ const genreTags = {
 const legacyMetadataExceptions = new Set([
   'tt43140647', 'tt34570673', 'tt8985078', 'tt22008216',
   'tt11051342', 'tt37253585', 'tt48391033', 'tt40370555',
-  'tt33086804', 'tt0108088', 'tt27531070'
+  'tt33086804'
 ]);
 const all = new Map();
 let errors = 0;
@@ -44,6 +53,7 @@ for (const [file, label] of sets) {
       errors++;
     };
     if (!/^tt\d{5,15}$/.test(entry.id ?? '')) fail('invalid IMDb ID');
+    if (blockedIds.has(entry.id)) fail('quarantined incorrect IMDb mapping');
     if (entry.type !== 'series') fail('not a series');
     if (typeof entry.name !== 'string' || !entry.name.trim()) fail('empty title');
     if (typeof entry.poster !== 'string' ||
@@ -54,6 +64,7 @@ for (const [file, label] of sets) {
     if (unique.has(entry.id)) fail('duplicate ID');
     unique.add(entry.id);
     if (file === 'as_search') {
+      if (items.length < 550) fail('unexpected shrink of verified search index');
       all.set(entry.id, entry);
       if (!genreCache[entry.id]) {
         if (legacyMetadataExceptions.has(entry.id)) {

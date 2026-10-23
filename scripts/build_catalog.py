@@ -1,123 +1,108 @@
 #!/usr/bin/env python3
-"""Generate Stremio-compatible anime-only catalog snapshots sourced from anime-sama.to.
+"""Safely refresh 'Derniers ajouts' and 'Sorties récentes' from Anime-Sama.
 
-Discovery source: public catalogue entries. IMDB IDs: Cinemeta search, accepted only
-on strong title similarity. No videos are downloaded or hosted. Unknown titles are
-excluded instead of silently linking the wrong series.
+Matches against the *already verified* as_search IMDb ID, name and poster.
+Does not re-run fuzzy IMDb searches, modify the manifest, or change its
+version. A partial site response or weak match preserves previous snapshots.
 """
 from __future__ import annotations
-import concurrent.futures
+
+import argparse
 import html
 import json
 import re
 import time
 import unicodedata
 from pathlib import Path
-from urllib.parse import quote, urlencode
+from tempfile import NamedTemporaryFile
+
 import requests
 from bs4 import BeautifulSoup
-from rapidfuzz import fuzz
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "docs"
-CACHE = ROOT / "scripts" / "imdb-cache.json"
+DOCS = ROOT / "docs"
+SERIES = DOCS / "catalog/series"
 BASE = "https://anime-sama.to/catalogue/"
-SESSION = requests.Session()
-SESSION.headers.update({"User-Agent": "Mozilla/5.0 (compatible; Anime-Sama-TV-Catalog/0.1)"})
 STEMS = [
-    ("as_latest", "Anime-Sama · Derniers ajouts", "ajout", 3),
-    ("as_new", "Anime-Sama · Sorties récentes", "recent", 3),
+    ("as_latest", "Derniers ajouts", "ajout", 3),
+    ("as_new", "Sorties récentes", "recent", 3),
 ]
 
-def normal(s):
-    s = unicodedata.normalize("NFKD", html.unescape(s or ""))
-    s = "".join(c for c in s if not unicodedata.combining(c))
-    return re.sub(r"[^a-z0-9]+", " ", s.lower()).strip()
 
-def fetch_animes(sort, pages):
-    output = []
-    for page in range(1, pages+1):
-        r = SESSION.get(BASE, params={"tri": sort, "type[]": "Anime", "page": page}, timeout=20)
-        r.raise_for_status()
-        doc = BeautifulSoup(r.text, "html.parser")
-        count = 0
-        for el in doc.select(".as-carte-oeuvre[data-url]"):
-            badge = el.select_one(".as-badge-anime")
-            if badge is None: continue
-            slug = el.get("data-url", "").strip("/").split("/")[-1]
-            name = html.unescape(el.get("data-nom", "")).strip()
-            poster = el.get("data-img")
-            if not slug or not name or not poster: continue
-            output.append({"name": name, "slug": slug, "poster": poster})
-            count += 1
-        print(f"{sort} page={page}: {count} anime")
-        if count == 0: break
-        time.sleep(.25)
-    unique = {}
-    for item in output:
-        unique.setdefault(item["slug"], item)
-    return list(unique.values())
+def normalize(value: str) -> str:
+    value = unicodedata.normalize("NFKD", html.unescape(value or ""))
+    value = "".join(x for x in value if not unicodedata.combining(x))
+    return re.sub(r"[^a-z0-9]+", " ", value.lower()).strip()
 
-def resolve(item, cache):
-    key = normal(item["name"])
-    if key in cache:
-        return cache[key]
-    try:
-        url = "https://v3-cinemeta.strem.io/catalog/series/top/search=" + quote(item["name"], safe="") + ".json"
-        d = requests.get(url, timeout=15).json()
-        candidates = []
-        for m in d.get("metas", []):
-            if m.get("type") != "series" or not re.fullmatch(r"tt[0-9]+", m.get("id", "")): continue
-            score = max(fuzz.ratio(key, normal(m.get("name"))),
-                        fuzz.token_sort_ratio(key, normal(m.get("name"))))
-            candidates.append((score, m))
-        candidates.sort(key=lambda a: a[0], reverse=True)
-        if candidates and candidates[0][0] >= 89:
-            result = {"id": candidates[0][1]["id"], "match": round(candidates[0][0], 1)}
-        else:
-            result = {"id": None, "match": round(candidates[0][0], 1) if candidates else 0}
-    except Exception as e:
-        print(f"lookup error {item['name']}: {str(e)[:60]}")
-        result = {"id": None, "match": 0}
-    return result
 
-def main():
-    OUT.mkdir(exist_ok=True)
-    (OUT / "catalog" / "series").mkdir(parents=True, exist_ok=True)
-    CACHE.parent.mkdir(exist_ok=True)
-    cache = json.loads(CACHE.read_text(encoding="utf-8")) if CACHE.exists() else {}
-    data = {}
-    all_items = {}
-    for ident, label, sort, pages in STEMS:
-        items = fetch_animes(sort, pages)
-        data[ident] = (label, items)
-        for item in items: all_items.setdefault(normal(item["name"]), item)
-    unresolved = {k:v for k,v in all_items.items() if k not in cache}
-    print(f"LOOKUPS={len(unresolved)}, CACHED={len(cache)}", flush=True)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-        future_map = {pool.submit(resolve, item, cache): key for key, item in unresolved.items()}
-        for n, f in enumerate(concurrent.futures.as_completed(future_map), start=1):
-            cache[future_map[f]] = f.result()
-            if n % 25 == 0: print(f"Resolved {n}/{len(unresolved)}", flush=True)
-    CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
-    manifest = {"id":"fr.joesm0ke.animesama.catalog", "version":"0.1.0",
-                "name":"Anime-Sama TV · Catalogue", "description":"Anime uniquement, selection Anime-Sama, VF/VOSTFR via fournisseur Nuvio separe.",
-                "resources":["catalog"], "types":["series"],
-                "catalogs":[{"type":"series","id":ident,"name":label} for ident,label,_,_ in STEMS]}
-    # Keep the published manifest (including Les classiques and search catalog).
-    # scripts/build_classics.py owns the manifest and its version.
-    for ident,(label, items) in data.items():
-        metas = []
-        used = set()
-        for item in items:
-            imdb = cache.get(normal(item["name"]), {}).get("id")
-            if not imdb or imdb in used: continue
-            metas.append({"id":imdb, "type":"series", "name":item["name"], "poster":item["poster"],
-                          "posterShape":"poster"})
-            used.add(imdb)
-        file = OUT / "catalog" / "series" / f"{ident}.json"
-        file.write_text(json.dumps({"metas":metas},ensure_ascii=False,indent=2),encoding="utf-8")
-        print(f"{label}: {len(metas)}/{len(items)} verified matches -> {file}",flush=True)
+def fetch_animes(session: requests.Session, sort: str, pages: int) -> list[dict]:
+    rows = []
+    for page in range(1, pages + 1):
+        response = session.get(BASE, params={"tri": sort, "type[]": "Anime", "page": page},
+                               timeout=20)
+        response.raise_for_status()
+        root = BeautifulSoup(response.text, "html.parser")
+        batch = []
+        for entry in root.select(".as-carte-oeuvre[data-url]"):
+            if not entry.select_one(".as-badge-anime"):
+                continue
+            name = html.unescape(entry.get("data-nom", "")).strip()
+            poster = entry.get("data-img", "")
+            if name and poster.startswith("https://"):
+                batch.append((name, poster))
+        if len(batch) < 5:
+            raise RuntimeError(f"Unexpectedly short page {page} of {sort}: {len(batch)}")
+        rows.extend(batch)
+        time.sleep(0.15)
+    return rows
+
+
+def main(dry_run: bool = False) -> None:
+    manifest = json.loads((DOCS / "manifest.json").read_text(encoding="utf-8"))
+    row_ids = {c.get("id") for c in manifest.get("catalogs", [])}
+    if any(ident not in row_ids for ident, _, _, _ in STEMS):
+        raise RuntimeError("A required catalog row is absent: preserving all snapshots")
+    verified = json.loads((SERIES / "as_search.json").read_text(encoding="utf-8"))["metas"]
+    by_identity = {}
+    for item in verified:
+        by_identity.setdefault((normalize(item["name"]), item["poster"]), []).append(item)
+    session = requests.Session()
+    session.headers["User-Agent"] = "Mozilla/5.0 (Anime-Sama TV catalog maintenance)"
+    output = {}
+    for ident, name, sort, pages in STEMS:
+        candidates = fetch_animes(session, sort, pages)
+        entries, seen = [], set()
+        for title, poster in candidates:
+            matched = by_identity.get((normalize(title), poster), [])
+            if len(matched) != 1:
+                continue  # no fuzzy association to the wrong work or season
+            entry = matched[0]
+            if entry["id"] not in seen:
+                entries.append(entry)
+                seen.add(entry["id"])
+        target = SERIES / f"{ident}.json"
+        previous = json.loads(target.read_text(encoding="utf-8"))["metas"]
+        minimum = max(12, int(len(previous) * 0.7))
+        print(f"{name}: {len(entries)} verified from {len(candidates)} site entries; minimum={minimum}")
+        if len(entries) < minimum:
+            raise RuntimeError(f"Too few trusted rows in {ident}; preserving ALL catalog snapshots")
+        output[target] = entries
+    print(f"Catalog version preserved: {manifest['version']}")
+    if dry_run:
+        print("DRY RUN: no files changed")
+        return
+    # Validate every row before writing any file.
+    for target, entries in output.items():
+        with NamedTemporaryFile(mode="w", encoding="utf-8", suffix=".tmp",
+                                dir=target.parent, delete=False) as temp:
+            json.dump({"metas": entries}, temp, ensure_ascii=False, indent=2)
+            temp.write("\n")
+            temp_path = Path(temp.name)
+        temp_path.replace(target)
+    print("Both catalog snapshots refreshed; manifest untouched.")
+
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dry-run", action="store_true")
+    main(parser.parse_args().dry_run)

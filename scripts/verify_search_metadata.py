@@ -37,7 +37,8 @@ def main():
     original_raw = subprocess.check_output(
         ["git","show","HEAD:docs/catalog/series/as_search.json"], cwd=ROOT)
     previous = json.loads(original_raw.decode("utf-8"))["metas"]
-    old_ids = {r["id"] for r in previous}
+    blocked_ids = {r["id"] for r in json.loads((ROOT / "scripts/quarantined-imdb-mappings.json").read_text(encoding="utf-8"))}
+    old_ids = {r["id"] for r in previous if r["id"] not in blocked_ids}
     new = [r for r in all_items if r["id"] not in old_ids]
     cache = json.loads(CACHE.read_text(encoding="utf-8"))
     accepted = set()
@@ -54,7 +55,8 @@ def main():
                     c["verification_reason"] = reason
             if n%25==0 or n==len(new):
                 print(f"Verified {n}/{len(new)} (accepted={len(accepted)})",flush=True)
-    final = [r for r in all_items if r["id"] in old_ids or r["id"] in accepted]
+    final = [r for r in all_items if r["id"] not in blocked_ids and
+             (r["id"] in old_ids or r["id"] in accepted)]
     assert old_ids.issubset({r["id"] for r in final})
     assert len(final)==len({r["id"] for r in final})
     SEARCH.write_text(json.dumps({"metas":final},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

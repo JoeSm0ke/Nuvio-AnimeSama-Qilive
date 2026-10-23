@@ -55,8 +55,12 @@ def main():
             for row in results[(kind,page)]:
                 all_items.setdefault(row["id"],row)
         counts[kind] = sum(len(results[(kind,p)]) for p in range(1,45))
-    if len(all_items)<400:
-        raise RuntimeError(f"Unexpectedly low count {len(all_items)}; keeping last snapshot")
+    previous_count = 0
+    if OUT.exists():
+        previous_count = len(json.loads(OUT.read_text(encoding="utf-8"))["metas"])
+    minimum = max(400, int(previous_count * 0.85))
+    if len(all_items) < minimum:
+        raise RuntimeError(f"Unexpected index shrink {len(all_items)} < {minimum}; preserving snapshot")
     # Exact alternate series titles confirmed on the Anime-Sama detail page.
     # Do not add generic aliases such as "Bloom": they would admit unrelated
     # Cinemeta series with identical short names.
